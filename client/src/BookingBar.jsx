@@ -2,7 +2,7 @@ import React from "react";
 
 function BookingBar () {
     return(
-        <div>
+        <div style={{"width" : "30%", "height" : "70%", "background" : "orange"}}>
             <ul>
                 <li>1</li>
                 <li>2</li>
