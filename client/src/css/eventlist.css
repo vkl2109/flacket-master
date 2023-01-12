@@ -7,10 +7,18 @@
     border-radius: 1rem;
 }
 
+.table {
+    border-radius: 1rem;
+    /* border: solid lightgrey 1px; */
+    margin-top: 1rem;
+    box-shadow: 5px 5px 5px lightgrey;
+}
+
 .eventList table {
     width: 100%;
     border-collapse: collapse;
     border: none;
+    border-radius: 10px;
 }
 .eventList table th, td {
     padding: 0.4rem;
