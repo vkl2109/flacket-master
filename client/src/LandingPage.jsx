@@ -12,9 +12,7 @@ function LandingPage(){
                 <Map />
             </div>
         </div>
-        
     )
-
 }
 
 export default LandingPage
