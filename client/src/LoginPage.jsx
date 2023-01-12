@@ -25,9 +25,6 @@ function LoginPage() {
 
     return (
         <div>
-            <Link to={"/"}>
-                Landing Page Link
-            </Link>
             <div>
                 <form onSubmit={handleSubmit}>
                     <input
@@ -51,8 +48,14 @@ function LoginPage() {
                     >
                     </input>
                 </form>
-
             </div>
+
+            <Link to = {"/main"}>
+                <div>
+                    Home Page Link 
+                </div>
+            </Link>
+
         </div>
     )
 }

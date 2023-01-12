@@ -2,14 +2,17 @@ import React from "react";
 import NavBar from "./Navbar";
 import BookingBar from "./BookingBar";
 import Map from "./Map";
+import EventList from "./EventList";
 
 function Home(){
     return (
         <div style={{"width" : '100%', "height" : "100%"}}>
-            <NavBar />
             <div style={{"background": "blue", "width" : '100%', "display" : "flex", "height" :'80%'}}>
-                <BookingBar />
-                <Map />
+                <EventList />
+                <div style={{"display":"flex", "flex-direction":"column"}}>
+                    <Map />
+                    <BookingBar />
+                </div>
             </div>
         </div>
     )
