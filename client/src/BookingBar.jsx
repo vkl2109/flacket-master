@@ -41,6 +41,7 @@ function BookingBar () {
 
     return(
         <div className="bookingBar">
+
             <h1>Bookings</h1>
             {isLoading ? "Loading..." : bookings.map((booking) => {
                 return (
