@@ -3,7 +3,7 @@ import NavBar from "./Navbar";
 import BookingBar from "./BookingBar";
 import Map from "./Map";
 
-function LandingPage(){
+function Home(){
     return (
         <div style={{"width" : '100%', "height" : "100%"}}>
             <NavBar />
@@ -15,4 +15,4 @@ function LandingPage(){
     )
 }
 
-export default LandingPage
+export default Home
