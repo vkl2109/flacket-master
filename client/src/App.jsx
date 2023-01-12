@@ -16,7 +16,7 @@ function App() {
     //     request()
     // }, [])
   return (
-    <>
+    <div className="App">
       <BrowserRouter >
         <Routes>
           <Route path ={'/'} element ={<LoginPage/>}/>
@@ -25,7 +25,7 @@ function App() {
           <Route path ={'/seating'} element ={<Seating/>}/>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
     
   )
 }
