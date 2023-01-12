@@ -50,7 +50,7 @@ function LoginPage() {
                 </form>
             </div>
 
-            <Link to = {"/main"}>
+            <Link to = {"/home"}>
                 <div>
                     Home Page Link 
                 </div>

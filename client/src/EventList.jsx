@@ -6,6 +6,25 @@ const EventList = () => {
     const [ classrooms, setClassrooms ] = useState()
     const [ isLoading, setIsLoading ] = useState(true)
 
+    const [searchInput, setSearchInput] = useState("")
+    const countries = [
+        { name: "Belgium", continent: "Europe" },
+        { name: "India", continent: "Asia" },
+        { name: "Bolivia", continent: "South America" }
+    ]
+
+    console.log(countries[0].name)
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setSearchInput(e.target.value);
+        };
+
+        if (searchInput.length > 0) {
+            countries.filter((country) => {
+            return country.name.match(searchInput);
+        });
+        }
     const seedData = [
         {
             "name" : "Turing",
@@ -90,26 +109,33 @@ const EventList = () => {
         <div className="eventList">
             {isLoading ? "Loading..." : classrooms.map(classroom => {
                 return (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>{classroom.name}:</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {classroom.events.map(event => {
-                                return (
-                                    <tr>
-                                        <td>{event.name}</td>
-                                        <td>{event.start_time}</td>
-                                        <td>{event.seats}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
+                    <>
+                        <input
+                        type="search"
+                        placeholder="Search here"
+                        onChange={handleChange}
+                        value={searchInput} />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>{classroom.name}:</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {classroom.events.map(event => {
+                                    return (
+                                        <tr>
+                                            <td>{event.name}</td>
+                                            <td>{event.start_time}</td>
+                                            <td>{event.seats}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </>
                 )
             })}
         </div>
