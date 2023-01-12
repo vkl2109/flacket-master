@@ -90,26 +90,28 @@ const EventList = () => {
         <div className="eventList">
             {isLoading ? "Loading..." : classrooms.map(classroom => {
                 return (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>{classroom.name}:</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {classroom.events.map(event => {
-                                return (
-                                    <tr>
-                                        <td>{event.name}</td>
-                                        <td>{event.start_time}</td>
-                                        <td>{event.seats}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
+                    <div className="table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>{classroom.name}:</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {classroom.events.map(event => {
+                                    return (
+                                        <tr>
+                                            <td>{event.name}</td>
+                                            <td>{event.start_time}</td>
+                                            <td>{event.seats}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
                 )
             })}
         </div>
