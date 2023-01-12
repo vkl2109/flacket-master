@@ -5,13 +5,11 @@ import { Link } from "react-router-dom";
 function LoginPage () {
     return(
         <div>
-            <NavBar />
-            <Link to = {"/landing"}>
+            <Link to = {"/main"}>
                 <div>
-                    Landing Page Link 
+                    Home Page Link 
                 </div>
             </Link>
-            
         </div>
     )
 }

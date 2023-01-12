@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import Home from './Home'
 import LoginPage from './LoginPage'
-import Seating from './Seating'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Calendar from './Calendar'
 import NavBar from './Navbar'
 
 function App() {
@@ -18,8 +16,8 @@ function App() {
     // }, [])
   return (
     <div className="App">
-      <NavBar/>
       <BrowserRouter >
+        <NavBar/>
         <Routes>
           <Route path ={'/'} element ={<LoginPage/>}/>
           <Route path ={'/main'} element ={<Home/>}/>
