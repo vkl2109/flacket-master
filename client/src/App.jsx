@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import LandingPage from './LandingPage'
+import Home from './Home'
 import LoginPage from './LoginPage'
 import Seating from './Seating'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Calendar from './Calendar'
+import NavBar from './Navbar'
 
 function App() {
     // useEffect(()=> {
@@ -17,12 +18,11 @@ function App() {
     // }, [])
   return (
     <>
+      <NavBar/>
       <BrowserRouter >
         <Routes>
           <Route path ={'/'} element ={<LoginPage/>}/>
-          <Route path ={'/landing'} element ={<LandingPage/>}/>
-          <Route path ={'/calendar'} element ={<Calendar/>}/>
-          <Route path ={'/seating'} element ={<Seating/>}/>
+          <Route path ={'/main'} element ={<Home/>}/>
         </Routes>
       </BrowserRouter>
     </>
