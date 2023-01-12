@@ -51,11 +51,11 @@ function NavBar (){
                 placeholder="Search here"
                 onChange={handleChange}
                 value={searchInput} />
-            <table>
-                <tr>
-                    <th>Country</th>
-                    <th>Continent</th>
-                </tr>
+            <div>
+                <div style={{'display' :'flex', 'alignItems': 'center'}}>
+                    <h2>Country</h2>
+                    <h2>Continent</h2>
+                </div>
                 {
                     countries.map((country, index) => {
                         <div style={{"backround": "red", "width": "100%"}}>
@@ -67,7 +67,7 @@ function NavBar (){
                         </div>
                     })
                 }
-            </table>
+            </div>
             <Link to ={"/"}> 
                 <img style={{"width" : "auto", "height" : "100%"}} src="src/assets/devcrazzy.randomchat_1.png"/>
             </Link>
