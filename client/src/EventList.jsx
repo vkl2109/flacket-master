@@ -109,7 +109,7 @@ const EventList = () => {
         <div className="eventList">
             {isLoading ? "Loading..." : classrooms.map(classroom => {
                 return (
-                    <>
+                    <div className="table">
                         <input
                         type="search"
                         placeholder="Search here"
@@ -135,7 +135,7 @@ const EventList = () => {
                                 })}
                             </tbody>
                         </table>
-                    </>
+                    </div>
                 )
             })}
         </div>
