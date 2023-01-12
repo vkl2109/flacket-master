@@ -23,17 +23,17 @@ const EventList = () => {
             "name" : "Turing",
             "events" : [
                 {
-                    "name" : "React Lecture",
+                    "name" : "React",
                     "start_time": "10AM",
                     "seats": "30"
                 },
                 {
-                    "name" : "Rails Lecture",
+                    "name" : "Rails",
                     "start_time": "1PM",
                     "seats": "30"
                 },
                 {
-                    "name" : "DS&A Lecture",
+                    "name" : "DS&A",
                     "start_time": "5PM",
                     "seats": "30"
                 }
@@ -44,17 +44,17 @@ const EventList = () => {
             "name" : "Kay",
             "events" : [
                 {
-                    "name" : "React Lecture",
+                    "name" : "React",
                     "start_time": "10AM",
                     "seats": "30"
                 },
                 {
-                    "name" : "Rails Lecture",
+                    "name" : "Rails",
                     "start_time": "1PM",
                     "seats": "30"
                 },
                 {
-                    "name" : "DS&A Lecture",
+                    "name" : "DS&A",
                     "start_time": "5PM",
                     "seats": "30"
                 }
@@ -65,17 +65,17 @@ const EventList = () => {
             "name" : "Collins",
             "events" : [
                 {
-                    "name" : "React Lecture",
+                    "name" : "React",
                     "start_time": "10AM",
                     "seats": "30"
                 },
                 {
-                    "name" : "Rails Lecture",
+                    "name" : "Rails",
                     "start_time": "1PM",
                     "seats": "30"
                 },
                 {
-                    "name" : "DS&A Lecture",
+                    "name" : "DS&A",
                     "start_time": "5PM",
                     "seats": "30"
                 }
@@ -107,6 +107,7 @@ const EventList = () => {
                 value={searchInput} />
             {isLoading ? "Loading..." : classrooms.map(classroom => {
                 return (
+                    <div className="table">
                         <table>
                             <thead>
                                 <tr>
@@ -127,6 +128,7 @@ const EventList = () => {
                                 })}
                             </tbody>
                         </table>
+                    </div>
                 )
             })}
         </div>

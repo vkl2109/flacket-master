@@ -9,17 +9,17 @@ function BookingBar () {
 
     const seedData = [
         {
-            "name": "Rails Lecture",
+            "name": "Rails",
             "location": "Turing",
             "time": "1pm"
         },
         {
-            "name": "React Lecture",
+            "name": "React",
             "location": "Kay",
             "time": "10am"
         },
         {
-            "name": "DS&A Lecture",
+            "name": "DS&A",
             "location": "Collins",
             "time": "5pm"
         }
@@ -43,11 +43,14 @@ function BookingBar () {
         <div className="bookingBar">
 
             <h1>Bookings</h1>
-            {isLoading ? "Loading..." : bookings.map((booking) => {
-                return (
-                    <BookingCard booking={booking}/>
-                )
-            })
+            {isLoading ? 
+                "Loading..." 
+                : 
+                bookings.map((booking) => {
+                    return (
+                        <BookingCard booking={booking}/>
+                    )
+                })
             }
         </div>
     )
