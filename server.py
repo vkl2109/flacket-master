@@ -16,23 +16,23 @@ def get_classroom(classroom):
     return f"<p>Classroom: {classroom}</p>"
 
 @app.route("/<classroom>/<event>")
-def get_classroom(classroom, event):
+def get_classroom_event(classroom, event):
     return f"<p>Classroom: {classroom}, Event: {event}</p>"
 
 @app.route("/<classroom>/<event>/<int:seat>")
-def get_classroom(classroom, event, seat):
+def get_classroom_event_seat(classroom, event, seat):
     return f"<p>Classroom: {classroom}, Event: {event}, Seat: {seat}</p>"
 
 @app.route("/users")
-def get_classroom():
+def get_users():
     return "<p>All Users</p>"
 
 @app.route("/<user>")
-def get_classroom(user):
+def get_user(user):
     return f"<p>User: {user}</p>"
 
 @app.route("/<user>/<reservation>")
-def get_classroom(user, reservation):
+def get_user_reservation(user, reservation):
     return f"<p>User: {user}, Reservation: {reservation}</p>"
 
 if __name__ == "__main__":
