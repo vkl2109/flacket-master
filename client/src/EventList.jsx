@@ -7,13 +7,6 @@ const EventList = () => {
     const [ isLoading, setIsLoading ] = useState(true)
 
     const [searchInput, setSearchInput] = useState("")
-    const countries = [
-        { name: "Belgium", continent: "Europe" },
-        { name: "India", continent: "Asia" },
-        { name: "Bolivia", continent: "South America" }
-    ]
-
-    console.log(countries[0].name)
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -21,7 +14,7 @@ const EventList = () => {
         };
 
         if (searchInput.length > 0) {
-            countries.filter((country) => {
+            seedData.filter((country) => {
             return country.name.match(searchInput);
         });
         }
@@ -107,14 +100,14 @@ const EventList = () => {
 
     return(
         <div className="eventList">
+            <input
+                type="search"
+                placeholder="Search here"
+                onChange={handleChange}
+                value={searchInput} />
             {isLoading ? "Loading..." : classrooms.map(classroom => {
                 return (
                     <div className="table">
-                        <input
-                        type="search"
-                        placeholder="Search here"
-                        onChange={handleChange}
-                        value={searchInput} />
                         <table>
                             <thead>
                                 <tr>
