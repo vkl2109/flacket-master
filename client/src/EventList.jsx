@@ -8,16 +8,6 @@ const EventList = () => {
 
     const [searchInput, setSearchInput] = useState("")
 
-    const handleChange = (e) => {
-        e.preventDefault();
-        setSearchInput(e.target.value);
-        };
-
-        if (searchInput.length > 0) {
-            seedData.filter((country) => {
-            return country.name.match(searchInput);
-        });
-        }
     const seedData = [
         {
             "name" : "Turing",
@@ -84,6 +74,17 @@ const EventList = () => {
         }
     ]
 
+    const handleChange = (e) => {
+        e.preventDefault();
+        setSearchInput(e.target.value);
+        };
+
+        if (searchInput.length > 0) {
+            seedData.filter((room) => {
+            return room.name.match(searchInput) && console.log('matched');
+        });
+        }
+    console.log(searchInput)
     useEffect(()=>{
         // const request = async () => {
         //     let req = await fetch("http://localhost:5000/classrooms")
