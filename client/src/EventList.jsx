@@ -107,14 +107,14 @@ const EventList = () => {
 
     return(
         <div className="eventList">
+            <input
+            type="search"
+            placeholder="Search here"
+            onChange={handleChange}
+            value={searchInput} />
             {isLoading ? "Loading..." : classrooms.map(classroom => {
                 return (
                     <div className="table">
-                        <input
-                        type="search"
-                        placeholder="Search here"
-                        onChange={handleChange}
-                        value={searchInput} />
                         <table>
                             <thead>
                                 <tr>

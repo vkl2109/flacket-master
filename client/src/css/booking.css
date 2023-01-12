@@ -1,4 +1,11 @@
 .bookingbar{
     width: 60%;
     height: 30%;
+    margin: 2rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 5px grey;
+    display: flex;
+    flex-direction: row;
 }

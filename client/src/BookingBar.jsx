@@ -40,9 +40,7 @@ function BookingBar () {
     },[])
 
     return(
-        <div className="bookingBar">
-
-            <h1>Bookings</h1>
+        <div className="bookingbar">
             {isLoading ? 
                 "Loading..." 
                 : 
