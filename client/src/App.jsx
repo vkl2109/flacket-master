@@ -17,7 +17,7 @@ function App() {
     //     request()
     // }, [])
   return (
-    <>
+    <div className="App">
       <NavBar/>
       <BrowserRouter >
         <Routes>
@@ -25,7 +25,7 @@ function App() {
           <Route path ={'/main'} element ={<Home/>}/>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
     
   )
 }
