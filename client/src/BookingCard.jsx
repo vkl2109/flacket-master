@@ -1,7 +1,7 @@
 const BookingCard = ({booking}) => {
     return (
         <div>
-            {booking.name} {booking.location} {booking.time}
+            Name:{booking.name} Location:{booking.location} Time:{booking.time}
         </div>
     )
 }
