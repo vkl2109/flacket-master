@@ -2,8 +2,12 @@ import './css/booking.css'
 
 const BookingCard = ({booking}) => {
     return (
-        <div>
-            {booking.name} {booking.location} {booking.time}
+        <div className="bookingCard">
+            <h4>
+                {booking.name}
+            </h4>
+            <p>{booking.location}</p>
+            <p>{booking.time}</p>
         </div>
     )
 }

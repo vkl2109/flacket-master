@@ -26,6 +26,9 @@ function LoginPage() {
     return (
         <div>
             <div>
+                <img src="" />
+            </div>
+            <div>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
