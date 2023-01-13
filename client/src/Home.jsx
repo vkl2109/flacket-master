@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "./Navbar";
 import BookingBar from "./BookingBar";
 import Map from "./Map";
-import EventList from "./EventList";
+import EventList from "./EventList_mod";
 
 function Home(){
     return (

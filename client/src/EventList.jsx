@@ -75,9 +75,7 @@ const EventList = () => {
         }
     ]
 
-    const handleChange = (e) => {
-        setSearchInput(e.target.value);
-    };
+    const handleChange = (e) => setSearchInput(e.target.value);
 
     const reserve = (reserve) => {
         if (reservation.includes(reserve)) return 
@@ -85,7 +83,6 @@ const EventList = () => {
         console.log(reservation)
         setModalOpen(true)
     }
-
 
     useEffect(()=>{
         // const request = async () => {
@@ -102,6 +99,8 @@ const EventList = () => {
     },[])
     console.log(modalOpen)
 
+    const modal = document.getElementById("exampleModal")
+
     return(
         <div className="eventList">
             {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -117,7 +116,7 @@ const EventList = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-                ...
+                TEST BODY
             </div>
             <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -132,7 +131,7 @@ const EventList = () => {
                 placeholder="Search here"
                 onChange={handleChange}
                 value={searchInput} />
-            {isLoading ? "Loading..." : classrooms.filter(room =>room.name.includes(searchInput)).map(classroom => {
+            {isLoading ? "Loading..." : classrooms.filter(room => room.name.includes(searchInput)).map(classroom => {
                 return (
                     <div className="table">
                         <table>
@@ -144,15 +143,16 @@ const EventList = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {classroom.events.map(event => {
-                                    return (
-                                        <tr>
-                                            <td>{event.name}</td>
-                                            <td onClick={() => {reserve(event)}}>{event.start_time}</td>
-                                            <td>{event.seats}</td>
-                                        </tr>
-                                    )
-                                })}
+                                {classroom.events.map(event => (
+                                    <tr key={event.name+event.start_time}
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#exampleModal"
+                                    >
+                                        <td>{event.name}</td>
+                                        <td onClick={() => {reserve(event)}}>{event.start_time}</td>
+                                        <td>{event.seats}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>

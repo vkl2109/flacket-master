@@ -11,17 +11,20 @@ function BookingBar () {
         {
             "name": "Rails",
             "location": "Turing",
-            "time": "1pm"
+            "time": "1pm",
+            "id": 1
         },
         {
             "name": "React",
             "location": "Kay",
-            "time": "10am"
+            "time": "10am",
+            "id": 2
         },
         {
             "name": "DS&A",
             "location": "Collins",
-            "time": "5pm"
+            "time": "5pm",
+            "id": 3
         }
     ]
     //will pass data in here 
@@ -46,7 +49,7 @@ function BookingBar () {
                 : 
                 bookings.map((booking) => {
                     return (
-                        <BookingCard booking={booking}/>
+                        <BookingCard key={booking.id} booking={booking}/>
                     )
                 })
             }
