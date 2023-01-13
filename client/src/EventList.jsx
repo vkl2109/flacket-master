@@ -7,6 +7,7 @@ const EventList = () => {
     const [ isLoading, setIsLoading ] = useState(true)
     const [ searchInput, setSearchInput ] = useState("")
     const [ reservation, setReservations ] = useState([])
+    const [ modalOpen, setModalOpen ] = useState(false)
 
     const seedData = [
         {
@@ -82,7 +83,9 @@ const EventList = () => {
         if (reservation.includes(reserve)) return 
         setReservations([...reservation, reserve])
         console.log(reservation)
+        setModalOpen(true)
     }
+
 
     useEffect(()=>{
         // const request = async () => {
@@ -100,12 +103,13 @@ const EventList = () => {
 
     return(
         <div className="eventList">
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
-            </button>
+            </button> */}
 
 {/* <!-- Modal --> */}
-        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        {modalOpen ? <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
             <div className="modal-content">
             <div className="modal-header">
@@ -121,7 +125,8 @@ const EventList = () => {
             </div>
             </div>
         </div>
-        </div>
+        </div> : null
+        }
             <input
                 type="search"
                 placeholder="Search here"
