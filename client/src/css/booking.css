@@ -1,5 +1,4 @@
 .bookingbar{
-    width: 60%;
     height: 30%;
     margin: 2rem;
     padding: 1rem;
@@ -8,4 +7,18 @@
     box-shadow: 5px 5px 5px grey;
     display: flex;
     flex-direction: row;
+}
+.bookingCard {
+    flex: 1;
+    margin: 0.5rem;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 5px lightgrey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-out;
+}
+.bookingCard:hover {
+    transform: scale(1.05)
 }

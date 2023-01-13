@@ -1,7 +1,9 @@
+import './css/booking.css'
+
 const BookingCard = ({booking}) => {
     return (
         <div>
-            Name:{booking.name} Location:{booking.location} Time:{booking.time}
+            {booking.name} {booking.location} {booking.time}
         </div>
     )
 }
