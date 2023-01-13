@@ -5,19 +5,9 @@ const EventList = () => {
 
     const [ classrooms, setClassrooms ] = useState()
     const [ isLoading, setIsLoading ] = useState(true)
+    const [ searchInput, setSearchInput ] = useState("")
+    const [ reservation, setReservations ] = useState([])
 
-    const [searchInput, setSearchInput] = useState("")
-
-    const handleChange = (e) => {
-        e.preventDefault();
-        setSearchInput(e.target.value);
-        };
-
-        if (searchInput.length > 0) {
-            seedData.filter((country) => {
-            return country.name.match(searchInput);
-        });
-        }
     const seedData = [
         {
             "name" : "Turing",
@@ -84,6 +74,16 @@ const EventList = () => {
         }
     ]
 
+    const handleChange = (e) => {
+        setSearchInput(e.target.value);
+    };
+
+    const reserve = (reserve) => {
+        if (reservation.includes(reserve)) return 
+        setReservations([...reservation, reserve])
+        console.log(reservation)
+    }
+
     useEffect(()=>{
         // const request = async () => {
         //     let req = await fetch("http://localhost:5000/classrooms")
@@ -127,7 +127,7 @@ const EventList = () => {
                 placeholder="Search here"
                 onChange={handleChange}
                 value={searchInput} />
-            {isLoading ? "Loading..." : classrooms.map(classroom => {
+            {isLoading ? "Loading..." : classrooms.filter(room =>room.name.includes(searchInput)).map(classroom => {
                 return (
                     <div className="table">
                         <table>
@@ -143,7 +143,7 @@ const EventList = () => {
                                     return (
                                         <tr>
                                             <td>{event.name}</td>
-                                            <td>{event.start_time}</td>
+                                            <td onClick={() => {reserve(event)}}>{event.start_time}</td>
                                             <td>{event.seats}</td>
                                         </tr>
                                     )
