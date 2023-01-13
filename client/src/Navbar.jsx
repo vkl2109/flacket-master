@@ -5,7 +5,7 @@ function NavBar (){
         
     return(
         <div style={{"background":"yellow", 'height' : "100%", 'display' :'flex', 'justifyContent': 'space-between', 'alignItems': 'center'}}>
-            <h1>Title</h1>
+            <h1>FlatPass</h1>
             <Link to ={"/"}> 
                 <img style={{"width" : "auto", "height" : "100%"}} src="src/assets/devcrazzy.randomchat_1.png"/>
             </Link>
