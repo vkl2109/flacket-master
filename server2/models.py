@@ -30,10 +30,9 @@ class Booking(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
-    def __init__(self, username, email, password):
-        self.username = username
-        self.email = email
-        self.password = password
+    def __init__(self, user_id, seat_id):
+        self.user_id = user_id
+        self.seat_id = seat_id
 
     def __repr__(self):
         return '<Bookings %r>' % self.user_id
@@ -82,17 +81,17 @@ class Seat(db.Model):
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
     seat_number = db.Column(db.Integer, nullable=False)
     is_empty = db.Column(db.Boolean, nullable=False)
-    student_name = db.Column(db.String(80), nullable=False)
+    student_name = db.Column(db.String(80))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     bookings = db.relationship('Booking', backref='seat', lazy=True)
 
 
-    def __init__(self, name, start_time, end_time, classroom_id):
-        self.name = name
-        self.start_time = start_time
-        self.end_time = end_time
-        self.classroom_id = classroom_id
+    def __init__(self, event_id, seat_number, is_empty, student_name):
+        self.event_id = event_id
+        self.seat_number = seat_number
+        self.is_empty = is_empty
+        self.student_name = student_name
 
     def __repr__(self):
         return '<Seat %r>' % self.seat_number
