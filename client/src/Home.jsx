@@ -9,7 +9,7 @@ function Home(){
         <div style={{"width" : '100%', "height" : "80%"}}>
             <div style={{"background": "blue", "width" : '100%', "display" : "flex", "height" :'80%'}}>
                 <EventList />
-                <div style={{"display":"flex", "flexdirection":"column"}}>
+                <div style={{"display":"flex", "flexDirection":"column"}}>
                     <Map />
                     <BookingBar />
                 </div>

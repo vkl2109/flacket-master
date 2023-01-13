@@ -5,8 +5,8 @@ const EventList = () => {
 
     const [ classrooms, setClassrooms ] = useState()
     const [ isLoading, setIsLoading ] = useState(true)
-
-    const [searchInput, setSearchInput] = useState("")
+    const [ searchInput, setSearchInput ] = useState("")
+    const [ reservation, setReservations ] = useState([])
 
     const seedData = [
         {
@@ -75,16 +75,15 @@ const EventList = () => {
     ]
 
     const handleChange = (e) => {
-        e.preventDefault();
         setSearchInput(e.target.value);
-        };
+    };
 
-        if (searchInput.length > 0) {
-            seedData.filter((room) => {
-            return room.name.match(searchInput) && console.log('matched');
-        });
-        }
-    console.log(searchInput)
+    const reserve = (reserve) => {
+        if (reservation.includes(reserve)) return 
+        setReservations([...reservation, reserve])
+        console.log(reservation)
+    }
+
     useEffect(()=>{
         // const request = async () => {
         //     let req = await fetch("http://localhost:5000/classrooms")
@@ -128,7 +127,7 @@ const EventList = () => {
                 placeholder="Search here"
                 onChange={handleChange}
                 value={searchInput} />
-            {isLoading ? "Loading..." : classrooms.map(classroom => {
+            {isLoading ? "Loading..." : classrooms.filter(room =>room.name.includes(searchInput)).map(classroom => {
                 return (
                     <div className="table">
                         <table>
@@ -144,7 +143,7 @@ const EventList = () => {
                                     return (
                                         <tr>
                                             <td>{event.name}</td>
-                                            <td>{event.start_time}</td>
+                                            <td onClick={() => {reserve(event)}}>{event.start_time}</td>
                                             <td>{event.seats}</td>
                                         </tr>
                                     )
