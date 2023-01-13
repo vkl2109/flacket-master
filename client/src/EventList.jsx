@@ -5,19 +5,10 @@ const EventList = () => {
 
     const [ classrooms, setClassrooms ] = useState()
     const [ isLoading, setIsLoading ] = useState(true)
+    const [ searchInput, setSearchInput ] = useState("")
+    const [ reservation, setReservations ] = useState([])
+    const [ modalOpen, setModalOpen ] = useState(false)
 
-    const [searchInput, setSearchInput] = useState("")
-
-    const handleChange = (e) => {
-        e.preventDefault();
-        setSearchInput(e.target.value);
-        };
-
-        if (searchInput.length > 0) {
-            seedData.filter((country) => {
-            return country.name.match(searchInput);
-        });
-        }
     const seedData = [
         {
             "name" : "Turing",
@@ -84,6 +75,18 @@ const EventList = () => {
         }
     ]
 
+    const handleChange = (e) => {
+        setSearchInput(e.target.value);
+    };
+
+    const reserve = (reserve) => {
+        if (reservation.includes(reserve)) return 
+        setReservations([...reservation, reserve])
+        console.log(reservation)
+        setModalOpen(true)
+    }
+
+
     useEffect(()=>{
         // const request = async () => {
         //     let req = await fetch("http://localhost:5000/classrooms")
@@ -100,34 +103,36 @@ const EventList = () => {
 
     return(
         <div className="eventList">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
-            </button>
+            </button> */}
 
 {/* <!-- Modal --> */}
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        {modalOpen ? <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
                 ...
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-primary">Save changes</button>
             </div>
             </div>
         </div>
-        </div>
+        </div> : null
+        }
             <input
                 type="search"
                 placeholder="Search here"
                 onChange={handleChange}
                 value={searchInput} />
-            {isLoading ? "Loading..." : classrooms.map(classroom => {
+            {isLoading ? "Loading..." : classrooms.filter(room =>room.name.includes(searchInput)).map(classroom => {
                 return (
                     <div className="table">
                         <table>
@@ -143,7 +148,7 @@ const EventList = () => {
                                     return (
                                         <tr>
                                             <td>{event.name}</td>
-                                            <td>{event.start_time}</td>
+                                            <td onClick={() => {reserve(event)}}>{event.start_time}</td>
                                             <td>{event.seats}</td>
                                         </tr>
                                     )
