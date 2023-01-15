@@ -3,27 +3,27 @@ import { useState, useEffect } from 'react';
 import BookingCard from './BookingCard'
 import './css/booking.css'
 
-function BookingBar () {
-    const [ bookings, setBookings ] = useState()
+function BookingBar ({booking}) {
+    // const [ bookings, setBookings ] = useState()
     const [ isLoading, setIsLoading ] = useState(true)
 
-    const seedData = [
-        {
-            "name": "Rails",
-            "location": "Turing",
-            "time": "1pm"
-        },
-        {
-            "name": "React",
-            "location": "Kay",
-            "time": "10am"
-        },
-        {
-            "name": "DS&A",
-            "location": "Collins",
-            "time": "5pm"
-        }
-    ]
+    // const seedData = [
+    //     {
+    //         "name": "Rails",
+    //         "location": "Turing",
+    //         "time": "1pm"
+    //     },
+    //     {
+    //         "name": "React",
+    //         "location": "Kay",
+    //         "time": "10am"
+    //     },
+    //     {
+    //         "name": "DS&A",
+    //         "location": "Collins",
+    //         "time": "5pm"
+    //     }
+    // ]
     //will pass data in here 
     useEffect(()=>{
         // const request = async () => {
@@ -35,7 +35,7 @@ function BookingBar () {
         // }
         setIsLoading(true)
         // request()
-        setBookings(seedData)
+        // setBookings(seedData)
         setIsLoading(false)
     },[])
 
@@ -44,7 +44,7 @@ function BookingBar () {
             {isLoading ? 
                 "Loading..." 
                 : 
-                bookings.map((booking) => {
+                booking.map((booking) => {
                     return (
                         <BookingCard booking={booking}/>
                     )
