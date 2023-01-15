@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import BookingCard from './BookingCard'
 import './css/booking.css'
 
-function BookingBar () {
-    const [ bookings, setBookings ] = useState()
+function BookingBar ({booking}) {
+    // const [ bookings, setBookings ] = useState()
     const [ isLoading, setIsLoading ] = useState(true)
 
     const seedData = [
@@ -38,7 +38,7 @@ function BookingBar () {
         // }
         setIsLoading(true)
         // request()
-        setBookings(seedData)
+        // setBookings(seedData)
         setIsLoading(false)
     },[])
 
@@ -47,7 +47,7 @@ function BookingBar () {
             {isLoading ? 
                 "Loading..." 
                 : 
-                bookings.map((booking) => {
+                booking.map((booking) => {
                     return (
                         <BookingCard key={booking.id} booking={booking}/>
                     )

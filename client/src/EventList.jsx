@@ -1,90 +1,89 @@
 import { useState, useEffect } from 'react'
 import './css/eventlist.css'
 
-const EventList = () => {
+const EventList = ({ reservation, setReservations }) => {
 
-    const [ classrooms, setClassrooms ] = useState()
-    const [ isLoading, setIsLoading ] = useState(true)
-    const [ searchInput, setSearchInput ] = useState("")
-    const [ reservation, setReservations ] = useState([])
-    const [ modalOpen, setModalOpen ] = useState(false)
+    const [classrooms, setClassrooms] = useState()
+    const [isLoading, setIsLoading] = useState(true)
+    const [searchInput, setSearchInput] = useState("")
+    // const [reservation, setReservations] = useState([])
+    const [modalOpen, setModalOpen] = useState(false)
 
     const seedData = [
         {
-            "name" : "Turing",
-            "events" : [
+            "name": "Turing",
+            "events": [
                 {
-                    "name" : "React",
+                    "name": "React",
                     "start_time": "10AM",
                     "seats": "30"
                 },
                 {
-                    "name" : "Rails",
+                    "name": "Rails",
                     "start_time": "1PM",
                     "seats": "30"
                 },
                 {
-                    "name" : "DS&A",
+                    "name": "DS&A",
                     "start_time": "5PM",
                     "seats": "30"
                 }
             ]
-            
+
         },
         {
-            "name" : "Kay",
-            "events" : [
+            "name": "Kay",
+            "events": [
                 {
-                    "name" : "React",
+                    "name": "React",
                     "start_time": "10AM",
                     "seats": "30"
                 },
                 {
-                    "name" : "Rails",
+                    "name": "Rails",
                     "start_time": "1PM",
                     "seats": "30"
                 },
                 {
-                    "name" : "DS&A",
+                    "name": "DS&A",
                     "start_time": "5PM",
                     "seats": "30"
                 }
             ]
-            
+
         },
         {
-            "name" : "Collins",
-            "events" : [
+            "name": "Collins",
+            "events": [
                 {
-                    "name" : "React",
+                    "name": "React",
                     "start_time": "10AM",
                     "seats": "30"
                 },
                 {
-                    "name" : "Rails",
+                    "name": "Rails",
                     "start_time": "1PM",
                     "seats": "30"
                 },
                 {
-                    "name" : "DS&A",
+                    "name": "DS&A",
                     "start_time": "5PM",
                     "seats": "30"
                 }
             ]
-            
+
         }
     ]
 
     const handleChange = (e) => setSearchInput(e.target.value);
 
     const reserve = (reserve) => {
-        if (reservation.includes(reserve)) return 
+        if (reservation.includes(reserve)) return
         setReservations([...reservation, reserve])
         console.log(reservation)
         setModalOpen(true)
     }
-
-    useEffect(()=>{
+    useEffect(() => {
         // const request = async () => {
         //     let req = await fetch("http://localhost:5000/classrooms")
         //     let res = await req.json()
@@ -101,7 +100,7 @@ const EventList = () => {
 
     const modal = document.getElementById("exampleModal")
 
-    return(
+    return (
         <div className="eventList">
             {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
