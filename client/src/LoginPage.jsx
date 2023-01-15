@@ -24,37 +24,60 @@ function LoginPage() {
     }
 
     return (
-        <div>
-            <div>
+        <div className="login-cont">
+            <div className="img-cont">
+                <img src="src/assets/00bootcamp2-jumbo.jpeg" />
+            </div>
+            <div className="form-cont">
                 <form onSubmit={handleSubmit}>
+                <div input-group='true' mb-3='true'>
                     <input
+                        class="form-control"
                         type="text"
-                        placeholder="username"
+                        placeholder="Username"
                         name="username"
                         value={loginData.username}
                         onChange={handleChange}>
                     </input>
-
+                </div>
+                <div>
                     <input
+                        class="form-control"
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         name="password"
                         value={loginData.password}
                         onChange={handleChange} >
                     </input>
+                </div>
+
+                <div>
                     <input
+                        class="form-control"
                         type="submit"
                         value="login"
                     >
                     </input>
+                </div>
+                <h6 style={{'alignSelf':'center'}}>or</h6>
+                <div>
+                    <input
+                        class="form-control"
+                        type="submit"
+                        value="Signup"
+                    >
+                    </input>
+                </div>
+                <Link to = {"/home"}>
+                    <div>
+                        Home Page Link 
+                    </div>
+                </Link>
                 </form>
+                
             </div>
 
-            <Link to = {"/home"}>
-                <div>
-                    Home Page Link 
-                </div>
-            </Link>
+            
 
         </div>
     )

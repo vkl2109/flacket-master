@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react'
 import './css/eventlist.css'
 
-const EventList = ({ reservation, setReservations }) => {
+const EventList = ({  reservation, setReservations  }) => {
 
     const [classrooms, setClassrooms] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const [searchInput, setSearchInput] = useState("")
     // const [reservation, setReservations] = useState([])
     const [modalOpen, setModalOpen] = useState(false)
+    const [ classrooms, setClassrooms ] = useState()
+    const [ isLoading, setIsLoading ] = useState(true)
+    const [ searchInput, setSearchInput ] = useState("")
+    const [ modalOpen, setModalOpen ] = useState(false)
 
     const seedData = [
         {
