@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+import json
+from datetime import datetime
 
 db = SQLAlchemy()
 migrate = Migrate(db)
@@ -46,6 +48,9 @@ class Classroom(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     events = db.relationship('Event', backref='classroom', lazy=True)
 
+    def toJSON(self):
+        return {"id": self.id, "name": self.name, "events": self.events}
+
     def __init__(self, name):
         self.name = name
 
@@ -65,6 +70,10 @@ class Event(db.Model):
     seats = db.relationship('Seat', backref='event', lazy=True)
 
 
+    def toJSON(self):
+        return {"id": self.id, "name": self.name, "start_time": self.start_time.strftime("%m/%d/%Y, %H:%M:%S"), "end_time": self.end_time.strftime("%m/%d/%Y, %H:%M:%S"), "classroom_id": self.classroom_id}
+
+
     def __init__(self, name, start_time, end_time, classroom_id):
         self.name = name
         self.start_time = start_time
@@ -80,7 +89,7 @@ class Seat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
     seat_number = db.Column(db.Integer, nullable=False)
-    is_empty = db.Column(db.Boolean, nullable=False)
+    is_empty = db.Column(db.Boolean(), nullable=False)
     student_name = db.Column(db.String(80))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
