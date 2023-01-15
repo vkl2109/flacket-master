@@ -7,23 +7,26 @@ function BookingBar ({booking}) {
     // const [ bookings, setBookings ] = useState()
     const [ isLoading, setIsLoading ] = useState(true)
 
-    // const seedData = [
-    //     {
-    //         "name": "Rails",
-    //         "location": "Turing",
-    //         "time": "1pm"
-    //     },
-    //     {
-    //         "name": "React",
-    //         "location": "Kay",
-    //         "time": "10am"
-    //     },
-    //     {
-    //         "name": "DS&A",
-    //         "location": "Collins",
-    //         "time": "5pm"
-    //     }
-    // ]
+    const seedData = [
+        {
+            "name": "Rails",
+            "location": "Turing",
+            "time": "1pm",
+            "id": 1
+        },
+        {
+            "name": "React",
+            "location": "Kay",
+            "time": "10am",
+            "id": 2
+        },
+        {
+            "name": "DS&A",
+            "location": "Collins",
+            "time": "5pm",
+            "id": 3
+        }
+    ]
     //will pass data in here 
     useEffect(()=>{
         // const request = async () => {
@@ -46,7 +49,7 @@ function BookingBar ({booking}) {
                 : 
                 booking.map((booking) => {
                     return (
-                        <BookingCard booking={booking}/>
+                        <BookingCard key={booking.id} booking={booking}/>
                     )
                 })
             }

@@ -75,9 +75,7 @@ const EventList = ({ reservation, setReservations }) => {
         }
     ]
 
-    const handleChange = (e) => {
-        setSearchInput(e.target.value);
-    };
+    const handleChange = (e) => setSearchInput(e.target.value);
 
     const reserve = (reserve) => {
         if (reservation.includes(reserve)) return
@@ -85,8 +83,6 @@ const EventList = ({ reservation, setReservations }) => {
         console.log(reservation)
         setModalOpen(true)
     }
-
-
     useEffect(() => {
         // const request = async () => {
         //     let req = await fetch("http://localhost:5000/classrooms")
@@ -99,7 +95,10 @@ const EventList = ({ reservation, setReservations }) => {
         // request()
         setClassrooms(seedData)
         setIsLoading(false)
-    }, [])
+    },[])
+    console.log(modalOpen)
+
+    const modal = document.getElementById("exampleModal")
 
     return (
         <div className="eventList">
@@ -107,26 +106,25 @@ const EventList = ({ reservation, setReservations }) => {
                 Launch demo modal
             </button> */}
 
-            {/* <!-- Modal --> */}
-
-            {modalOpen ? <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            ...
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div> : null
-            }
+{/* <!-- Modal --> */}
+        {modalOpen ? <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+                TEST BODY
+            </div>
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+        </div> : null
+        }
             <input
                 type="search"
                 placeholder="Search here"
@@ -144,15 +142,16 @@ const EventList = ({ reservation, setReservations }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {classroom.events.map(event => {
-                                    return (
-                                        <tr>
-                                            <td>{event.name}</td>
-                                            <td onClick={() => { reserve(event) }}>{event.start_time}</td>
-                                            <td>{event.seats}</td>
-                                        </tr>
-                                    )
-                                })}
+                                {classroom.events.map(event => (
+                                    <tr key={event.name+event.start_time}
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#exampleModal"
+                                    >
+                                        <td>{event.name}</td>
+                                        <td onClick={() => {reserve(event)}}>{event.start_time}</td>
+                                        <td>{event.seats}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
