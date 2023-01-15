@@ -1,6 +1,6 @@
-.bookingbar{
+.bookingbar {
     height: 30%;
-    margin: 2rem;
+    margin: 6rem 2em 1em 2em;
     padding: 1rem;
     background: white;
     border-radius: 1rem;
@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: row;
 }
+
 .bookingCard {
     flex: 1;
     margin: 0.5rem;
@@ -19,6 +20,7 @@
     justify-content: center;
     transition: all 0.5s ease-out;
 }
+
 .bookingCard:hover {
     transform: scale(1.05)
 }
