@@ -8,10 +8,6 @@ const EventList = ({  reservation, setReservations  }) => {
     const [searchInput, setSearchInput] = useState("")
     // const [reservation, setReservations] = useState([])
     const [modalOpen, setModalOpen] = useState(false)
-    const [ classrooms, setClassrooms ] = useState()
-    const [ isLoading, setIsLoading ] = useState(true)
-    const [ searchInput, setSearchInput ] = useState("")
-    const [ modalOpen, setModalOpen ] = useState(false)
 
     const seedData = [
         {
