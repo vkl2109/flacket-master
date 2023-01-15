@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import './css/map.css';
 
 function Map() {
 
@@ -39,18 +40,7 @@ function Map() {
 
             <svg
                 viewBox="0 0 1035 570" width="1035" height="570">
-                {/* <defs>
-                    <style class="style-fonts">
-                        @font-face {
-                            font - family: "Virgil";
-                        src: url("https://excalidraw.com/Virgil.woff2");
-                        }
-                        @font-face {
-                            font - family: "Cascadia";
-                        src: url("https://excalidraw.com/Cascadia.woff2");
-                        }
-                    </style>
-                </defs> */}
+
                 {/* <!-- Campus Map Rectangle container Rounded Edges--> */}
                 <rect
                     x="0" y="0" width="1035" height="570" fill="#ffffff">
