@@ -1,0 +1,55 @@
+.App{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.nav-cont{
+    display: flex;
+    justify-content: space-between;
+    height: 15vh;
+    font-family: 'Fira Sans', sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+.nav-cont a{
+padding-right: 3%;
+}
+.nav-cont img{
+    width: auto;
+    height: 100%;
+}
+.nav-cont h1{
+    align-self: center;
+    font-size: 45px;
+    padding-left: 8%;
+    color: rgb(93, 135, 200);
+}
+.login-cont{
+    display: flex;
+    align-items: flex-start;
+}
+.img-cont{
+    width: 50%;
+    overflow: hidden;
+    height: 85vh;
+}
+.form-cont{
+    padding: 13%;
+    width: 50%;
+    display: flex;
+    align-items: flex-start;
+}
+.form-cont form{
+    display: flex;
+    flex-direction: column;
+    padding: 13%;
+    margin-top: -25%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.form-cont input{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 5%;
+}
