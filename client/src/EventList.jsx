@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './css/eventlist.css'
 
-const EventList = ({ reservation, setReservations }) => {
+const EventList = ({  reservation, setReservations  }) => {
 
     const [classrooms, setClassrooms] = useState()
     const [isLoading, setIsLoading] = useState(true)
