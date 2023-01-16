@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import './css/eventlist.css'
 
-const EventList = ({ reservation, setReservations }) => {
 
+const EventList = ({ showEventCard, setShowEventCard }) => {
+    
     const [classrooms, setClassrooms] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const [searchInput, setSearchInput] = useState("")
     // const [reservation, setReservations] = useState([])
-    const [modalOpen, setModalOpen] = useState(false)
-
+    
     const seedData = [
         {
             "name": "Turing",
@@ -29,7 +29,7 @@ const EventList = ({ reservation, setReservations }) => {
                     "seats": "30"
                 }
             ]
-
+            
         },
         {
             "name": "Kay",
@@ -50,7 +50,7 @@ const EventList = ({ reservation, setReservations }) => {
                     "seats": "30"
                 }
             ]
-
+            
         },
         {
             "name": "Collins",
@@ -71,25 +71,29 @@ const EventList = ({ reservation, setReservations }) => {
                     "seats": "30"
                 }
             ]
-
+            
         }
     ]
-
+    
     const handleChange = (e) => {
         setSearchInput(e.target.value);
     };
-
-    const reserve = (reserve) => {
-        if (reservation.includes(reserve)) return
-        setReservations([...reservation, reserve])
-        console.log(reservation)
-        setModalOpen(true)
+    
+    const toggleEventCard = (event) => {
+        console.log(event.name)
+        setShowEventCard(showEventCard = true)
     }
-
-
-    useEffect(() => {
-        // const request = async () => {
-        //     let req = await fetch("http://localhost:5000/classrooms")
+    
+    // const reserve = (reserve) => {
+        //     if (reservation.includes(reserve)) return
+        //     setReservations([...reservation, reserve])
+        //     console.log(reservation)
+        // }
+        
+        
+        useEffect(() => {
+            // const request = async () => {
+                //     let req = await fetch("http://localhost:5000/classrooms")
         //     let res = await req.json()
         //     if (req.ok) {
         //         setClassrooms(classrooms => res)
@@ -103,30 +107,6 @@ const EventList = ({ reservation, setReservations }) => {
 
     return (
         <div className="eventList">
-            {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
-            </button> */}
-
-            {/* <!-- Modal --> */}
-
-            {modalOpen ? <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            ...
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div> : null
-            }
             <input
                 type="search"
                 placeholder="Search here"
@@ -145,10 +125,11 @@ const EventList = ({ reservation, setReservations }) => {
                             </thead>
                             <tbody>
                                 {classroom.events.map(event => {
+                                    
                                     return (
-                                        <tr>
+                                        <tr key={classroom.id} onClick={() => { toggleEventCard(event) } }>
                                             <td>{event.name}</td>
-                                            <td onClick={() => { reserve(event) }}>{event.start_time}</td>
+                                            <td>{event.start_time}</td>
                                             <td>{event.seats}</td>
                                         </tr>
                                     )
