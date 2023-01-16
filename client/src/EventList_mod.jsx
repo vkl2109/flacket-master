@@ -72,14 +72,7 @@ const EventList = () => {
     const [ eventList, setEventList ] = useState([])
     const [ searchEvent, setSearchEvent ] = useState("")
     const [ modalOpen, setModalOpen ] = useState(false)
-    const [ selectedEvent, setSelectedEvent ] = useState({
-        // const [ reservation, setReservations ] = useState([])
-        "room": "",
-        "name": "",
-        "start_time": "",
-        "seats": "",
-        "id": ""
-    })
+    // const [ reservation, setReservations ] = useState([])
     const [selEvent, setSelEvent] = useReducer(
         (prev, next) => {
             return { ...prev, ...next };
@@ -95,13 +88,9 @@ const EventList = () => {
     const handleClick = (selEvent) => {
         setSelEvent(selEvent)
         setModalOpen(true)
-        // setSelectedEvent(selectedEvent)
     }
-    console.log(modalOpen)
     const handleClose = () => {
-        console.log(modalOpen)
         setModalOpen(false)
-        console.log(modalOpen)
         setSelEvent({ 
             'room': "",
             'name': "",
@@ -110,6 +99,15 @@ const EventList = () => {
             'id': ""
         })
     }
+    
+    const handleSeatSelect = (e) => {
+        console.log('clicked seat', e)
+        if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
+            e.target.classList.toggle("selected");
+        //     // updateSelectedCount();
+        }
+    }
+
     const searchEvents = eventList.filter((event) => event.name.toLowerCase().includes(searchEvent.toLowerCase()))
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
 
@@ -131,7 +129,6 @@ const EventList = () => {
         setEventList(seedData)
         setIsLoading(false)
     },[])
-    console.log(selEvent)
 
     return(
         <div className="eventList">
@@ -161,14 +158,49 @@ const EventList = () => {
                             <div className="modal-dialog modalBack">
                                 <div className="modal-content">
                                 <div className="modal-header">
-                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.start_time}</h1>
+                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.name} {selEvent.start_time}</h1>
                                     <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                {/* <div> */}
+                                <ul className="showcase">
+                                        <li><div className="seat"></div><small>Available</small></li>
+                                        <li><div className="seat selected"></div><small>Selected</small></li>
+                                        <li><div className="seat occupied"></div><small>Occupied</small></li>
+                                    </ul>
+                                {/* </div>     */}
                                 <div className="modal-body">
-                                    {selEvent.name}
+                                    <div className="container">
+                                        <div className="row-container">
+                                            <div className="row">
+                                                <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
+                                                <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
+                                                <div className="seat"></div>
+                                                <div className="seat occupied"></div>
+                                                <div className="seat occupied"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                            </div>
+                                        </div>
+                                        <div className="row-container">
+                                            <div className="row">
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat occupied"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat occupied"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                            </div>
+                                        </div>
+                                        <div className="text-wrapper">
+                                            <p className="text">Selected Seat: </p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal" onClick={handleClose}>Close</button>
                                     <button type="button" className="btn btn-primary btn-sm">Confirm Reservation</button>
                                 </div>
                                 </div>
