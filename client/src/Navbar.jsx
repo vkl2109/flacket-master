@@ -1,19 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function NavBar (){
+function NavBar(){
         
     return(
-        <div style={{
-            "background":"yellow", 
-            'height' : "100%", 
-            'display' :'flex', 
-            'justifyContent': 'space-between', 
-            'alignItems': 'center'
-        }}>
+        <div className='nav-cont'>
             <h1>FlatPass</h1>
             <Link to ={"/"}> 
-                <img style={{"width" : "auto", "height" : "100%"}} src="src/assets/devcrazzy.randomchat_1.png"/>
+                <img src="src/assets/avatardefault_92824.png"/>
             </Link>
         </div>
     )
