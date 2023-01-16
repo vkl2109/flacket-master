@@ -82,10 +82,10 @@ const EventList = () => {
     })
     
     const handleClick = (selectedEvent) => {
+        setModalOpen((modalOpen) => !modalOpen)
         setSelectedEvent(selectedEvent)
-        setModalOpen(true)
     }
-    
+
     const searchEvents = events.filter((event) => event.name.toLowerCase().includes(searchEvent.toLowerCase()))
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
 
@@ -111,7 +111,15 @@ const EventList = () => {
 
     return(
         <div className="eventList">
-            <input type="search" placeholder="Search here" onChange={handleEventSearch}/>
+            <div className="input-group input-group-sm mb-3">
+                <input type="text" 
+                    className="form-control" 
+                    aria-label="Sizing example input" 
+                    placeholder="Search here" 
+                    aria-describedby="inputGroup-sizing-sm" 
+                    onChange={handleEventSearch}>
+                </input>
+            </div>
                 {isLoading ? "Loading..." : searchEvents.map(event => {
                 return (
                     <div className="table">
@@ -124,7 +132,6 @@ const EventList = () => {
                                 </tr>
                             </tbody>
                         </table>
-                        {/* <!-- Modal --> */}
                         {modalOpen ? 
                             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog">
