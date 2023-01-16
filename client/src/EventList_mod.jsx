@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import './css/eventlist.css'
 
 const EventList = () => {
@@ -69,7 +69,7 @@ const EventList = () => {
             ]
 
     const [ isLoading, setIsLoading ] = useState(true)
-    const [ events, setEvents ] = useState([])
+    const [ eventList, setEventList ] = useState([])
     const [ searchEvent, setSearchEvent ] = useState("")
     const [ modalOpen, setModalOpen ] = useState(false)
     const [ selectedEvent, setSelectedEvent ] = useState({
@@ -80,13 +80,37 @@ const EventList = () => {
         "seats": "",
         "id": ""
     })
-    
-    const handleClick = (selectedEvent) => {
-        setModalOpen((modalOpen) => !modalOpen)
-        setSelectedEvent(selectedEvent)
-    }
+    const [selEvent, setSelEvent] = useReducer(
+        (prev, next) => {
+            return { ...prev, ...next };
+        }, {
+            "room": "",
+            "name": "",
+            "start_time": "",
+            "seats": "",
+            "id": ""
+        }
+    )
 
-    const searchEvents = events.filter((event) => event.name.toLowerCase().includes(searchEvent.toLowerCase()))
+    const handleClick = (selEvent) => {
+        setSelEvent(selEvent)
+        setModalOpen(true)
+        // setSelectedEvent(selectedEvent)
+    }
+    console.log(modalOpen)
+    const handleClose = () => {
+        console.log(modalOpen)
+        setModalOpen(false)
+        console.log(modalOpen)
+        setSelEvent({ 
+            'room': "",
+            'name': "",
+            'start_time': "",
+            'seats': "",
+            'id': ""
+        })
+    }
+    const searchEvents = eventList.filter((event) => event.name.toLowerCase().includes(searchEvent.toLowerCase()))
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
 
     // const reserve = (reserve) => {
@@ -104,10 +128,10 @@ const EventList = () => {
         // }
         setIsLoading(true)
         // request()
-        setEvents(seedData)
+        setEventList(seedData)
         setIsLoading(false)
     },[])
-    console.log(selectedEvent)
+    console.log(selEvent)
 
     return(
         <div className="eventList">
@@ -134,14 +158,14 @@ const EventList = () => {
                         </table>
                         {modalOpen ? 
                             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div className="modal-dialog">
+                            <div className="modal-dialog modalBack">
                                 <div className="modal-content">
                                 <div className="modal-header">
-                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{selectedEvent.start_time}</h1>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.start_time}</h1>
+                                    <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div className="modal-body">
-                                    {selectedEvent.name}
+                                    {selEvent.name}
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>

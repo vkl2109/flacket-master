@@ -27,3 +27,8 @@
 .eventList table tbody tr:hover {
     background: lightgrey;
 }
+
+.modalBack {
+    background: white;
+    opacity: 100%
+}
