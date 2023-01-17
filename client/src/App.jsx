@@ -6,6 +6,10 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import NavBar from './Navbar'
 
 function App() {
+  const [loginData, setLoginData] = useState({
+      username: "",
+      password: ""
+  });
     // useEffect(()=> {
     //     const request = async() => {
     //         let req = await fetch('')
@@ -19,9 +23,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter >
-        <NavBar/>
+        <NavBar loginData={loginData}/>
         <Routes>
-          <Route path ={'/'} element ={<LoginPage/>}/>
+          <Route path ={'/'} element ={<LoginPage loginData={loginData} setLoginData={setLoginData}/>}/>
           <Route path ={'/home'} element ={<Home/>}/>
         </Routes>
       </BrowserRouter>
