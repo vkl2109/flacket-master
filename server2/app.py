@@ -54,7 +54,7 @@ def add_booking():
     db.session.commit()
     return jsonify(booking.toJSON()), 201
 
-@app.get('/event/<int:event_id>')
+@app.get('/events/<int:event_id>')
 def get_event(event_id):
     event = Event.query.get(event_id)
     if event:
@@ -64,4 +64,4 @@ def get_event(event_id):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=os.environ.get('PORT', 3000))
+    app.run(host='127.0.0.1', port=os.environ.get('PORT', 3001))
