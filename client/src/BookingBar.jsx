@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import BookingCard from './BookingCard'
 import './css/booking.css'
 
-function BookingBar ({booking}) {
+function BookingBar () {
     // const [ bookings, setBookings ] = useState()
     const [ isLoading, setIsLoading ] = useState(true)
 
@@ -44,7 +44,7 @@ function BookingBar ({booking}) {
 
     return(
         <div className="bookingbar">
-            {isLoading ? 
+            {/* {isLoading ? 
                 "Loading..." 
                 : 
                 booking.map((booking) => {
@@ -52,7 +52,7 @@ function BookingBar ({booking}) {
                         <BookingCard key={booking.id} booking={booking}/>
                     )
                 })
-            }
+            } */}
         </div>
     )
 }

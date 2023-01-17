@@ -36,20 +36,16 @@ const EventList = () => {
     //fetch seat availability on select Event
     const handleClick = (selEvent) => {
         setSelEvent(selEvent)
-        console.log(selEvent, selEvent.id)
         const request = async () => {
             let req = await fetch(`http://127.0.0.1:3001/events/${selEvent.id}`)
             let seats = await req.json()
             if (req.ok) {
                 setCurrentSeats(seats)
-                console.log(seats[0].is_empty)
                 setModalOpen(true)
             }
         }
         request()
-        // fetch request to a useState[]
     }
-    console.log(currentSeats)
 
 
     const handleConfirmation = (e) => {
@@ -71,7 +67,6 @@ const EventList = () => {
         console.log('clicked seat', e)
         if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
             e.target.classList.toggle("selected");
-        //     // updateSelectedCount();
         }
     }
 
@@ -128,6 +123,7 @@ const EventList = () => {
                                     </div>
                                     <div className="row-container">
                                         <div className="row">
+                                            {}
                                             <div className={currentSeats[8].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[9].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[10].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
@@ -139,7 +135,7 @@ const EventList = () => {
                                         </div>
                                     </div>
                                     <div className="text-wrapper">
-                                        <p className="text">Selected Seat: </p>
+                                        <p className="text">Selected Seat: {}</p>
                                     </div>
                                 </div>
                             </div>
