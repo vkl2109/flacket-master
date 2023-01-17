@@ -35,7 +35,7 @@ function Map() {
         })
     }
     return (
-        <div style={{ "width": "70%", "height": "70%", "background": "yellow" }}>
+        <div className='map-cont'>
             {/* <img src="/src/assets/khoratan-nemeris-mapou.jpeg" style={{ "width": "100%", "height": "auto" }} /> */}
 
             <svg
