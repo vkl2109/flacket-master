@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import NavBar from "./Navbar";
 import { Link } from "react-router-dom";
 
-function LoginPage() {
-    const [loginData, setLoginData] = useState({
-        username: "",
-        password: ""
-    });
-
+function LoginPage({loginData, setLoginData}) {
     const handleChange = (e) => {
         setLoginData({ ...loginData, [e.target.name]: e.target.value });
     }
