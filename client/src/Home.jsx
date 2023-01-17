@@ -10,7 +10,7 @@ function Home(){
 
     return (
         <div style={{"width" : '100%', "height" : "80%"}}>
-            <div style={{"background": "blue", "width" : '100%', "display" : "flex", "height" :'80%'}}>
+            <div style={{"background": "blue", "width" : '100%', "display" : "flex", "height" :'auto'}}>
                 <EventList reservation={reservation} setReservations={setReservations}/>
                 <div style={{"display":"flex", "flexDirection":"column"}}>
                     <Map />
