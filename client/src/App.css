@@ -53,3 +53,32 @@ padding-right: 3%;
     flex-direction: column;
     margin-bottom: 5%;
 }
+
+
+/* Home-page-start */
+.main-cont{
+    width: 100%;
+    height: 80%;
+}
+.sub-cont{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.event-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}.event-list .searchbar{
+    margin-left: 23%;
+}
+.map-cont{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+}
+.map-cont svg{
+    width: 90%;
+}

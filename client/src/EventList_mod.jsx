@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import './css/eventlist.css'
 
 const EventList = () => {
@@ -69,24 +69,46 @@ const EventList = () => {
             ]
 
     const [ isLoading, setIsLoading ] = useState(true)
-    const [ events, setEvents ] = useState([])
+    const [ eventList, setEventList ] = useState([])
     const [ searchEvent, setSearchEvent ] = useState("")
     const [ modalOpen, setModalOpen ] = useState(false)
-    const [ selectedEvent, setSelectedEvent ] = useState({
-        // const [ reservation, setReservations ] = useState([])
-        "room": "",
-        "name": "",
-        "start_time": "",
-        "seats": "",
-        "id": ""
-    })
-    
-    const handleClick = (selectedEvent) => {
-        setSelectedEvent(selectedEvent)
+    // const [ reservation, setReservations ] = useState([])
+    const [selEvent, setSelEvent] = useReducer(
+        (prev, next) => {
+            return { ...prev, ...next };
+        }, {
+            "room": "",
+            "name": "",
+            "start_time": "",
+            "seats": "",
+            "id": ""
+        }
+    )
+
+    const handleClick = (selEvent) => {
+        setSelEvent(selEvent)
         setModalOpen(true)
     }
+    const handleClose = () => {
+        setModalOpen(false)
+        setSelEvent({ 
+            'room': "",
+            'name': "",
+            'start_time': "",
+            'seats': "",
+            'id': ""
+        })
+    }
     
-    const searchEvents = events.filter((event) => event.name.toLowerCase().includes(searchEvent.toLowerCase()))
+    const handleSeatSelect = (e) => {
+        console.log('clicked seat', e)
+        if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
+            e.target.classList.toggle("selected");
+        //     // updateSelectedCount();
+        }
+    }
+
+    const searchEvents = eventList.filter((event) => event.name.toLowerCase().includes(searchEvent.toLowerCase()))
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
 
     // const reserve = (reserve) => {
@@ -104,14 +126,21 @@ const EventList = () => {
         // }
         setIsLoading(true)
         // request()
-        setEvents(seedData)
+        setEventList(seedData)
         setIsLoading(false)
     },[])
-    console.log(selectedEvent)
 
     return(
         <div className="eventList">
-            <input type="search" placeholder="Search here" onChange={handleEventSearch}/>
+            <div className="input-group input-group-sm mb-3">
+                <input type="text" 
+                    className="form-control" 
+                    aria-label="Sizing example input" 
+                    placeholder="Search here" 
+                    aria-describedby="inputGroup-sizing-sm" 
+                    onChange={handleEventSearch}>
+                </input>
+            </div>
                 {isLoading ? "Loading..." : searchEvents.map(event => {
                 return (
                     <div className="table">
@@ -124,20 +153,54 @@ const EventList = () => {
                                 </tr>
                             </tbody>
                         </table>
-                        {/* <!-- Modal --> */}
                         {modalOpen ? 
                             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div className="modal-dialog">
+                            <div className="modal-dialog modalBack">
                                 <div className="modal-content">
                                 <div className="modal-header">
-                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{selectedEvent.start_time}</h1>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.name} {selEvent.start_time}</h1>
+                                    <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                {/* <div> */}
+                                <ul className="showcase">
+                                        <li><div className="seat"></div><small>Available</small></li>
+                                        <li><div className="seat selected"></div><small>Selected</small></li>
+                                        <li><div className="seat occupied"></div><small>Occupied</small></li>
+                                    </ul>
+                                {/* </div>     */}
                                 <div className="modal-body">
-                                    {selectedEvent.name}
+                                    <div className="container">
+                                        <div className="row-container">
+                                            <div className="row">
+                                                <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
+                                                <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
+                                                <div className="seat"></div>
+                                                <div className="seat occupied"></div>
+                                                <div className="seat occupied"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                            </div>
+                                        </div>
+                                        <div className="row-container">
+                                            <div className="row">
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat occupied"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat occupied"></div>
+                                                <div className="seat"></div>
+                                                <div className="seat"></div>
+                                            </div>
+                                        </div>
+                                        <div className="text-wrapper">
+                                            <p className="text">Selected Seat: </p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal" onClick={handleClose}>Close</button>
                                     <button type="button" className="btn btn-primary btn-sm">Confirm Reservation</button>
                                 </div>
                                 </div>
