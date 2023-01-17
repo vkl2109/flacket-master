@@ -126,6 +126,7 @@ const EventList = ({  reservation, setReservations  }) => {
         </div> : null
         }
             <input
+                className='searchbar'
                 type="search"
                 placeholder="Search here"
                 onChange={handleChange}
