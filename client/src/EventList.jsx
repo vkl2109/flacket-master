@@ -8,6 +8,8 @@ const EventList = ({ selectedRoom }) => {
     const [searchEvent, setSearchEvent] = useState("")
     const [modalOpen, setModalOpen] = useState(false)
     const [currentSeats, setCurrentSeats] = useState([])
+    const [ selected, setSelected ] = useState(Array(16).fill(null))
+    const [ currSeat, setCurrSeat ] = useState("Not Selected")
     const [selEvent, setSelEvent] = useReducer(
         (prev, next) => {
             return { ...prev, ...next };
@@ -63,11 +65,20 @@ const EventList = ({ selectedRoom }) => {
         })
     }
 
-    const handleSeatSelect = (e) => {
+    const handleSeatSelect = (e, i) => {
         console.log('clicked seat', e)
-        if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
-            e.target.classList.toggle("selected");
+        // if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
+        //     e.target.classList.toggle("selected");
+        // }
+        let newSelected = Array(16).fill(null)
+        if (!selected[i]) {
+            newSelected[i] = true
+            setCurrSeat(i + 1)
         }
+        else {
+            setCurrSeat("Not Selected")
+        }
+        setSelected(newSelected)
     }
 
     const searchEvents = eventList
@@ -114,30 +125,24 @@ const EventList = ({ selectedRoom }) => {
                                 <div className="container">
                                     <div className="row-container">
                                         <div className="row">
-                                            <div className={currentSeats[0].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[1].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[2].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[3].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[4].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[5].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[6].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[7].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            {currentSeats.slice(0, 8).map((seat, i) => {
+                                                return (
+                                                    <div className={seat.is_empty ? (selected[i] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => handleSeatSelect(e, i)}></div>
+                                                )
+                                            })}
                                         </div>
                                     </div>
                                     <div className="row-container">
                                         <div className="row">
-                                            <div className={currentSeats[8].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[9].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[10].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[11].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[12].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[13].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[14].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[15].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            {currentSeats.slice(8).map((seat, i) => {
+                                                return (
+                                                    <div className={seat.is_empty ?  (selected[i + 8] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => handleSeatSelect(e, i + 8)}></div>
+                                                )
+                                            })}
                                         </div>
                                     </div>
                                     <div className="text-wrapper">
-                                        <p className="text">Selected Seat: {}</p>
+                                        <p className="text">Selected Seat: {currSeat}</p>
                                     </div>
                                 </div>
                             </div>
