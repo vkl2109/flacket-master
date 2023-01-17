@@ -3,7 +3,7 @@ import { useState } from "react";
 import NavBar from "./Navbar";
 import BookingBar from "./BookingBar";
 import Map from "./Map";
-import EventList from "./EventList_mod";
+import EventList from "./EventList";
 
 function Home() {
     const [reservation, setReservations] = useState([]);

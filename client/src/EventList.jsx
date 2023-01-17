@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import './css/eventlist.css'
 
-const EventList = () => {
+const EventList = ({ selectedRoom }) => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [eventList, setEventList] = useState([])
@@ -49,7 +49,7 @@ const EventList = () => {
         request()
         // fetch request to a useState[]
     }
-    console.log(currentSeats)
+    // console.log(currentSeats)
 
 
     const handleConfirmation = (e) => {
@@ -75,18 +75,21 @@ const EventList = () => {
         }
     }
 
-    const searchEvents = eventList.filter((event) => (event.name.toLowerCase()).includes(searchEvent.toLowerCase()))
+    const searchEvents = eventList
+        .filter(event => event.classroom.toLowerCase().includes(selectedRoom))
+        .filter((event) => (event.name.toLowerCase()).includes(searchEvent.toLowerCase()))
+
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
 
-    useEffect(() => {
-        if (!selectedRoom) {
-            console.log('hi')
-            return
-        } else {
-            console.log('hi')
-            setClassrooms(classrooms.filter(room => room.room.includes("Turing")))
-        }
-    }, [selectedRoom])
+    // useEffect(() => {
+    //     if (!selectedRoom) {
+    //         console.log('hi')
+    //         return
+    //     } else {
+    //         console.log('hi')
+    //         setClassrooms(classrooms.filter(room => room.room.includes("Turing")))
+    //     }
+    // }, [selectedRoom])
 
     return (
         <div className="eventList">
