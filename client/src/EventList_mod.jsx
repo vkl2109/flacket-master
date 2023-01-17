@@ -108,11 +108,11 @@ const EventList = () => {
             if (req.ok) {
                 setCurrentSeats(seats)
                 console.log(seats[0].is_empty)
+                setModalOpen(true)
             }
         }
         request()
         // fetch request to a useState[]
-        setModalOpen(true)
     }
     console.log(currentSeats)
 
@@ -189,34 +189,18 @@ const EventList = () => {
                                             <div className={currentSeats[5].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[6].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[7].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            {/* <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className="seat"></div>
-                                            <div className="seat occupied"></div>
-                                            <div className="seat occupied"></div>
-                                            <div className="seat"></div>
-                                            <div className="seat"></div>
-                                            <div className="seat"></div> */}
                                         </div>
                                     </div>
                                     <div className="row-container">
                                         <div className="row">
-                                            {/* <div className={currentSeats[8].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[8].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[9].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[10].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[11].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[12].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[13].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[14].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
-                                            <div className={currentSeats[15].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div> */}
-                                            {/* <div className="seat"></div>
-                                            <div className="seat"></div>
-                                            <div className="seat occupied"></div>
-                                            <div className="seat"></div>
-                                            <div className="seat"></div>
-                                            <div className="seat occupied"></div>
-                                            <div className="seat"></div>
-                                            <div className="seat"></div> */}
+                                            <div className={currentSeats[15].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                         </div>
                                     </div>
                                     <div className="text-wrapper">
