@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function NavBar(){
-        
-    return(
+function NavBar() {
+
+    return (
         <div className='nav-cont'>
-            <h1>FlatPass</h1>
+            <Link to={"/home"} style={{ textDecoration: "none" }}>
+                <h1>FlatPass</h1>
+            </Link>
             <Link to ={"/"}> 
                 <div class="btn-group">
                     <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
