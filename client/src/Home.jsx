@@ -6,14 +6,18 @@ import Map from "./Map";
 import EventList from "./EventList";
 
 function Home(){
+    const [selectedRoom, setSelectedRoom] = useState("");
 
     return (
         <div className='main-cont'>
             <div className='sub-cont'>
-                <EventList/>
-                <div style={{"display":"flex", "flexDirection":"column", "alignItems":'center'}}>
-                    <Map />
-                    <BookingBar/>
+                <EventList
+                    selectedRoom={selectedRoom}
+                    setSelectedRoom={setSelectedRoom}
+                />
+                <div style={{ "display": "flex", "flexDirection": "column", "alignItems": 'center' }}>
+                    <Map selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
+                    <BookingBar />
                 </div>
             </div>
         </div>

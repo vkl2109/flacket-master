@@ -1,23 +1,23 @@
 import { useState, useEffect, useReducer } from 'react'
 import './css/eventlist.css'
 
-const EventList = () => {
+const EventList = ({ selectedRoom }) => {
 
-    const [ isLoading, setIsLoading ] = useState(true)
-    const [ eventList, setEventList ] = useState([])
-    const [ searchEvent, setSearchEvent ] = useState("")
-    const [ modalOpen, setModalOpen ] = useState(false)
-    const [ currentSeats, setCurrentSeats ] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [eventList, setEventList] = useState([])
+    const [searchEvent, setSearchEvent] = useState("")
+    const [modalOpen, setModalOpen] = useState(false)
+    const [currentSeats, setCurrentSeats] = useState([])
     const [selEvent, setSelEvent] = useReducer(
         (prev, next) => {
             return { ...prev, ...next };
         }, {
-            "room": "",
-            "name": "",
-            "start_time": "",
-            "seats": "",
-            "id": ""
-        }
+        "room": "",
+        "name": "",
+        "start_time": "",
+        "seats": "",
+        "id": ""
+    }
     )
     //fetch EVENTS
     useEffect(() => {
@@ -54,7 +54,7 @@ const EventList = () => {
 
     const handleClose = () => {
         setModalOpen(false)
-        setSelEvent({ 
+        setSelEvent({
             'room': "",
             'name': "",
             'start_time': "",
@@ -70,10 +70,13 @@ const EventList = () => {
         }
     }
 
-    const searchEvents = eventList.filter((event) => (event.name.toLowerCase()).includes(searchEvent.toLowerCase()))
+    const searchEvents = eventList
+        .filter(event => event.classroom.toLowerCase().includes(selectedRoom))
+        .filter((event) => (event.name.toLowerCase()).includes(searchEvent.toLowerCase()))
+
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
 
-    return(
+    return (
         <div className="eventList">
             <div className="input-group input-group-sm mb-3">
                 <input type="text" className="form-control" aria-label="Sizing example input" placeholder="Search here" aria-describedby="inputGroup-sizing-sm" onChange={handleEventSearch}></input>
@@ -82,9 +85,9 @@ const EventList = () => {
                 <table>
                     <tbody>
                         <tr>
-                            <td style={{fontWeight: "bold"}}>Classroom</td>
-                            <td style={{fontWeight: "bold"}}>Lecture</td>
-                            <td style={{fontWeight: "bold"}}>Date</td>
+                            <td style={{ fontWeight: "bold" }}>Classroom</td>
+                            <td style={{ fontWeight: "bold" }}>Lecture</td>
+                            <td style={{ fontWeight: "bold" }}>Date</td>
                         </tr>
                 {isLoading ? "Loading..." : searchEvents.map(event => {
                 return (
