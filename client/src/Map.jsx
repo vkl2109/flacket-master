@@ -35,7 +35,7 @@ function Map() {
         })
     }
     return (
-        <div style={{ "width": "70%", "height": "70%", "background": "yellow" }}>
+        <div className='map-cont'>
             {/* <img src="/src/assets/khoratan-nemeris-mapou.jpeg" style={{ "width": "100%", "height": "auto" }} /> */}
 
             <svg
@@ -43,6 +43,7 @@ function Map() {
 
                 {/* <!-- Campus Map Rectangle container Rounded Edges--> */}
                 <rect
+                    className="main-rect"
                     x="0" y="0" width="1035" height="570" fill="#ffffff">
                 </rect>
                 <g strokeLinecap="round" transform="translate(10 10) rotate(0 507.55416525102873 275.1555546917814)">

@@ -5,8 +5,8 @@
     padding: 1rem;
     background: white;
     border-radius: 1rem;
-    font-size: 14px;
-    box-shadow: 5px 5px 5px grey;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    overflow: scroll;
 }
 
 .table {
@@ -21,6 +21,9 @@
     border-collapse: collapse;
     border: none;
     border-radius: 10px;
+}
+.eventList table tbody {
+    border-style: none;
 }
 .eventList table th, td {
     padding: 0.4rem;

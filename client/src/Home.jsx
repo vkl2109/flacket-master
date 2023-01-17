@@ -9,10 +9,10 @@ function Home(){
     const [ reservation, setReservations ] = useState([])
 
     return (
-        <div style={{"width" : '100%', "height" : "80%"}}>
-            <div style={{"background": "blue", "width" : '100%', "display" : "flex", "height" :'auto'}}>
-                <EventList/>
-                <div style={{"display":"flex", "flexDirection":"column"}}>
+        <div className='main-cont'>
+            <div className='sub-cont'>
+                <EventList reservation={reservation} setReservations={setReservations}/>
+                <div style={{"display":"flex", "flexDirection":"column", "alignItems":'center'}}>
                     <Map />
                     <BookingBar booking={reservation}/>
                 </div>

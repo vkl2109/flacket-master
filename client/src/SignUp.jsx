@@ -21,46 +21,61 @@ function SignUp() {
     }
 
     return (
-        <div>
+        <div >
             <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="username"
-                    name="username"
-                    value={userData.username}
-                    onChange={handleChange}
-                >
-                </input>
-                <input
-                    type="email"
-                    placeholder="email"
-                    name="email"
-                    value={userData.email}
-                    onChange={handleChange}
-                >
-                </input>
-                <input
-                    type="password"
-                    placeholder="password"
-                    name="password"
-                    value={userData.password}
-                    onChange={handleChange}
-                >
-                </input>
-                <input
-                    type="password"
-                    placeholder="confirm password"
-                    name="passwordConfirm"
-                    value={userData.passwordConfirm}
-                    onChange={handleChange}
-                >
-                </input>
-                <input
-                    type="submit"
-                    name="Sign Up"
+                <div input-group='true'>
+                    <input
+                        className="form-control"
+                        type="text"
+                        placeholder="username"
+                        name="username"
+                        value={userData.username}
+                        onChange={handleChange}
+                    >
+                    </input>
+                </div>
+                <div>
+                    <input
+                        className="form-control"
+                        type="email"
+                        placeholder="email"
+                        name="email"
+                        value={userData.email}
+                        onChange={handleChange}
+                    >
+                    </input>
+                </div>
+                <div>
+                    <input
+                        className="form-control"
+                        type="password"
+                        placeholder="password"
+                        name="password"
+                        value={userData.password}
+                        onChange={handleChange}
+                    >
+                    </input>
+                </div>
+                <div>
+                    <input
+                        className="form-control"
+                        type="password"
+                        placeholder="confirm password"
+                        name="passwordConfirm"
+                        value={userData.passwordConfirm}
+                        onChange={handleChange}
+                    >
+                    </input>
+                </div>
+                <div>
+                    <input
+                        className="form-control"
+                        type="submit"
+                        name="Sign Up"
 
-                >
-                </input>
+                    >
+                    </input>
+                </div>
             </form>
         </div>
     )
