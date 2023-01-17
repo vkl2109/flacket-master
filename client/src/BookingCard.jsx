@@ -4,10 +4,10 @@ const BookingCard = ({booking}) => {
     return (
         <div className="bookingCard">
             <h4>
-                {booking.name}
+                {booking.event}
             </h4>
-            <p>{booking.location}</p>
-            <p>{booking.time}</p>
+            <p>{booking.classroom}</p>
+            <p>{booking.start_time}</p>
         </div>
     )
 }
