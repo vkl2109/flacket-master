@@ -29,7 +29,10 @@ def run_seeds():
                 db.session.add(new_event)
                 db.session.commit()
                 for i in range(16):
-                    new_seat = Seat(new_event.id, i, True, '')
+                    if (i % 4 == 0):
+                        new_seat = Seat(new_event.id, i, False, '')
+                    else:
+                        new_seat = Seat(new_event.id, i, True, '')
                     db.session.add(new_seat)
                     db.session.commit()
             print(new_classroom.toJSON())
