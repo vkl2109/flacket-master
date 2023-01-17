@@ -126,7 +126,6 @@ const EventList = ({ selectedRoom }) => {
                                     </div>
                                     <div className="row-container">
                                         <div className="row">
-                                            {}
                                             <div className={currentSeats[8].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[9].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className={currentSeats[10].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
