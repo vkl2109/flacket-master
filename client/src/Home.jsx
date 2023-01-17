@@ -5,7 +5,7 @@ import BookingBar from "./BookingBar";
 import Map from "./Map";
 import EventList from "./EventList";
 
-function Home(){
+function Home({loginData}){
     const [selectedRoom, setSelectedRoom] = useState("");
 
     return (
@@ -17,7 +17,7 @@ function Home(){
                 />
                 <div style={{ "display": "flex", "flexDirection": "column", "alignItems": 'center' }}>
                     <Map selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
-                    <BookingBar />
+                    <BookingBar loginData={loginData}/>
                 </div>
             </div>
         </div>
