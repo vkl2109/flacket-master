@@ -7,8 +7,9 @@ import NavBar from './Navbar'
 
 function App() {
   const [loginData, setLoginData] = useState({
-      username: "",
-      password: ""
+    id: 1,  
+    username: "",
+    password: ""
   });
     // useEffect(()=> {
     //     const request = async() => {
@@ -26,7 +27,7 @@ function App() {
         <NavBar loginData={loginData}/>
         <Routes>
           <Route path ={'/'} element ={<LoginPage loginData={loginData} setLoginData={setLoginData}/>}/>
-          <Route path ={'/home'} element ={<Home/>}/>
+          <Route path ={'/home'} element ={<Home loginData={loginData}/>}/>
         </Routes>
       </BrowserRouter>
     </div>
