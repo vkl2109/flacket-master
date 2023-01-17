@@ -6,6 +6,11 @@ from config import Config
 from models import db, User, Booking, Classroom, Event, Seat
 import json
 
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+
 app = Flask(__name__, static_folder='public')
 CORS(app, origins=['*'])
 app.config.from_object(Config)
@@ -15,6 +20,30 @@ migrate = Migrate(app, db)
 @app.get('/')
 def home():
     return send_file('welcome.html')
+
+@app.post('/login')
+def login():
+    data = request.form
+    user = User.query.filter_by(email=data['email']).first()
+    if not user:
+        return jsonify({'error': 'No account found'}), 404
+    else:
+        given_password = data['password']
+        if user.password == given_password:
+            # authenticate user
+            access_token = create_access_token(identity=user.id)
+            return jsonify({'user': user.to_dict(), 'token': access_token})
+        else:
+            return jsonify({'error': 'Invalid Password'}), 422
+
+
+@app.post('/users')
+def create_user():
+    data = request.form
+    user = User(data['username'], data['email'], data['password'])
+    db.session.add(user)
+    db.session.commit()
+    return jsonify(user.toJSON()), 201
 
 @app.route('/classrooms')
 def get_all_classrooms():
