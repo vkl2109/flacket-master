@@ -4,7 +4,8 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from config import Config
 from models import db, User, Booking, Classroom, Event, Seat
-import json
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
+
 
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity

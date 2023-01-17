@@ -51,6 +51,19 @@ const EventList = ({ selectedRoom }) => {
 
 
     const handleConfirmation = (e) => {
+        // useEffect(() => {
+        //     let request = async () => {
+        //         let req = await fetch("http://localhost:3001/users/1", {
+        //             method: "DELETE",
+        //             headers: {'Authorization': 'Bearer ' + token}
+        //         })
+        //         if (req.ok) {
+        //             req.json()
+        //         } else {
+
+        //         }
+        //     }
+        // }, [])
         console.log(e)
     }
 
