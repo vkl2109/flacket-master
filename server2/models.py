@@ -32,6 +32,12 @@ class Booking(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
+    def toJSON(self):
+        seat = Seat.query.get(self.seat_id)
+        event = Event.query.get(seat.event_id)
+        classroom = Classroom.query.get(event.classroom_id)
+        return {"id": self.id, "start_time": event.start_time.strftime("%m/%d/%Y, %H:%M:%S"), "end_time": event.end_time.strftime("%m/%d/%Y, %H:%M:%S"), "event": event.name, "classroom": classroom.name}
+
     def __init__(self, user_id, seat_id):
         self.user_id = user_id
         self.seat_id = seat_id
@@ -61,7 +67,7 @@ class Classroom(db.Model):
 class Event(db.Model):
     # __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
+    name = db.Column(db.String(80), nullable=False)
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=False)
     classroom_id = db.Column(db.Integer, db.ForeignKey('classroom.id'), nullable=False)
@@ -71,7 +77,7 @@ class Event(db.Model):
 
 
     def toJSON(self):
-        return {"id": self.id, "name": self.name, "start_time": self.start_time.strftime("%m/%d/%Y, %H:%M:%S"), "end_time": self.end_time.strftime("%m/%d/%Y, %H:%M:%S"), "classroom_id": self.classroom_id}
+        return {"id": self.id, "name": self.name, "start_time": self.start_time.strftime("%m/%d/%Y, %H:%M:%S"), "end_time": self.end_time.strftime("%m/%d/%Y, %H:%M:%S"), "classroom": Classroom.query.get(self.classroom_id).name}
 
 
     def __init__(self, name, start_time, end_time, classroom_id):
@@ -95,6 +101,8 @@ class Seat(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     bookings = db.relationship('Booking', backref='seat', lazy=True)
 
+    def toJSON(self):
+        return {"id": self.id, "event_id": self.event_id, "seat_number": self.seat_number, "is_empty": self.is_empty, "student_name": self.student_name}
 
     def __init__(self, event_id, seat_number, is_empty, student_name):
         self.event_id = event_id
