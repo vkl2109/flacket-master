@@ -12,7 +12,7 @@ function Home(){
         <div className='main-cont'>
             <div className='sub-cont'>
                 <EventList reservation={reservation} setReservations={setReservations}/>
-                <div style={{"display":"flex", "flexDirection":"column"}}>
+                <div style={{"display":"flex", "flexDirection":"column", "alignItems":'center'}}>
                     <Map />
                     <BookingBar booking={reservation}/>
                 </div>
