@@ -4,64 +4,64 @@ import './css/eventlist.css'
 const EventList = () => {
     const seedData = [
                 {
-                    "room": "Mod",
-                    "name": "ReactinMod",
+                    "room": "Turing",
+                    "name": "React",
                     "start_time": "10AM",
                     "seats": "30",
                     "id": "R1"
                 },
                 {
-                    "room": "Mod",
-                    "name": "RailsinMod",
+                    "room": "Turing",
+                    "name": "Rails",
                     "start_time": "1PM",
                     "seats": "30",
                     "id": "R2"
                 },
                 {
-                    "room": "Mod",
-                    "name": "DS&AinMod",
+                    "room": "Turing",
+                    "name": "DS&A",
                     "start_time": "5PM",
                     "seats": "30",
                     "id": "R3"
                 },
                 {
                     "room": "Kay",
-                    "name": "ReactinKay",
+                    "name": "React",
                     "start_time": "10AM",
                     "seats": "30",
                     "id": "K1"
                 },
                 {
                     "room": "Kay",
-                    "name": "RailsinKay",
+                    "name": "Rails",
                     "start_time": "1PM",
                     "seats": "30",
                     "id": "K2"
                 },
                 {
                     "room": "Kay",
-                    "name": "DS&AinKay",
+                    "name": "DS&A",
                     "start_time": "5PM",
                     "seats": "30",
                     "id": "K3"
                 },
                 {
                     "room": "Collins",
-                    "name": "ReactinCollins",
+                    "name": "React",
                     "start_time": "10AM",
                     "seats": "30",
                     "id": "C1"
                 },
                 {
                     "room": "Collins",
-                    "name": "RailsinCollins",
+                    "name": "Rails",
                     "start_time": "1PM",
                     "seats": "30",
                     "id": "C2"
                 },
                 {
                     "room": "Collins",
-                    "name": "DS&AinCollins",
+                    "name": "DS&A",
                     "start_time": "5PM",
                     "seats": "30",
                     "id": "C3"
@@ -72,7 +72,6 @@ const EventList = () => {
     const [ eventList, setEventList ] = useState([])
     const [ searchEvent, setSearchEvent ] = useState("")
     const [ modalOpen, setModalOpen ] = useState(false)
-    // const [ reservation, setReservations ] = useState([])
     const [selEvent, setSelEvent] = useReducer(
         (prev, next) => {
             return { ...prev, ...next };
@@ -108,13 +107,8 @@ const EventList = () => {
         }
     }
 
-    const searchEvents = eventList.filter((event) => event.name.toLowerCase().includes(searchEvent.toLowerCase()))
+    const searchEvents = eventList.filter((event) => (event.name.toLowerCase()).includes(searchEvent.toLowerCase()))
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
-
-    // const reserve = (reserve) => {
-    //     if (reservation.includes(reserve)) return 
-    //     setReservations([...reservation, reserve])
-    // }
 
     useEffect(()=>{
         // const request = async () => {
@@ -133,22 +127,25 @@ const EventList = () => {
     return(
         <div className="eventList">
             <div className="input-group input-group-sm mb-3">
-                <input type="text" 
-                    className="form-control" 
-                    aria-label="Sizing example input" 
-                    placeholder="Search here" 
-                    aria-describedby="inputGroup-sizing-sm" 
-                    onChange={handleEventSearch}>
-                </input>
+                <input type="text" className="form-control" aria-label="Sizing example input" placeholder="Search here" aria-describedby="inputGroup-sizing-sm" onChange={handleEventSearch}></input>
             </div>
+                <table>
+                    <tbody>
+                        <tr data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <td style={{fontWeight: "bold"}}>Classroom</td>
+                            <td style={{fontWeight: "bold"}}>Lecture</td>
+                            <td style={{fontWeight: "bold"}}>Date</td>
+                        </tr>
+                    </tbody>
+                </table>
                 {isLoading ? "Loading..." : searchEvents.map(event => {
                 return (
                     <div className="table">
                         <table>
                             <tbody>
                                 <tr key={event.id} data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => {handleClick(event)}}>
+                                    <td>{event.room}</td>
                                     <td>{event.name}</td>
-                                    <td>{event.start_time}</td>
                                     <td>{event.seats}</td>
                                 </tr>
                             </tbody>
@@ -161,13 +158,11 @@ const EventList = () => {
                                     <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.name} {selEvent.start_time}</h1>
                                     <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                {/* <div> */}
                                 <ul className="showcase">
                                         <li><div className="seat"></div><small>Available</small></li>
                                         <li><div className="seat selected"></div><small>Selected</small></li>
                                         <li><div className="seat occupied"></div><small>Occupied</small></li>
                                     </ul>
-                                {/* </div>     */}
                                 <div className="modal-body">
                                     <div className="container">
                                         <div className="row-container">
