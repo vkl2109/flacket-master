@@ -84,12 +84,43 @@ const EventList = () => {
             "id": ""
         }
     )
-    
+    //fetch EVENTS
+    useEffect(() => {
+        const request = async () => {
+            let req = await fetch('http://127.0.0.1:3001/events')
+            let res = await req.json()
+            if (req.ok) {
+                setEventList(res)
+            }
+        }
+        setIsLoading(true)
+        request()
+        setIsLoading(false)
+    }, [])
+
+    //fetch seat availability on select Event
     const handleClick = (selEvent) => {
         setSelEvent(selEvent)
+        console.log(selEvent, selEvent.id)
+        const request = async () => {
+            let req = await fetch(`http://127.0.0.1:3001/events/${selEvent.id}`)
+            let seats = await req.json()
+            if (req.ok) {
+                setCurrentSeats(seats)
+                console.log(seats[0].is_empty)
+            }
+        }
+        request()
         // fetch request to a useState[]
         setModalOpen(true)
     }
+    console.log(currentSeats)
+
+
+    const handleConfirmation = (e) => {
+        console.log(e)
+    }
+
     const handleClose = () => {
         setModalOpen(false)
         setSelEvent({ 
@@ -100,7 +131,7 @@ const EventList = () => {
             'id': ""
         })
     }
-    
+
     const handleSeatSelect = (e) => {
         console.log('clicked seat', e)
         if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
@@ -109,29 +140,8 @@ const EventList = () => {
         }
     }
 
-    useEffect(() => {
-        const request = async () => {
-            let req = await fetch('http://127.0.0.1:3001/events')
-            let res = await req.json()
-            if (req.ok) {
-                console.log(res)
-            }
-        }
-        request()
-    }, [])
-
-    const handleConfirmation = (e) => {
-        console.log(e)
-    }
-
     const searchEvents = eventList.filter((event) => (event.name.toLowerCase()).includes(searchEvent.toLowerCase()))
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
-
-    useEffect(()=>{
-        setIsLoading(true)
-        setEventList(seedData)
-        setIsLoading(false)
-    },[])
 
     return(
         <div className="eventList">
@@ -146,14 +156,13 @@ const EventList = () => {
                             <td style={{fontWeight: "bold"}}>Lecture</td>
                             <td style={{fontWeight: "bold"}}>Date</td>
                         </tr>
-                        
                 {isLoading ? "Loading..." : searchEvents.map(event => {
                 return (
                 <>
                     <tr key={event.id} data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => {handleClick(event)}}>
-                        <td>{event.room}</td>
+                        <td>{event.classroom}</td>
                         <td>{event.name}</td>
-                        <td>{event.seats}</td>
+                        <td>{event.start_time}</td>
                     </tr>
                     {modalOpen ? 
                         <div className="modal fade modalBack" id="exampleModal" role="dialog" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -172,27 +181,42 @@ const EventList = () => {
                                 <div className="container">
                                     <div className="row-container">
                                         <div className="row">
-                                            {/* <div className={seat[0].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div> */}
-                                            <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[0].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[1].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[2].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[3].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[4].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[5].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[6].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[7].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            {/* <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className="seat"></div>
                                             <div className="seat occupied"></div>
                                             <div className="seat occupied"></div>
                                             <div className="seat"></div>
                                             <div className="seat"></div>
-                                            <div className="seat"></div>
+                                            <div className="seat"></div> */}
                                         </div>
                                     </div>
                                     <div className="row-container">
                                         <div className="row">
-                                            <div className="seat"></div>
+                                            {/* <div className={currentSeats[8].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[9].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[10].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[11].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[12].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[13].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[14].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                            <div className={currentSeats[15].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div> */}
+                                            {/* <div className="seat"></div>
                                             <div className="seat"></div>
                                             <div className="seat occupied"></div>
                                             <div className="seat"></div>
                                             <div className="seat"></div>
                                             <div className="seat occupied"></div>
                                             <div className="seat"></div>
-                                            <div className="seat"></div>
+                                            <div className="seat"></div> */}
                                         </div>
                                     </div>
                                     <div className="text-wrapper">
