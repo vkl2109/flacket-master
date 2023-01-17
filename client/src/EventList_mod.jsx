@@ -72,6 +72,7 @@ const EventList = () => {
     const [ eventList, setEventList ] = useState([])
     const [ searchEvent, setSearchEvent ] = useState("")
     const [ modalOpen, setModalOpen ] = useState(false)
+    const [ currentSeats, setCurrentSeats ] = useState([])
     const [selEvent, setSelEvent] = useReducer(
         (prev, next) => {
             return { ...prev, ...next };
@@ -86,6 +87,7 @@ const EventList = () => {
 
     const handleClick = (selEvent) => {
         setSelEvent(selEvent)
+        // fetch request to a useState[]
         setModalOpen(true)
     }
     const handleClose = () => {
@@ -167,6 +169,7 @@ const EventList = () => {
                                 <div className="container">
                                     <div className="row-container">
                                         <div className="row">
+                                            {/* <div className={seat[0].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div> */}
                                             <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className="seat" onClick={(e) => handleSeatSelect(e)}></div>
                                             <div className="seat"></div>

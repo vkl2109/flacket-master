@@ -1,6 +1,6 @@
 import os
 
-bind = '127.0.0.1:3000'
+bind = '127.0.0.1:3001'
 backlog = 2048
 loglevel = os.environ.get('LOG_LEVEL', 'debug')
 proc_name = None
