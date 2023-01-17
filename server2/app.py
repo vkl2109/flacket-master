@@ -50,8 +50,7 @@ def add_booking():
 def get_all_events():
     events = Event.query.all()
     if len(events):
-        print(jsonify([event.toJSON() for event in events]))
-        
+        return jsonify([event.toJSON() for event in events])
     else:
         return {}, 404
 

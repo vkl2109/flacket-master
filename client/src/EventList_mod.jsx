@@ -111,10 +111,10 @@ const EventList = () => {
 
     useEffect(() => {
         const request = async () => {
-            let req = await fetch('127.0.0.1:3001/events')
+            let req = await fetch('http://127.0.0.1:3001/events')
             let res = await req.json()
             if (req.ok) {
-                console.log(req)
+                console.log(res)
             }
         }
         request()
