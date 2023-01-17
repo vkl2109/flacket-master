@@ -107,6 +107,10 @@ const EventList = () => {
         }
     }
 
+    const handleConfirmation = (e) => {
+        console.log(e)
+    }
+
     const searchEvents = eventList.filter((event) => (event.name.toLowerCase()).includes(searchEvent.toLowerCase()))
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
 
@@ -192,7 +196,7 @@ const EventList = () => {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal" onClick={handleClose}>Close</button>
-                                <button type="button" className="btn btn-primary btn-sm">Confirm Reservation</button>
+                                <button type="button" className="btn btn-primary btn-sm" onClick={(e) => handleConfirmation(e)}>Confirm Reservation</button>
                             </div>
                             </div>
                         </div>
