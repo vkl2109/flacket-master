@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function LoginPage({loginData, setLoginData}) {
     const handleChange = (e) => {
-function LoginPage() {
+
     const [showSignUp, setShowSignUp] = useState(false);
 
     const [signUpData, setSignUpData] = useState({
@@ -86,6 +86,7 @@ function LoginPage() {
 
         </div>
     )
+}
 }
 
 export default LoginPage
