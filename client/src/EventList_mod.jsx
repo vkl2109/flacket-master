@@ -84,7 +84,7 @@ const EventList = () => {
             "id": ""
         }
     )
-
+    
     const handleClick = (selEvent) => {
         setSelEvent(selEvent)
         // fetch request to a useState[]
@@ -109,6 +109,17 @@ const EventList = () => {
         }
     }
 
+    useEffect(() => {
+        const request = async () => {
+            let req = await fetch('127.0.0.1:3001/events')
+            let res = await req.json()
+            if (req.ok) {
+                console.log(req)
+            }
+        }
+        request()
+    }, [])
+
     const handleConfirmation = (e) => {
         console.log(e)
     }
@@ -117,15 +128,7 @@ const EventList = () => {
     const handleEventSearch = (e) => setSearchEvent(e.target.value);
 
     useEffect(()=>{
-        // const request = async () => {
-        //     let req = await fetch("http://localhost:5000/classrooms")
-        //     let res = await req.json()
-        //     if (req.ok) {
-        //         setClassrooms(classrooms => res)
-        //     }
-        // }
         setIsLoading(true)
-        // request()
         setEventList(seedData)
         setIsLoading(false)
     },[])
