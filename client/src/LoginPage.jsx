@@ -1,9 +1,19 @@
 import React, { useState } from "react";
-import NavBar from "./Navbar";
-import { Link } from "react-router-dom";
 
 function LoginPage({loginData, setLoginData}) {
     const handleChange = (e) => {
+function LoginPage() {
+    const [showSignUp, setShowSignUp] = useState(false);
+
+    const [signUpData, setSignUpData] = useState({
+        username: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+        avatarURL: ""
+    })
+
+    const handleLoginInput = (e) => {
         setLoginData({ ...loginData, [e.target.name]: e.target.value });
     }
 
