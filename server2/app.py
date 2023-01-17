@@ -24,14 +24,6 @@ def get_all_classrooms():
     else:
         return {}, 404
 
-@app.get('/events')
-def get_all_events():
-    events = Event.query.all()
-    if len(events):
-        return jsonify([event.toJSON() for event in events])
-    else:
-        return {}, 404
-
 @app.get('/bookings/<int:user>')
 def get_all_bookings(user):
     bookings = Booking.query.all()
@@ -53,6 +45,14 @@ def add_booking():
     db.session.add(booking)
     db.session.commit()
     return jsonify(booking.toJSON()), 201
+
+@app.get('/events')
+def get_all_events():
+    events = Event.query.all()
+    if len(events):
+        return jsonify([event.toJSON() for event in events])
+    else:
+        return {}, 404
 
 @app.get('/events/<int:event_id>')
 def get_event(event_id):
