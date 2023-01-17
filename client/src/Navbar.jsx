@@ -17,9 +17,9 @@ function NavBar({loginData}){
                     </button>
                     <ul class="dropdown-menu">
                     <Link to ={"/"}> 
-                        <li class="dropdown-item">Temp Home Page</li>
+                        <li class="dropdown-item">Temp home page link</li>
                     </Link>
-                        <li class="dropdown-item" >Another action</li>
+                        <li class="dropdown-item" >logout</li>
                     </ul>
                 </div>
         </div>
