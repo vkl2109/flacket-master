@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import './css/map.css';
 
-function Map() {
+function Map({ selectedRoom, setSelectedRoom }) {
+    // const [selectedRoom, setSelectedRoom] = useState("");
 
     const [roomHover, setRoomHover] = useState({
         "borg": false,
@@ -34,10 +35,20 @@ function Map() {
             "johnson": false
         })
     }
+
+    const handleSelectRoom = (e) => {
+        const room = e.target.dataset.name;
+        if (selectedRoom === room) {
+            setSelectedRoom("");
+            handleMouseLeave();
+        } else {
+            setSelectedRoom(room);
+            handleMouseOver(e);
+        }
+    }
+
     return (
         <div className='map-cont'>
-            {/* <img src="/src/assets/khoratan-nemeris-mapou.jpeg" style={{ "width": "100%", "height": "auto" }} /> */}
-
             <svg
                 viewBox="0 0 1035 570" width="1035" height="570">
 
@@ -148,12 +159,13 @@ function Map() {
                 </g><mask></mask>
 
                 {/* <!-- Turing Right Edge --> */}
-                <g onMouseLeave={handleMouseLeave}>
+                <g onMouseLeave={selectedRoom ? null : () => handleMouseLeave()}>
                     <polygon
                         data-name="turing"
                         points="64.3344,375 303.3344,449 303.3344,519.78 64.3344,519.78"
                         fill={roomHover["turing"] ? "#fcd2f6" : "#FFF"}
-                        onMouseOver={handleMouseOver}
+                        onMouseOver={selectedRoom ? null : handleMouseOver}
+                        onClick={handleSelectRoom}
                     />
                     <g strokeLinecap="round">
                         <g transform="translate(303.39359596187023 518.7936927707251) rotate(0 0.8453779351061712 -35.10033127945712)">
@@ -205,7 +217,8 @@ function Map() {
                         transform="translate(139.46158244995968 453.04475230952085) rotate(0 30.5 12.5)">
                         <text x="30.5" y="18" fontFamily="Virgil, Segoe UI Emoji" fontSize="30px" fill="#000000" textAnchor="middle"
                             data-name="turing"
-                            onMouseOver={handleMouseOver}
+                            onMouseOver={selectedRoom ? null : handleMouseOver}
+                            onClick={handleSelectRoom}
                             // style="white-space: pre;" 
                             direction="ltr">
                             Turing
@@ -214,13 +227,14 @@ function Map() {
                 </g>
 
                 {/* <!-- Collins (One) --> */}
-                <g onMouseLeave={handleMouseLeave} >
+                <g onMouseLeave={selectedRoom ? null : () => handleMouseLeave()} >
                     <rect
                         data-name="collins"
                         x="63.635" y="195.452"
                         width="119.23" height="88.07"
                         fill={roomHover["collins"] ? "#d1fa57" : "#FFF"}
-                        onMouseOver={handleMouseOver}
+                        onMouseOver={selectedRoom ? null : handleMouseOver}
+                        onClick={handleSelectRoom}
                     >
 
                     </rect>
@@ -246,7 +260,8 @@ function Map() {
                     <g transform="translate(80.64962477145127 229.87905107971164) rotate(0 30 12.5)">
                         <text x="30" y="18" fontFamily="Virgil, Segoe UI Emoji" fontSize="30px" fill="#000000" textAnchor="middle"
                             data-name="collins"
-                            onMouseOver={handleMouseOver}
+                            onMouseOver={selectedRoom ? null : handleMouseOver}
+                            onClick={handleSelectRoom}
                             direction="ltr">
                             Collins
                         </text>
@@ -254,13 +269,14 @@ function Map() {
                 </g>
 
                 {/* <!-- Kay --> */}
-                <g onMouseLeave={handleMouseLeave} >
+                <g onMouseLeave={selectedRoom ? null : () => handleMouseLeave()} >
                     <rect
                         data-name="kay"
                         x="182.1058" y="196.6278"
                         width="119.76" height="88.04"
                         fill={roomHover["kay"] ? "#faf457" : "#FFF"}
-                        onMouseOver={handleMouseOver}
+                        onMouseOver={selectedRoom ? null : handleMouseOver}
+                        onClick={handleSelectRoom}
                     >
                     </rect>
                     <g strokeLinecap="round" transform="translate(182.1058403586294 196.62780935426508) rotate(0 58.07958921401132 42.5656534633456)">
@@ -275,7 +291,8 @@ function Map() {
                     <g transform="translate(212.75132743902395 225.03623810455247) rotate(0 18 12.5)">
                         <text x="18" y="18" fontFamily="Virgil, Segoe UI Emoji" fontSize="30px" fill="#000000" textAnchor="middle"
                             data-name="kay"
-                            onMouseOver={handleMouseOver}
+                            onMouseOver={selectedRoom ? null : handleMouseOver}
+                            onClick={handleSelectRoom}
                             direction="ltr">
                             Kay
                         </text>
@@ -283,13 +300,15 @@ function Map() {
                 </g>
 
                 {/* <!-- Johnson --> */}
-                <g onMouseLeave={handleMouseLeave}>
+                <g onMouseLeave={selectedRoom ? null : () => handleMouseLeave()}>
                     <rect
                         data-name="johnson"
                         x="750.6491" y="298.0091"
                         width="187.65" height="208.26"
                         fill={roomHover["johnson"] ? "#ffa8a8" : "#FFF"}
-                        onMouseOver={handleMouseOver}>
+                        onMouseOver={selectedRoom ? null : handleMouseOver}
+                        onClick={handleSelectRoom}
+                    >
                     </rect>
                     <g strokeLinecap="round" transform="translate(750.6491204679287 298.0091146767272) rotate(0 92.39709453692512 102.64818237509371)">
                         <path d="M-1.62 -0.63 C42.06 0.25, 83.08 -2.37, 185.27 0.45 M0.23 0.39 C46.21 0.7, 91.54 0.53, 183.98 0.89 M185.3 0.17 C186.46 64.85, 185.95 129.38, 184.77 205.64 M184.01 -0.62 C186.14 45.37, 185.07 89.46, 185.36 204.7 M186.03 206.58 C126.64 208.72, 72.36 205.59, 1.97 207.28 M183.98 206.03 C144.5 205.55, 105.43 205.79, 0.9 204.98 M-0.3 206.61 C0.37 148.93, 2.42 91.18, 1.76 1.39 M-0.15 205 C1.14 132.47, 1.13 58.81, 0.45 0.21"
@@ -304,7 +323,8 @@ function Map() {
                     <g transform="translate(809.8131388431175 389.92449379988193) rotate(0 37.5 12.5)">
                         <text x="37.5" y="18" fontFamily="Virgil, Segoe UI Emoji" fontSize="30px" fill="#000000" textAnchor="middle"
                             data-name="johnson"
-                            onMouseOver={handleMouseOver}
+                            onMouseOver={selectedRoom ? null : handleMouseOver}
+                            onClick={handleSelectRoom}
                             direction="ltr">
                             Johnson
                         </text>
@@ -312,13 +332,14 @@ function Map() {
                 </g>
 
                 {/* <!-- Borg --> */}
-                <g onMouseLeave={handleMouseLeave}>
+                <g onMouseLeave={selectedRoom ? null : () => handleMouseLeave()}>
                     <rect
                         data-name="borg"
                         x="60.337" y="57.216"
                         width="298.24" height="139.95"
                         fill={roomHover["borg"] ? "#a8e4ff" : "#FFF"}
-                        onMouseOver={handleMouseOver}
+                        onMouseOver={selectedRoom ? null : handleMouseOver}
+                        onClick={handleSelectRoom}
                     >
                     </rect>
                     <g strokeLinecap="round" transform="translate(60.337015271858945 57.21612886637104) rotate(0 148.25150975458246 68.33209255726615)">
@@ -333,7 +354,8 @@ function Map() {
                     <g transform="translate(164.0623970179613 115.17889719035202) rotate(0 22.5 12.5)">
                         <text x="0" y="18" fontFamily="Virgil, Segoe UI Emoji" fontSize="30px" fill="#000000" textAnchor="start"
                             data-name="borg"
-                            onMouseOver={handleMouseOver}
+                            onMouseOver={selectedRoom ? null : handleMouseOver}
+                            onClick={handleSelectRoom}
                             direction="ltr">
                             Borg
                         </text>
