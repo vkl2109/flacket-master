@@ -1,106 +1,82 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import './css/eventlist.css'
 
-const EventList = ({ selectedRoom }) => {
+const EventList = () => {
 
-    const [classrooms, setClassrooms] = useState()
     const [isLoading, setIsLoading] = useState(true)
-    const [searchInput, setSearchInput] = useState("")
-    const [reservation, setReservations] = useState([])
+    const [eventList, setEventList] = useState([])
+    const [searchEvent, setSearchEvent] = useState("")
     const [modalOpen, setModalOpen] = useState(false)
-
-    const seedData = [
-        {
-            "name": "Turing",
-            "events": [
-                {
-                    "name": "React",
-                    "start_time": "10AM",
-                    "seats": "30"
-                },
-                {
-                    "name": "Rails",
-                    "start_time": "1PM",
-                    "seats": "30"
-                },
-                {
-                    "name": "DS&A",
-                    "start_time": "5PM",
-                    "seats": "30"
-                }
-            ]
-
-        },
-        {
-            "name": "Kay",
-            "events": [
-                {
-                    "name": "React",
-                    "start_time": "10AM",
-                    "seats": "30"
-                },
-                {
-                    "name": "Rails",
-                    "start_time": "1PM",
-                    "seats": "30"
-                },
-                {
-                    "name": "DS&A",
-                    "start_time": "5PM",
-                    "seats": "30"
-                }
-            ]
-
-        },
-        {
-            "name": "Collins",
-            "events": [
-                {
-                    "name": "React",
-                    "start_time": "10AM",
-                    "seats": "30"
-                },
-                {
-                    "name": "Rails",
-                    "start_time": "1PM",
-                    "seats": "30"
-                },
-                {
-                    "name": "DS&A",
-                    "start_time": "5PM",
-                    "seats": "30"
-                }
-            ]
-
-        }
-    ]
-
-    const handleChange = (e) => setSearchInput(e.target.value);
-
-    const reserve = (reserve) => {
-        if (reservation.includes(reserve)) return
-        setReservations([...reservation, reserve])
-        console.log(reservation)
-        setModalOpen(true)
+    const [currentSeats, setCurrentSeats] = useState([])
+    const [selEvent, setSelEvent] = useReducer(
+        (prev, next) => {
+            return { ...prev, ...next };
+        }, {
+        "room": "",
+        "name": "",
+        "start_time": "",
+        "seats": "",
+        "id": ""
     }
-
+    )
+    //fetch EVENTS
     useEffect(() => {
-        // const request = async () => {
-        //     let req = await fetch("http://localhost:5000/classrooms")
-        //     let res = await req.json()
-        //     if (req.ok) {
-        //         setClassrooms(classrooms => res)
-        //     }
-        // }
+        const request = async () => {
+            let req = await fetch('http://127.0.0.1:3001/events')
+            let res = await req.json()
+            if (req.ok) {
+                setEventList(res)
+            }
+        }
         setIsLoading(true)
-        // request()
-        setClassrooms(seedData)
+        request()
         setIsLoading(false)
     }, [])
-    console.log(modalOpen)
 
-    const modal = document.getElementById("exampleModal")
-    console.log('hi')
+    //fetch seat availability on select Event
+    const handleClick = (selEvent) => {
+        setSelEvent(selEvent)
+        console.log(selEvent, selEvent.id)
+        const request = async () => {
+            let req = await fetch(`http://127.0.0.1:3001/events/${selEvent.id}`)
+            let seats = await req.json()
+            if (req.ok) {
+                setCurrentSeats(seats)
+                console.log(seats[0].is_empty)
+                setModalOpen(true)
+            }
+        }
+        request()
+        // fetch request to a useState[]
+    }
+    console.log(currentSeats)
+
+
+    const handleConfirmation = (e) => {
+        console.log(e)
+    }
+
+    const handleClose = () => {
+        setModalOpen(false)
+        setSelEvent({
+            'room': "",
+            'name': "",
+            'start_time': "",
+            'seats': "",
+            'id': ""
+        })
+    }
+
+    const handleSeatSelect = (e) => {
+        console.log('clicked seat', e)
+        if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
+            e.target.classList.toggle("selected");
+            //     // updateSelectedCount();
+        }
+    }
+
+    const searchEvents = eventList.filter((event) => (event.name.toLowerCase()).includes(searchEvent.toLowerCase()))
+    const handleEventSearch = (e) => setSearchEvent(e.target.value);
 
     useEffect(() => {
         if (!selectedRoom) {
@@ -114,69 +90,83 @@ const EventList = ({ selectedRoom }) => {
 
     return (
         <div className="eventList">
-            {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
-            </button> */}
-
-            {/* <!-- Modal --> */}
-            {modalOpen ? <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            TEST BODY
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div> : null
-            }
-            <input
-                className='searchbar'
-                type="search"
-                placeholder="Search here"
-                onChange={handleChange}
-                value={searchInput} />
-            {isLoading ? "Loading..." :
-                classrooms
-                    .filter(room => {
-                        // console.log("in first filter")
-                        return room.room.includes(selectedRoom)
-                    })
-                    .filter(room => room.name.includes(searchInput))
-                    .map(classroom => {
-                        return (
-                            <div className="table" >
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>{classroom.name}:</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {classroom.events.map(event => (
-                                            <tr key={event.name + event.start_time}
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal"
-                                            >
-                                                <td>{event.name}</td>
-                                                <td onClick={() => { reserve(event) }}>{event.start_time}</td>
-                                                <td>{event.seats}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )
-                    })}
+            <div className="input-group input-group-sm mb-3">
+                <input type="text" className="form-control" aria-label="Sizing example input" placeholder="Search here" aria-describedby="inputGroup-sizing-sm" onChange={handleEventSearch}></input>
+            </div>
+            <div className="table">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style={{ fontWeight: "bold" }}>Classroom</td>
+                            <td style={{ fontWeight: "bold" }}>Lecture</td>
+                            <td style={{ fontWeight: "bold" }}>Date</td>
+                        </tr>
+                        {isLoading ? "Loading..." : searchEvents.map(event => {
+                            return (
+                                <>
+                                    <tr key={event.id} data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => { handleClick(event) }}>
+                                        <td>{event.classroom}</td>
+                                        <td>{event.name}</td>
+                                        <td>{event.start_time}</td>
+                                    </tr>
+                                    {modalOpen ?
+                                        <div className="modal fade modalBack" id="exampleModal" role="dialog" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div className="modal-dialog modal-dialog-centered">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.name} {selEvent.start_time}</h1>
+                                                        <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <ul className="showcase">
+                                                        <li><div className="seat"></div><small>Available</small></li>
+                                                        <li><div className="seat selected"></div><small>Selected</small></li>
+                                                        <li><div className="seat occupied"></div><small>Occupied</small></li>
+                                                    </ul>
+                                                    <div className="modal-body">
+                                                        <div className="container">
+                                                            <div className="row-container">
+                                                                <div className="row">
+                                                                    <div className={currentSeats[0].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[1].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[2].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[3].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[4].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[5].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[6].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[7].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="row-container">
+                                                                <div className="row">
+                                                                    <div className={currentSeats[8].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[9].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[10].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[11].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[12].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[13].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[14].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                    <div className={currentSeats[15].is_empty ? "seat" : "seat occupied"} onClick={(e) => handleSeatSelect(e)}></div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="text-wrapper">
+                                                                <p className="text">Selected Seat: </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal" onClick={handleClose}>Close</button>
+                                                        <button type="button" className="btn btn-primary btn-sm" onClick={(e) => handleConfirmation(e)}>Confirm Reservation</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        : null}
+                                </>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
