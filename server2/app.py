@@ -43,8 +43,9 @@ def login():
 
 @app.post('/users')
 def create_user():
-    data = request.form
-    user = User(data['username'], data['email'], data['password'])
+    data = request.json
+    user = User(data['username'], data['email'],
+                data['password'], data['avatarURL'])
     db.session.add(user)
     db.session.commit()
     return jsonify(user.toJSON()), 201
