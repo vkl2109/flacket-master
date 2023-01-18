@@ -14,6 +14,7 @@
 }
 
 .bookingCard {
+    height: 15vh;
     flex: 1;
     margin: 0.5rem;
     border-radius: 1rem;
@@ -21,8 +22,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     justify-content: center;
     transition: all 0.5s ease-out;
+}
+.bookingCard p {
+    margin: 0;
+    font-size: 1vw;
 }
 
 .bookingCard:hover {
