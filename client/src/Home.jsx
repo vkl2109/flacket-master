@@ -43,6 +43,7 @@ function Home({ loginData }) {
                         // setBookings={setBookings}
                         isLoading={isLoading}
                     // setIsLoading={setIsLoading}
+                        setReFetch={setReFetch}
                     />
                 </div>
             </div>
