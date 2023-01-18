@@ -50,12 +50,12 @@ function Map({ selectedRoom, setSelectedRoom }) {
     return (
         <div className='map-cont'>
             <svg
-                viewBox="0 0 1035 510" width="1035" height="570">
+                viewBox="0 0 1035 570" width="1035" height="500">
 
                 {/* <!-- Campus Map Rectangle container Rounded Edges--> */}
                 <rect
                     className="main-rect"
-                    x="0" y="0" width="1035" height="570" fill="#ffffff">
+                    x="0" y="0" width="1035" height="500" fill="#ffffff">
                 </rect>
                 <g strokeLinecap="round" transform="translate(10 10) rotate(0 507.55416525102873 275.1555546917814)">
                     <path d="M32 0 M32 0 C241.32 -1.01, 449.75 -0.91, 983.11 0 M32 0 C395.39 -0.74, 759.13 -0.08, 983.11 0 M983.11 0 C1005.56 0.45, 1015.97 9.14, 1015.11 32 M983.11 0 C1003.53 -1.65, 1013.37 10.56, 1015.11 32 M1015.11 32 C1016.04 162.96, 1016.15 294.12, 1015.11 518.31 M1015.11 32 C1015.78 145.46, 1015.79 258.98, 1015.11 518.31 M1015.11 518.31 C1013.17 537.79, 1003.92 548.4, 983.11 550.31 M1015.11 518.31 C1012.81 537.51, 1005.99 550.85, 983.11 550.31 M983.11 550.31 C683.89 552.94, 383.24 553.1, 32 550.31 M983.11 550.31 C605.8 546.36, 227.73 546.99, 32 550.31 M32 550.31 C9.26 551.17, 1.65 540.38, 0 518.31 M32 550.31 C12.81 550.31, -0.89 539.51, 0 518.31 M0 518.31 C1.54 380.67, 1.95 243.58, 0 32 M0 518.31 C2.04 405.1, 1.59 292.57, 0 32 M0 32 C-0.61 12.26, 11.16 -1.43, 32 0 M0 32 C-1.56 8.54, 9.59 -1.51, 32 0" stroke="#000000" strokeWidth="1" fill="none">
@@ -242,7 +242,7 @@ function Map({ selectedRoom, setSelectedRoom }) {
                         <g transform="translate(180.38610205555597 282.4643678561424) rotate(0 0 -42.132458104790885)">
                             <path d="M0 0 C0 -18.86, 0 -37.71, 0 -84.26 M0 0 C0 -32.96, 0 -65.92, 0 -84.26"
                                 data-name="collins"
-                                stroke={roomHover["collins"] ? "#076e08" : "#000000"}
+                                stroke={roomHover["collins"] ? "#16842a" : "#000000"}
                                 strokeWidth={roomHover["collins"] ? "5" : "1"}
                                 fill="none">
                             </path>
@@ -305,7 +305,7 @@ function Map({ selectedRoom, setSelectedRoom }) {
                         data-name="johnson"
                         x="750.6491" y="298.0091"
                         width="187.65" height="208.26"
-                        fill={roomHover["johnson"] ? "#ffa8a8" : "#FFF"}
+                        fill={roomHover["johnson"] ? "#CD5F04" : "#FFF"}
                         onMouseOver={selectedRoom ? null : handleMouseOver}
                         onClick={handleSelectRoom}
                     >
