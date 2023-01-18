@@ -7,9 +7,8 @@ import NavBar from './Navbar'
 
 function App() {
   const [loginData, setLoginData] = useState({
-    id: 1,
-    username: "",
-    password: ""
+    id: null,
+    username: null
   });
 
   useEffect(() => {
