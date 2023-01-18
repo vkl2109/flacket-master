@@ -1,11 +1,12 @@
 .eventList {
     height: 100%;
-    width: 30%;
+    width: 32%;
     margin: 2rem;
     padding: 1rem;
     background: white;
     border-radius: 1rem;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    font-family: 'Virgil';
 }
 
 .table {
@@ -42,10 +43,6 @@
     opacity: 100%
 }
 
-.small-font{
-    font-size: small;
-}
-
 .container {
     perspective: 51000px;
     -webkit-perspective: 1000px;
@@ -53,6 +50,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: 'Virgil';
+
 }
 
 .row-container {
@@ -81,6 +80,8 @@
 .row {
     display: flex
 }
+
+
 
 .seat {
     background-color: #444451;
@@ -112,12 +113,14 @@
 .showcase {
     background-color: rgba(0, 0, 0, 0.1);
     padding: 5px 5px;
-    border-radius: 3px;
+    border-radius: 25px;
     color: #777;
     list-style-type: none;
     display: flex;
     justify-content: space-between;
     justify-content: flex-start;
+    font-family: 'Virgil';
+
 }
 
 .showcase li {
@@ -138,6 +141,8 @@
 
 p.text {
     margin: 5px 0;
+    font-size: 16px;
+    font-family: 'Virgil';
 }
 
 p.text span {

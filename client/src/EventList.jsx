@@ -112,6 +112,23 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
         }
         setSelected(newSelected)
     }
+    const convertTime = (value) => {
+        let minutes = value.slice(15,17)
+        let h = value.slice(11, 14)
+        let AMorPM = h < 12 ? "AM":"PM"
+        let hours = (h%12) || 12
+        let time = `${hours}:${minutes} ${AMorPM}`
+        return time
+    }
+
+    const convertDate = (value) => {
+        let mmddyyyy = value.slice(0,10)
+        let month = value.slice(0, 2)
+        let day = value.slice(3, 5)
+        let year = value.slice(6, 10)
+        const weekday = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+        return [weekday[new Date(`${month}/${day}/${year}`).getDay()]+", "+ mmddyyyy]
+    }
 
     const searchEvents = eventList
         .filter(event => event.classroom.toLowerCase().includes(selectedRoom))
@@ -122,26 +139,26 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
     return (
         <div className="eventList">
             <div className="input-group input-group-sm mb-3">
-                <input type="text" className="form-control" aria-label="Sizing example input" placeholder="Search here" aria-describedby="inputGroup-sizing-sm" onChange={handleEventSearch}></input>
+                <input type="text" className="form-control" aria-label="Sizing example input" placeholder="Search here..." aria-describedby="inputGroup-sizing-sm" onChange={handleEventSearch}></input>
             </div>
             <div className="table">
-                <table>
+                <table className="table">
                     <thead>
                         <tr>
-                            <th style={{ fontWeight: "bold" }}>Classroom</th>
-                            <th style={{ fontWeight: "bold" }}>Lecture</th>
-                            <th style={{ fontWeight: "bold" }}>Date</th>
-                            <th style={{ fontWeight: "bold" }}>Time</th>
+                            <th>Lecture</th>
+                            <th>Classroom</th>
+                            <th>Date</th>
+                            <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         {eventList && searchEvents.map(event => {
                             return (
                                 <tr key={event.id} data-bs-toggle="modal" data-bs-target="#seatingModal" onClick={() => { handleClick(event) }}>
-                                    <td>{event.classroom}</td>
                                     <td>{event.name}</td>
+                                    <td>{event.classroom}</td>
                                     <td>{event.start_time.slice(0,10)}</td>
-                                    <td>{event.start_time.slice(11)}</td>
+                                    <td>{convertTime(event.start_time)}</td>
                                 </tr>
                             )
                         })}
@@ -152,11 +169,11 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
                         <div className="modal-dialog modal-dialog-centered">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.name} in {selEvent.classroom}</h1>
+                                    <h1 className="modal-title fs-5" style={{fontFamily: 'Virgil', fontWeight: 'bold'}}id="exampleModalLabel">{selEvent.name} in {selEvent.classroom}</h1>
                                     <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                    <h5 className="modal-title fs-5" id="exampleModalLabel">{selEvent.start_time.slice(0,10)} at {selEvent.start_time.slice(11)}</h5>
-                                <ul className="showcase">
+                                <span style={{fontSize: 15, fontFamily: 'Virgil', justifyContent: 'center', paddingLeft: '15px', paddingTop: '5px', paddingBottom: '5px'}}>{convertDate(selEvent.start_time)}  ·  {convertTime(selEvent.start_time)}</span>
+                                <ul className="showcase" style={{justifyContent: 'center'}}>
                                     <li><div className="seat"></div><small>Available</small></li>
                                     <li><div className="seat selected"></div><small>Selected</small></li>
                                     <li><div className="seat occupied"></div><small>Occupied</small></li>
@@ -187,8 +204,8 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
                                     </div>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal" onClick={handleClose}>Close</button>
-                                    <button type="button" className="btn btn-primary btn-sm" data-bs-dismiss="modal" onClick={(e) => handleConfirmation(e)}>Confirm Reservation</button>
+                                    <button type="button" className="btn btn-secondary btn-sm" style={{fontFamily: 'Virgil'}} data-bs-dismiss="modal" onClick={handleClose}>Close</button>
+                                    <button type="button" className="btn btn-primary btn-sm" style={{fontFamily: 'Virgil'}} data-bs-dismiss="modal" onClick={(e) => handleConfirmation(e)}>Confirm Reservation</button>
                                 </div>
                             </div>
                         </div>

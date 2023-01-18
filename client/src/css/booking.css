@@ -11,6 +11,7 @@
     display: flex;
     align-items: center;
     flex-direction: row; 
+    font-family: 'Virgil'
 }
 
 .bookingCard {
