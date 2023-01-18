@@ -13,6 +13,7 @@
     /* border: solid lightgrey 1px; */
     margin-top: 1rem;
     box-shadow: 5px 5px 5px lightgrey;
+    height: 90%;
     overflow: scroll;
 }
 
@@ -41,7 +42,7 @@
     opacity: 100%
 }
 
-.container {
+.bigcontainer {
     perspective: 51000px;
     -webkit-perspective: 1000px;
     display: flex;

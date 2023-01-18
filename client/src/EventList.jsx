@@ -1,164 +1,178 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import './css/eventlist.css'
 
-const EventList = () => {
+const EventList = ({ selectedRoom }) => {
 
-    const [ classrooms, setClassrooms ] = useState()
-    const [ isLoading, setIsLoading ] = useState(true)
-    const [ searchInput, setSearchInput ] = useState("")
-    const [ reservation, setReservations ] = useState([])
-    const [ modalOpen, setModalOpen ] = useState(false)
-
-    const seedData = [
-        {
-            "name" : "Turing",
-            "events" : [
-                {
-                    "name" : "React",
-                    "start_time": "10AM",
-                    "seats": "30"
-                },
-                {
-                    "name" : "Rails",
-                    "start_time": "1PM",
-                    "seats": "30"
-                },
-                {
-                    "name" : "DS&A",
-                    "start_time": "5PM",
-                    "seats": "30"
-                }
-            ]
-            
-        },
-        {
-            "name" : "Kay",
-            "events" : [
-                {
-                    "name" : "React",
-                    "start_time": "10AM",
-                    "seats": "30"
-                },
-                {
-                    "name" : "Rails",
-                    "start_time": "1PM",
-                    "seats": "30"
-                },
-                {
-                    "name" : "DS&A",
-                    "start_time": "5PM",
-                    "seats": "30"
-                }
-            ]
-            
-        },
-        {
-            "name" : "Collins",
-            "events" : [
-                {
-                    "name" : "React",
-                    "start_time": "10AM",
-                    "seats": "30"
-                },
-                {
-                    "name" : "Rails",
-                    "start_time": "1PM",
-                    "seats": "30"
-                },
-                {
-                    "name" : "DS&A",
-                    "start_time": "5PM",
-                    "seats": "30"
-                }
-            ]
-            
+    const [isLoading, setIsLoading] = useState(true)
+    const [eventList, setEventList] = useState([])
+    const [searchEvent, setSearchEvent] = useState("")
+    const [modalOpen, setModalOpen] = useState(false)
+    const [currentSeats, setCurrentSeats] = useState([])
+    const [ selected, setSelected ] = useState(Array(16).fill(null))
+    const [ currSeat, setCurrSeat ] = useState("Not Selected")
+    const [selEvent, setSelEvent] = useReducer(
+        (prev, next) => {
+            return { ...prev, ...next };
+        }, {
+        "room": "",
+        "name": "",
+        "start_time": "",
+        "seats": "",
+        "id": ""
+    }
+    )
+    //fetch EVENTS
+    useEffect(() => {
+        const request = async () => {
+            let req = await fetch('http://127.0.0.1:3001/events')
+            let res = await req.json()
+            if (req.ok) {
+                setEventList(res)
+            }
         }
-    ]
+        setIsLoading(true)
+        request()
+        setIsLoading(false)
+    }, [])
 
-    const handleChange = (e) => setSearchInput(e.target.value);
-
-    const reserve = (reserve) => {
-        if (reservation.includes(reserve)) return 
-        setReservations([...reservation, reserve])
-        console.log(reservation)
-        setModalOpen(true)
+    //fetch seat availability on select Event
+    const handleClick = (selEvent) => {
+        setSelEvent(selEvent)
+        const request = async () => {
+            let req = await fetch(`http://127.0.0.1:3001/events/${selEvent.id}`)
+            let seats = await req.json()
+            if (req.ok) {
+                setCurrentSeats(seats)
+                setModalOpen(true)
+            }
+        }
+        request()
     }
 
-    useEffect(()=>{
-        // const request = async () => {
-        //     let req = await fetch("http://localhost:5000/classrooms")
-        //     let res = await req.json()
-        //     if (req.ok) {
-        //         setClassrooms(classrooms => res)
+
+    const handleConfirmation = (e) => {
+        // useEffect(() => {
+        //     let request = async () => {
+        //         let req = await fetch("http://localhost:3001/users/1", {
+        //             method: "DELETE",
+        //             headers: {'Authorization': 'Bearer ' + token}
+        //         })
+        //         if (req.ok) {
+        //             req.json()
+        //         } else {
+
+        //         }
         //     }
+        // }, [])
+        console.log(e)
+    }
+
+    const handleClose = () => {
+        setModalOpen(false)
+        setSelEvent({
+            'room': "",
+            'name': "",
+            'start_time': "",
+            'seats': "",
+            'id': ""
+        })
+    }
+
+    const handleSeatSelect = (e, i) => {
+        console.log('clicked seat', e)
+        // if (e.target.classList.contains("seat") && !e.target.classList.contains("occupied")) {
+        //     e.target.classList.toggle("selected");
         // }
-        setIsLoading(true)
-        // request()
-        setClassrooms(seedData)
-        setIsLoading(false)
-    },[])
-    console.log(modalOpen)
-
-    const modal = document.getElementById("exampleModal")
-
-    return(
-        <div className="eventList">
-            {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
-            </button> */}
-
-{/* <!-- Modal --> */}
-        {modalOpen ? <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-                TEST BODY
-            </div>
-            <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Save changes</button>
-            </div>
-            </div>
-        </div>
-        </div> : null
+        let newSelected = Array(16).fill(null)
+        if (!selected[i]) {
+            newSelected[i] = true
+            setCurrSeat(i + 1)
         }
-            <input
-                className='searchbar'
-                type="search"
-                placeholder="Search here"
-                onChange={handleChange}
-                value={searchInput} />
-            {isLoading ? "Loading..." : classrooms.filter(room => room.name.includes(searchInput)).map(classroom => {
+        else {
+            setCurrSeat("Not Selected")
+        }
+        setSelected(newSelected)
+    }
+
+    const searchEvents = eventList
+        .filter(event => event.classroom.toLowerCase().includes(selectedRoom))
+        .filter((event) => (event.name.toLowerCase()).includes(searchEvent.toLowerCase()))
+
+    const handleEventSearch = (e) => setSearchEvent(e.target.value);
+
+    return (
+        <div className="eventList">
+            <div className="input-group input-group-sm mb-3">
+                <input type="text" className="form-control" aria-label="Sizing example input" placeholder="Search here" aria-describedby="inputGroup-sizing-sm" onChange={handleEventSearch}></input>
+            </div>
+            <div className="table">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style={{ fontWeight: "bold" }}>Classroom</td>
+                            <td style={{ fontWeight: "bold" }}>Lecture</td>
+                            <td style={{ fontWeight: "bold" }}>Date</td>
+                        </tr>
+                {isLoading ? "Loading..." : searchEvents.map(event => {
                 return (
-                    <div className="table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>{classroom.name}:</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {classroom.events.map(event => (
-                                    <tr key={event.name+event.start_time}
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#exampleModal"
-                                    >
-                                        <td>{event.name}</td>
-                                        <td onClick={() => {reserve(event)}}>{event.start_time}</td>
-                                        <td>{event.seats}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                <>
+                    <tr key={event.id} data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => {handleClick(event)}}>
+                        <td>{event.classroom}</td>
+                        <td>{event.name}</td>
+                        <td>{event.start_time}</td>
+                    </tr>
+                    {modalOpen ? 
+                        <div className="modal fade modalBack" id="exampleModal" role="dialog" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog modal-dialog-centered">
+                            <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.name} {selEvent.start_time}</h1>
+                                <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <ul className="showcase">
+                                    <li><div className="seat"></div><small>Available</small></li>
+                                    <li><div className="seat selected"></div><small>Selected</small></li>
+                                    <li><div className="seat occupied"></div><small>Occupied</small></li>
+                                </ul>
+                            <div className="modal-body">
+                                <div className="bigcontainer">
+                                    <div className="row-container">
+                                        <div className="row">
+                                            {currentSeats.slice(0, 8).map((seat, i) => {
+                                                return (
+                                                    <div className={seat.is_empty ? (selected[i] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => handleSeatSelect(e, i)}></div>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
+                                    <div className="row-container">
+                                        <div className="row">
+                                            {currentSeats.slice(8).map((seat, i) => {
+                                                return (
+                                                    <div className={seat.is_empty ?  (selected[i + 8] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => handleSeatSelect(e, i + 8)}></div>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
+                                    <div className="text-wrapper">
+                                        <p className="text">Selected Seat: {currSeat}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal" onClick={handleClose}>Close</button>
+                                <button type="button" className="btn btn-primary btn-sm" onClick={(e) => handleConfirmation(e)}>Confirm Reservation</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div> 
+                    : null}
+                </>
                 )
-            })}
+                })}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
