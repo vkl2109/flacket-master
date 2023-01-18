@@ -134,28 +134,31 @@ const EventList = ({ selectedRoom }) => {
                             <th style={{ fontWeight: "bold" }}>Classroom</th>
                             <th style={{ fontWeight: "bold" }}>Lecture</th>
                             <th style={{ fontWeight: "bold" }}>Date</th>
+                            <th style={{ fontWeight: "bold" }}>Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         {eventList && searchEvents.map(event => {
                             return (
-                                <tr key={event.id} data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => { handleClick(event) }}>
+                                <tr key={event.id} data-bs-toggle="modal" data-bs-target="#seatingModal" onClick={() => { handleClick(event) }}>
                                     <td>{event.classroom}</td>
                                     <td>{event.name}</td>
-                                    <td>{event.start_time}</td>
+                                    <td>{event.start_time.slice(0,10)}</td>
+                                    <td>{event.start_time.slice(11)}</td>
                                 </tr>
                             )
                         })}
                     </tbody>
                 </table>
                 {modalOpen &&
-                    <div className="modal fade modalBack" id="exampleModal" role="dialog" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal fade modalBack" id="seatingModal" role="dialog" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div className="modal-dialog modal-dialog-centered">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.name} {selEvent.start_time}</h1>
+                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.name} in {selEvent.classroom}</h1>
                                     <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                    <h5 className="modal-title fs-5" id="exampleModalLabel">{selEvent.start_time.slice(0,10)} at {selEvent.start_time.slice(11)}</h5>
                                 <ul className="showcase">
                                     <li><div className="seat"></div><small>Available</small></li>
                                     <li><div className="seat selected"></div><small>Selected</small></li>
