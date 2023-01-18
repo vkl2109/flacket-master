@@ -242,7 +242,7 @@ function Map({ selectedRoom, setSelectedRoom }) {
                         <g transform="translate(180.38610205555597 282.4643678561424) rotate(0 0 -42.132458104790885)">
                             <path d="M0 0 C0 -18.86, 0 -37.71, 0 -84.26 M0 0 C0 -32.96, 0 -65.92, 0 -84.26"
                                 data-name="collins"
-                                stroke={roomHover["collins"] ? "#076e08" : "#000000"}
+                                stroke={roomHover["collins"] ? "#16842a" : "#000000"}
                                 strokeWidth={roomHover["collins"] ? "5" : "1"}
                                 fill="none">
                             </path>
@@ -305,7 +305,7 @@ function Map({ selectedRoom, setSelectedRoom }) {
                         data-name="johnson"
                         x="750.6491" y="298.0091"
                         width="187.65" height="208.26"
-                        fill={roomHover["johnson"] ? "#ffa8a8" : "#FFF"}
+                        fill={roomHover["johnson"] ? "#CD5F04" : "#FFF"}
                         onMouseOver={selectedRoom ? null : handleMouseOver}
                         onClick={handleSelectRoom}
                     >

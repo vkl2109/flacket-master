@@ -11,6 +11,7 @@
     height: 12vh;
     font-family: 'Fira Sans', sans-serif;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    
 }
 .nav-cont .btn-group{
     width: 10%;
@@ -23,9 +24,12 @@
 }
 .nav-cont h1{
     align-self: center;
+    font-family: 'Virgil';
     font-size: 45px;
     padding-left: 8%;
-    color: rgb(93, 135, 200);
+    padding-right: 57%;
+    /* color: rgb(93, 135, 200); */
+    color: #0F8FA1;
 }
 .login-cont{
     display: flex;

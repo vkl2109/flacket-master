@@ -13,7 +13,7 @@ function NavBar({ loginData, setLoginData }) {
     return (
         <div className='nav-cont'>
             <h1>FlatPass</h1>
-            {loginData.username && <h2 style={{"alignSelf": "center"}}>Welcome, {loginData.username}</h2>}
+            {loginData.username && <span style={{fontFamily: 'Virgil',  fontSize: 16, color: "#0F8FA1", "alignSelf": "center"}}>Welcome, {loginData.username}</span>}
             <div className="btn-group">
                 <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="src/assets/avatardefault_92824.png" />
