@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import './css/eventlist.css'
 
-const EventList = ({ selectedRoom }) => {
+const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [eventList, setEventList] = useState([])
@@ -49,16 +49,13 @@ const EventList = ({ selectedRoom }) => {
     }
 
     const handleConfirmation = (e) => {
-
-        console.log("User 1 has selected seat Number", currSeat, "for Event", selEvent.name, "Event id: ", selEvent.id)
-        console.log("Sending Post request to Bookings Table")
-        updateBookings();
-        console.log("Sending Patch request to ")
+        addBooking();
+        // updateSeats();
         // send a patch request that will update the seat table
         // event_id / seat_number(currSeat) / is_empty (false) / student_name = test123
     }
 
-    const updateBookings = async () => {
+    const addBooking = async () => {
         let req = await fetch(`http://127.0.0.1:3001/bookings`, {
             method: "POST",
             headers: { "Content-type": "application/json" },
@@ -71,23 +68,23 @@ const EventList = ({ selectedRoom }) => {
         if (req.ok) {
             // re render with updated booking
             console.log("seat is booked")
+            setReFetch(reFetch => !reFetch)
+            // setModalOpen(false)
+            handleClose()
         }
+    }
 
-        // useEffect(() => {
-        //     let request = async () => {
-        //         let req = await fetch("http://localhost:3001/users/1", {
-        //             method: "DELETE",
-        //             headers: {'Authorization': 'Bearer ' + token}
-        //         })
-        //         if (req.ok) {
-        //             req.json()
-        //         } else {
-
-        //         }
-        //     }
-        // }, [])
-        console.log(e)
-
+    const updateSeats = async () => {
+        let req = await fetch(`http://127.0.0.1:3001/seats/${1}`, {
+            method: "PATCH",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                event_id: "",
+                seat: "",
+                is_empty: false,
+                student: ""
+            })
+        })
     }
 
     const handleClose = () => {
@@ -191,7 +188,7 @@ const EventList = ({ selectedRoom }) => {
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal" onClick={handleClose}>Close</button>
-                                    <button type="button" className="btn btn-primary btn-sm" onClick={(e) => handleConfirmation(e)}>Confirm Reservation</button>
+                                    <button type="button" className="btn btn-primary btn-sm" data-bs-dismiss="modal" onClick={(e) => handleConfirmation(e)}>Confirm Reservation</button>
                                 </div>
                             </div>
                         </div>
