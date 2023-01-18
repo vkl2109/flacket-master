@@ -13,11 +13,19 @@ function App() {
 
   useEffect(() => {
     const request = async () => {
-      let req = await fetch('')
+      let req = await fetch('http://localhost:3001/autologin', {
+        method: "POST",
+        headers: { "Authorization": "Bearer " + localStorage.getItem("token") },
+        body: JSON.stringify({})
+      })
       let res = await req.json()
-      console.log(res)
+      if (req.ok) {
+        console.log(res)
+        setLoginData({ id: res.id, username: res.username })
+      }
     }
-    request()
+    // console.log(localStorage.getItem("token"))
+    request();
   }, [])
 
 
