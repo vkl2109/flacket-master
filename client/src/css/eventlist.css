@@ -12,11 +12,9 @@
 
 .table {
     border-radius: 1rem;
-    /* border: solid lightgrey 1px; */
     margin-top: 1rem;
     box-shadow: 5px 5px 5px lightgrey;
     height: 90%;
-    overflow: scroll;
 }
 
 .eventList table {
@@ -24,9 +22,19 @@
     border-collapse: collapse;
     border: none;
     border-radius: 10px;
+    height: 90%;
 }
 .eventList table tbody {
     border-style: none;
+      display: block;
+  height: 100%;
+  overflow-y: scroll;
+}
+table thead,
+table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }
 .eventList table th, td {
     padding: 0.4rem;
