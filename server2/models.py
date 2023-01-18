@@ -6,22 +6,26 @@ from datetime import datetime
 db = SQLAlchemy()
 migrate = Migrate(db)
 
+
 class User(db.Model):
     # __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
+    avatarUrl = db.Column(db.String(120))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    updated_at = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     def toJSON(self):
-        return {"id": self.id, "username": self.username, "email": self.email, "password": self.password}
+        return {"id": self.id, "username": self.username, "email": self.email, "password": self.password, "avatarUrl": self.avatarUrl}
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, avatarUrl):
         self.username = username
         self.email = email
         self.password = password
+        self.avatarUrl = avatarUrl
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -33,7 +37,8 @@ class Booking(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     seat_id = db.Column(db.Integer, db.ForeignKey('seat.id'), nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    updated_at = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     def toJSON(self):
         seat = Seat.query.get(self.seat_id)
@@ -54,7 +59,8 @@ class Classroom(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    updated_at = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     events = db.relationship('Event', backref='classroom', lazy=True)
 
     def toJSON(self):
@@ -73,15 +79,15 @@ class Event(db.Model):
     name = db.Column(db.String(80), nullable=False)
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=False)
-    classroom_id = db.Column(db.Integer, db.ForeignKey('classroom.id'), nullable=False)
+    classroom_id = db.Column(db.Integer, db.ForeignKey(
+        'classroom.id'), nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    updated_at = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     seats = db.relationship('Seat', backref='event', lazy=True)
-
 
     def toJSON(self):
         return {"id": self.id, "name": self.name, "start_time": self.start_time.strftime("%m/%d/%Y, %H:%M:%S"), "end_time": self.end_time.strftime("%m/%d/%Y, %H:%M:%S"), "classroom": Classroom.query.get(self.classroom_id).name}
-
 
     def __init__(self, name, start_time, end_time, classroom_id):
         self.name = name
@@ -101,7 +107,8 @@ class Seat(db.Model):
     is_empty = db.Column(db.Boolean(), nullable=False)
     student_name = db.Column(db.String(80))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    updated_at = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     bookings = db.relationship('Booking', backref='seat', lazy=True)
 
     def toJSON(self):
