@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import './css/eventlist.css'
 
-const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
+const EventList = ({ selectedRoom, loginData, setReFetch }) => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [eventList, setEventList] = useState([])
@@ -10,6 +10,7 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
     const [currentSeats, setCurrentSeats] = useState([])
     const [selected, setSelected] = useState(Array(16).fill(null))
     const [currSeat, setCurrSeat] = useState("Not Selected")
+    // const [fetchSeats, setFetchSeats] = useState(false)
     const [selEvent, setSelEvent] = useReducer(
         (prev, next) => {
             return { ...prev, ...next };
@@ -36,10 +37,25 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
     }, [])
 
     //fetch seat availability on select Event
-    const handleClick = (selEvent) => {
-        setSelEvent(selEvent)
+    // useEffect(() => {
+    //     if (!selEvent) {
+    //         return
+    //     } else {
+    //         const request = async () => {
+    //             let req = await fetch(`http://127.0.0.1:3001/events/${selEvent.id}`)
+    //             let seats = await req.json()
+    //             if (req.ok) {
+    //                 setCurrentSeats(seats)
+    //             }
+    //         }
+    //     }
+
+    // }, [fetchSeats])
+
+    const handleClick = (event) => {
+        setSelEvent(event)
         const request = async () => {
-            let req = await fetch(`http://127.0.0.1:3001/events/${selEvent.id}`)
+            let req = await fetch(`http://127.0.0.1:3001/events/${event.id}`)
             let seats = await req.json()
             if (req.ok) {
                 setCurrentSeats(seats)
@@ -50,9 +66,8 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
 
     const handleConfirmation = (e) => {
         addBooking();
-        // updateSeats();
-        // send a patch request that will update the seat table
-        // event_id / seat_number(currSeat) / is_empty (false) / student_name = test123
+        updateSeats();
+        handleClick(selEvent);
     }
 
     const addBooking = async () => {
@@ -66,25 +81,26 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
         })
         let res = await req.json()
         if (req.ok) {
-            // re render with updated booking
-            console.log("seat is booked")
             setReFetch(reFetch => !reFetch)
-            // setModalOpen(false)
             handleClose()
         }
     }
 
     const updateSeats = async () => {
-        let req = await fetch(`http://127.0.0.1:3001/seats/${1}`, {
+        let req = await fetch(`http://127.0.0.1:3001/seats/${selEvent.id}/${currSeat}`, {
             method: "PATCH",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
-                event_id: "",
-                seat: "",
-                is_empty: false,
-                student: ""
+                // is_empty: "False",
+                student: loginData.username
             })
         })
+        let res = await req.json()
+        if (req.ok) {
+            console.log("Patch request successful")
+            console.log(res)
+
+        }
     }
 
     const handleClose = () => {
@@ -140,7 +156,7 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
                                 <tr key={event.id} data-bs-toggle="modal" data-bs-target="#seatingModal" onClick={() => { handleClick(event) }}>
                                     <td>{event.classroom}</td>
                                     <td>{event.name}</td>
-                                    <td>{event.start_time.slice(0,10)}</td>
+                                    <td>{event.start_time.slice(0, 10)}</td>
                                     <td>{event.start_time.slice(11)}</td>
                                 </tr>
                             )
@@ -155,7 +171,7 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
                                     <h1 className="modal-title fs-5" id="exampleModalLabel">{selEvent.name} in {selEvent.classroom}</h1>
                                     <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                    <h5 className="modal-title fs-5" id="exampleModalLabel">{selEvent.start_time.slice(0,10)} at {selEvent.start_time.slice(11)}</h5>
+                                <h5 className="modal-title fs-5" id="exampleModalLabel">{selEvent.start_time.slice(0, 10)} at {selEvent.start_time.slice(11)}</h5>
                                 <ul className="showcase">
                                     <li><div className="seat"></div><small>Available</small></li>
                                     <li><div className="seat selected"></div><small>Selected</small></li>

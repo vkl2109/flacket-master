@@ -4,16 +4,14 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from config import Config
 from models import db, User, Booking, Classroom, Event, Seat
+import json
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
-
-
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__, static_folder='public')
-# CORS(app, resources={r"*": {"origins": "*"}})
 CORS(app, origins=['*'])
 app.config.from_object(Config)
 jwt = JWTManager(app)
@@ -24,6 +22,7 @@ migrate = Migrate(app, db)
 @app.get('/')
 def home():
     return send_file('welcome.html')
+
 
 @app.post('/login')
 def login():
@@ -78,12 +77,24 @@ def add_booking():
     data = request.json
     user_id = data['user']
     seat_id = data['seat']
-    print(data)
     booking = Booking(user_id, seat_id)
-    print(booking)
     db.session.add(booking)
     db.session.commit()
     return jsonify(booking.toJSON()), 201
+
+
+@app.patch('/seats/<int:event>/<int:seat>')
+def update_seat(event, seat):
+    data = request.json
+    seat = Seat.query.filter_by(event_id=event, seat_number=seat).first()
+
+    if seat:
+        seat.is_empty = False
+        seat.student_name = data['student']
+        db.session.commit()
+        return jsonify(seat.toJSON()), 202
+    else:
+        return {"error": "seat not found"}, 404
 
 
 @app.get('/events')
