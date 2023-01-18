@@ -42,6 +42,10 @@
     opacity: 100%
 }
 
+.small-font{
+    font-size: small;
+}
+
 .container {
     perspective: 51000px;
     -webkit-perspective: 1000px;
