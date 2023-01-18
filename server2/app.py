@@ -84,13 +84,21 @@ def add_booking():
     return jsonify(booking.toJSON()), 201
 
 
-@app.patch('/seats/<int:event>/<int:seat>')
-def update_seat(event, seat):
+@app.delete('/bookings/<int:booking_id>')
+def delete_booking(booking_id):
+    booking = Booking.query.get(booking_id)
+    db.session.delete(booking)
+    db.session.commit()
+    return {"msg": "booking deleted"}, 204
+
+
+@app.patch('/seats/<int:seat_id>')
+def update_seat(seat_id):
     data = request.json
-    seat = Seat.query.filter_by(event_id=event, seat_number=seat).first()
+    seat = Seat.query.get(seat_id)
 
     if seat:
-        seat.is_empty = False
+        seat.is_empty = False if data['is_empty'] == "False" else True
         seat.student_name = data['student']
         db.session.commit()
         return jsonify(seat.toJSON()), 202
