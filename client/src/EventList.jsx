@@ -49,6 +49,7 @@ const EventList = ({ selectedRoom }) => {
     }
 
     const handleConfirmation = (e) => {
+
         console.log("User 1 has selected seat Number", currSeat, "for Event", selEvent.name, "Event id: ", selEvent.id)
         console.log("Sending Post request to Bookings Table")
         updateBookings();
@@ -71,6 +72,22 @@ const EventList = ({ selectedRoom }) => {
             // re render with updated booking
             console.log("seat is booked")
         }
+
+        // useEffect(() => {
+        //     let request = async () => {
+        //         let req = await fetch("http://localhost:3001/users/1", {
+        //             method: "DELETE",
+        //             headers: {'Authorization': 'Bearer ' + token}
+        //         })
+        //         if (req.ok) {
+        //             req.json()
+        //         } else {
+
+        //         }
+        //     }
+        // }, [])
+        console.log(e)
+
     }
 
     const handleClose = () => {
