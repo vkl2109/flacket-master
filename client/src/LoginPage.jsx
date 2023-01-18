@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
-function LoginPage() {
+function LoginPage({ loginData, setLoginData }) {
+    const navigate = useNavigate()
     const [showSignUp, setShowSignUp] = useState(false);
-    const [loginData, setLoginData] = useState({
+    const [ errorMsg, setErrorMsg ] = useState('')
+    const [ loginState, setLoginState] = useState({
         username: "",
         password: ""
-    });
+    })
     const [signUpData, setSignUpData] = useState({
         username: "",
         email: "",
@@ -15,7 +18,7 @@ function LoginPage() {
     })
 
     const handleLoginInput = (e) => {
-        setLoginData({ ...loginData, [e.target.name]: e.target.value });
+        setLoginState({ ...loginState, [e.target.name]: e.target.value });
     }
 
     const handleSignUpInput = (e) => {
@@ -27,28 +30,51 @@ function LoginPage() {
 
         if (showSignUp) {
             console.log("Signing up...")
-            // const signup = async() => {
-            //     let req = await fetch("/login")
-            //     let res = await req.json()
-            //     console.log(res)
-            //     if (res.ok) {
-            //          navigate to home page
-            //          set user to logged in user    
-            //     }
-            // }
+            const signup = async() => {
+                let req = await fetch("http://localhost:3001/users", {
+                    method: "POST",
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify({
+                        username: signUpData.username,
+                        email: signUpData.email,
+                        password: signUpData.password,
+                        avatarURL: signUpData.avatarURL
+                    })
+                })
+                let res = await req.json()
+                console.log(res)
+                if (res.ok) {
+                    setLoginData(res)
+                    navigate("/home")
+                }
+            }
+            signup()
 
         } else {
             console.log("Loggin in...")
-            // const login =  async() => {
-            //     let req = await fetch("/login")
-            //     let res = await req.json()
-            //     console.log(res)
-            //      if (res.ok) {
-            //          set user to logged in user
-            //          navigate to home page
-            //      }
-            // }
-
+            const login =  async() => {
+                console.log("username", loginState.username)
+                let req = await fetch("http://localhost:3001/login", {
+                    method: "POST",
+                    headers: { "Content-type": "application/json"},
+                    body: JSON.stringify({
+                        username: loginState.username,
+                        password: loginState.password
+                    })
+                })
+                let res = await req.json()
+                console.log(res)
+                 if (req.ok) {
+                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password}
+                    setLoginData(newUser)
+                    localStorage.setItem('token', res.token)
+                    navigate('/home')
+                 }
+                 else {
+                    setErrorMsg(`Log In Failed: ${res.error}`)
+                 }
+            }
+            login()
         }
 
     }
@@ -66,7 +92,7 @@ function LoginPage() {
                             type="text"
                             placeholder="Username"
                             name="username"
-                            value={loginData.username}
+                            value={loginState.username}
                             onChange={handleLoginInput}>
                         </input>
                     </div>
@@ -76,10 +102,11 @@ function LoginPage() {
                             type="password"
                             placeholder="Password"
                             name="password"
-                            value={loginData.password}
+                            value={loginState.password}
                             onChange={handleLoginInput} >
                         </input>
                     </div>
+                    <h6 style={{"color": "red", "align-self":"center"}}>{errorMsg}</h6>
                     <div>
                         <input
                             className="form-control"
@@ -147,6 +174,7 @@ function LoginPage() {
                             >
                             </input>
                         </div>
+                        <h6 style={{"color": "red", "align-self":"center"}}>{errorMsg}</h6>
                         <div>
                             <button
                                 onClick={() => setShowSignUp(false)}

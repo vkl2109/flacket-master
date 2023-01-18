@@ -15,6 +15,7 @@ from flask_jwt_extended import JWTManager
 app = Flask(__name__, static_folder='public')
 CORS(app, origins=['*'])
 app.config.from_object(Config)
+jwt = JWTManager(app)
 db.init_app(app)
 migrate = Migrate(app, db)
 
@@ -24,8 +25,9 @@ def home():
 
 @app.post('/login')
 def login():
-    data = request.form
-    user = User.query.filter_by(email=data['email']).first()
+    data = request.json
+    print('data is', data)
+    user = User.query.filter_by(username=data['username']).first()
     if not user:
         return jsonify({'error': 'No account found'}), 404
     else:
@@ -33,7 +35,7 @@ def login():
         if user.password == given_password:
             # authenticate user
             access_token = create_access_token(identity=user.id)
-            return jsonify({'user': user.to_dict(), 'token': access_token})
+            return jsonify({'user': user.toJSON(), 'token': access_token}), 200
         else:
             return jsonify({'error': 'Invalid Password'}), 422
 
