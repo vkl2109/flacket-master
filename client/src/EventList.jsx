@@ -10,6 +10,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
     const [currentSeats, setCurrentSeats] = useState([])
     const [selected, setSelected] = useState(Array(16).fill(null))
     const [currSeat, setCurrSeat] = useState("Not Selected")
+    const [currId, setCurrId] = useState()
     const [selEvent, setSelEvent] = useReducer(
         (prev, next) => {
             return { ...prev, ...next };
@@ -59,7 +60,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
                 user: 1,
-                seat: currSeat
+                seat: currId
             })
         })
         let res = await req.json()
@@ -104,9 +105,11 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
         if (!selected[i]) {
             newSelected[i] = true
             setCurrSeat(i + 1)
+            setCurrId(currentSeats[i].id)
         }
         else {
             setCurrSeat("Not Selected")
+            setCurrId()
         }
         setSelected(newSelected)
     }
