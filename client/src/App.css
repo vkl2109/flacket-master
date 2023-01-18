@@ -77,13 +77,13 @@
 }
 .map-cont{
     width: 100%;
-    height: 70%;
+    height: 100%;
     display: flex;
     justify-content: center;
 }
 
 .map-cont svg{
-    width: 68%;
-    margin-top: -9%;
+    width: 75%;
+    margin-top: -3%;
 } 
 

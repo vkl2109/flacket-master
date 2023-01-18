@@ -44,7 +44,12 @@ class Booking(db.Model):
         seat = Seat.query.get(self.seat_id)
         event = Event.query.get(seat.event_id)
         classroom = Classroom.query.get(event.classroom_id)
-        return {"id": self.id, "start_time": event.start_time.strftime("%m/%d/%Y, %H:%M:%S"), "end_time": event.end_time.strftime("%m/%d/%Y, %H:%M:%S"), "event": event.name, "classroom": classroom.name}
+        return {"id": self.id,
+                "start_time": event.start_time.strftime("%m/%d/%Y, %H:%M:%S"),
+                "end_time": event.end_time.strftime("%m/%d/%Y, %H:%M:%S"), "seat_number": seat.seat_number,
+                "seat_id": self.seat_id,
+                "event": event.name,
+                "classroom": classroom.name}
 
     def __init__(self, user_id, seat_id):
         self.user_id = user_id
