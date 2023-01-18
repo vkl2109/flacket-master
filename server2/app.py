@@ -7,15 +7,46 @@ from models import db, User, Booking, Classroom, Event, Seat
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 
 
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+
 app = Flask(__name__, static_folder='public')
 CORS(app, origins=['*'])
 app.config.from_object(Config)
+jwt = JWTManager(app)
 db.init_app(app)
 migrate = Migrate(app, db)
 
 @app.get('/')
 def home():
     return send_file('welcome.html')
+
+@app.post('/login')
+def login():
+    data = request.json
+    print('data is', data)
+    user = User.query.filter_by(username=data['username']).first()
+    if not user:
+        return jsonify({'error': 'No account found'}), 404
+    else:
+        given_password = data['password']
+        if user.password == given_password:
+            # authenticate user
+            access_token = create_access_token(identity=user.id)
+            return jsonify({'user': user.toJSON(), 'token': access_token}), 200
+        else:
+            return jsonify({'error': 'Invalid Password'}), 422
+
+
+@app.post('/users')
+def create_user():
+    data = request.form
+    user = User(data['username'], data['email'], data['password'])
+    db.session.add(user)
+    db.session.commit()
+    return jsonify(user.toJSON()), 201
 
 @app.route('/classrooms')
 def get_all_classrooms():
