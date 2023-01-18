@@ -71,10 +71,11 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
     }
 
     const updateSeats = async () => {
-        let req = await fetch(`http://127.0.0.1:3001/seats/${selEvent.id}/${currSeat}`, {
+        let req = await fetch(`http://127.0.0.1:3001/seats/${currId}`, {
             method: "PATCH",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
+                is_empty: "False",
                 student: loginData.username
             })
         })
@@ -114,21 +115,21 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
         setSelected(newSelected)
     }
     const convertTime = (value) => {
-        let minutes = value.slice(15,17)
+        let minutes = value.slice(15, 17)
         let h = value.slice(11, 14)
-        let AMorPM = h < 12 ? "AM":"PM"
-        let hours = (h%12) || 12
+        let AMorPM = h < 12 ? "AM" : "PM"
+        let hours = (h % 12) || 12
         let time = `${hours}:${minutes} ${AMorPM}`
         return time
     }
 
     const convertDate = (value) => {
-        let mmddyyyy = value.slice(0,10)
+        let mmddyyyy = value.slice(0, 10)
         let month = value.slice(0, 2)
         let day = value.slice(3, 5)
         let year = value.slice(6, 10)
         const weekday = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-        return [weekday[new Date(`${month}/${day}/${year}`).getDay()]+", "+ mmddyyyy]
+        return [weekday[new Date(`${month}/${day}/${year}`).getDay()] + ", " + mmddyyyy]
     }
 
     const searchEvents = eventList
@@ -158,7 +159,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                                 <tr key={event.id} data-bs-toggle="modal" data-bs-target="#seatingModal" onClick={() => { handleClick(event) }}>
                                     <td>{event.name}</td>
                                     <td>{event.classroom}</td>
-                                    <td>{event.start_time.slice(0,10)}</td>
+                                    <td>{event.start_time.slice(0, 10)}</td>
                                     <td>{convertTime(event.start_time)}</td>
                                 </tr>
                             )
@@ -170,11 +171,11 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                         <div className="modal-dialog modal-dialog-centered">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h1 className="modal-title fs-5" style={{fontFamily: 'Virgil', fontWeight: 'bold'}}id="exampleModalLabel">{selEvent.name} in {selEvent.classroom}</h1>
+                                    <h1 className="modal-title fs-5" style={{ fontFamily: 'Virgil', fontWeight: 'bold' }} id="exampleModalLabel">{selEvent.name} in {selEvent.classroom}</h1>
                                     <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <span style={{fontSize: 15, fontFamily: 'Virgil', justifyContent: 'center', paddingLeft: '15px', paddingTop: '5px', paddingBottom: '5px'}}>{convertDate(selEvent.start_time)}  ·  {convertTime(selEvent.start_time)}</span>
-                                <ul className="showcase" style={{justifyContent: 'center'}}>
+                                <span style={{ fontSize: 15, fontFamily: 'Virgil', justifyContent: 'center', paddingLeft: '15px', paddingTop: '5px', paddingBottom: '5px' }}>{convertDate(selEvent.start_time)}  ·  {convertTime(selEvent.start_time)}</span>
+                                <ul className="showcase" style={{ justifyContent: 'center' }}>
                                     <li><div className="seat"></div><small>Available</small></li>
                                     <li><div className="seat selected"></div><small>Selected</small></li>
                                     <li><div className="seat occupied"></div><small>Occupied</small></li>
@@ -205,8 +206,8 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                                     </div>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary btn-sm" style={{fontFamily: 'Virgil'}} data-bs-dismiss="modal" onClick={handleClose}>Close</button>
-                                    <button type="button" className="btn btn-primary btn-sm" style={{fontFamily: 'Virgil'}} data-bs-dismiss="modal" onClick={(e) => handleConfirmation(e)}>Confirm Reservation</button>
+                                    <button type="button" className="btn btn-secondary btn-sm" style={{ fontFamily: 'Virgil' }} data-bs-dismiss="modal" onClick={handleClose}>Close</button>
+                                    <button type="button" className="btn btn-primary btn-sm" style={{ fontFamily: 'Virgil' }} data-bs-dismiss="modal" onClick={(e) => handleConfirmation(e)}>Confirm Reservation</button>
                                 </div>
                             </div>
                         </div>
