@@ -183,7 +183,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                                             <div className="row">
                                                 {currentSeats.slice(0, 8).map((seat, i) => {
                                                     return (
-                                                        <div key={i} className={seat.is_empty ? (selected[i] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => handleSeatSelect(e, i)}></div>
+                                                        <div key={i} className={seat.is_empty ? (selected[i] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => seat.is_empty ? handleSeatSelect(e, i) : {}}></div>
                                                     )
                                                 })}
                                             </div>
@@ -192,7 +192,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                                             <div className="row">
                                                 {currentSeats.slice(8).map((seat, i) => {
                                                     return (
-                                                        <div key={i + 8} className={seat.is_empty ? (selected[i + 8] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => handleSeatSelect(e, i + 8)}></div>
+                                                        <div key={i + 8} className={seat.is_empty ? (selected[i + 8] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => seat.is_empty ? handleSeatSelect(e, i + 8) : {}}></div>
                                                     )
                                                 })}
                                             </div>
