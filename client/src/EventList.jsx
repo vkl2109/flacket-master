@@ -9,7 +9,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
     const [modalOpen, setModalOpen] = useState(true)
     const [currentSeats, setCurrentSeats] = useState([])
     const [selected, setSelected] = useState(Array(16).fill(null))
-    const [currSeat, setCurrSeat] = useState("Not Selected")
+    const [currSeat, setCurrSeat] = useState("")
     const [currId, setCurrId] = useState()
     const [selEvent, setSelEvent] = useReducer(
         (prev, next) => {
@@ -96,7 +96,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
             'seats': "",
             'id': ""
         })
-        setCurrSeat("Not Selected")
+        setCurrSeat("")
         setSelected(Array(16).fill(null))
     }
 
@@ -109,7 +109,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
             setCurrId(currentSeats[i].id)
         }
         else {
-            setCurrSeat("Not Selected")
+            setCurrSeat("")
             setCurrId()
         }
         setSelected(newSelected)
@@ -199,7 +199,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                                             </div>
                                         </div>
                                         <div className="text-wrapper">
-                                            <p className="text">Selected Seat: {currSeat}</p>
+                                            <p className="text" style={{color: 'white'}}>{currSeat ? `Selected Seat: ${currSeat}`: null}</p>
                                         </div>
                                     </div>
                                 </div>
