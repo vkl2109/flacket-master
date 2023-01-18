@@ -116,17 +116,13 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
     }
 
     const convertTime = (value) => {
-        let minutes = value.slice(15, 17)
-        let h = value.slice(11, 14)
-        let AMorPM = h < 12 ? "AM" : "PM"
-        let hours = (h % 12) || 12
+        let minutes = value.slice(15, 17), h = value.slice(11, 14), AMorPM = h < 12 ? "AM" : "PM", hours = (h % 12) || 12
         let time = `${hours}:${minutes} ${AMorPM}`
         return time
     }
 
     const convertDate = (value) => {
-        let date = value.slice(0, 10)
-        let mmdd = date.slice(0, date.length-5)
+        let date = value.slice(0, 10), mmdd = date.slice(0, date.length-5)
         let month = value.slice(0, 2), day = value.slice(3, 5), year = value.slice(6, 10)
         const weekday = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
         return [weekday[new Date(`${month}/${day}/${year}`).getDay()]+", "+ mmdd]
@@ -174,7 +170,9 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                                     <h1 className="modal-title fs-5" style={{ fontFamily: 'Virgil', fontWeight: 'bold' }} id="exampleModalLabel">{selEvent.name} in {selEvent.classroom}</h1>
                                     <button type="button" className="btn-close" onClick={handleClose} data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <span style={{ fontSize: 15, fontFamily: 'Virgil', justifyContent: 'center', paddingLeft: '15px', paddingTop: '5px', paddingBottom: '5px' }}>{convertDate(selEvent.start_time)}  ·  {convertTime(selEvent.start_time)}</span>
+                                <span style={{ fontSize: 15, fontFamily: 'Virgil', justifyContent: 'center', paddingLeft: '15px', paddingTop: '5px', paddingBottom: '5px' }}>
+                                    {convertDate(selEvent.start_time)}  ·  {convertTime(selEvent.start_time)}
+                                </span>
                                 <ul className="showcase" style={{ justifyContent: 'center' }}>
                                     <li><div className="seat"></div><small>Available</small></li>
                                     <li><div className="seat selected"></div><small>Selected</small></li>

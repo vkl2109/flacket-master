@@ -18,7 +18,7 @@ const BookingCard = ({ booking }) => {
         let day = value.slice(3, 5)
         let year = value.slice(6, 10)
         const weekday = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-        return [weekday[new Date(`${month}/${day}/${year}`).getDay()] + ", " + mmddyyyy]
+        return [weekday[new Date(`${month}/${day}/${year}`).getDay()] + ", " + mmdd]
     }
 
     const handleDelete = () => {
@@ -52,7 +52,6 @@ const BookingCard = ({ booking }) => {
             <h6>{booking.event}</h6>
             <h6>{booking.classroom}</h6>
             <p>Seat: {booking.seat_number}</p>
-            {/* <p>{booking.classroom}</p> */}
             <p>{convertDate(booking.start_time)}</p>
             <p>{convertTime(booking.start_time)}</p>
             <button onClick={handleDelete}>X</button>
