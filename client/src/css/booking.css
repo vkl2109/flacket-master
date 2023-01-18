@@ -18,6 +18,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     justify-content: center;
     transition: all 0.2s ease-out;
 }
@@ -26,6 +27,10 @@
 }
 .bookingCard p {
     margin: 0 0 3% 0;
+}
+.bookingCard p {
+    margin: 0;
+    font-size: 1vw;
 }
 
 .bookingCard:hover {

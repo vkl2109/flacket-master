@@ -1,11 +1,9 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import BookingCard from './BookingCard'
 import './css/booking.css'
 
-function BookingBar ({loginData}) {
-    const [ bookings, setBookings ] = useState([])
-    const [ isLoading, setIsLoading ] = useState(true)
+function BookingBar({ loginData, bookings, isLoading }) {
 
     useEffect(()=>{
         const request = async () => {
@@ -31,7 +29,7 @@ function BookingBar ({loginData}) {
                 : 
                 bookings.map((booking) => {
                     return (
-                        <BookingCard key={booking.id} booking={booking}/>
+                        <BookingCard key={booking.id} booking={booking} />
                     )
                 })
             }

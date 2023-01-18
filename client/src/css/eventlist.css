@@ -42,7 +42,15 @@
     opacity: 100%
 }
 
-.bigcontainer {
+.small-font{
+    font-size: small;
+}
+
+.small-font{
+    font-size: small;
+}
+
+.container {
     perspective: 51000px;
     -webkit-perspective: 1000px;
     display: flex;

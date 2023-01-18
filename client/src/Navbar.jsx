@@ -16,10 +16,12 @@ function NavBar({ loginData }) {
                     <img src="src/assets/avatardefault_92824.png" />
                 </button>
                 <ul className="dropdown-menu">
-                    <Link to={"/"}>
-                        <li className="dropdown-item">Temp home page link</li>
+                    <Link to={"/home"}>
+                        <li className="dropdown-item">Home</li>
                     </Link>
-                    <li className="dropdown-item" >logout</li>
+                    <Link to={"/"}>
+                        <li className="dropdown-item" >Logout</li>
+                    </Link>
                 </ul>
             </div>
         </div>
