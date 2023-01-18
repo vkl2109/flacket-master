@@ -34,6 +34,7 @@
 .login-cont{
     display: flex;
     align-items: flex-start;
+    
 }
 .img-cont{
     width: 50%;
@@ -45,6 +46,7 @@
     width: 50%;
     display: flex;
     align-items: flex-start;
+    font-family: 'Virgil'
 }
 .form-cont form{
     display: flex;
@@ -52,6 +54,7 @@
     padding: 13%;
     margin-top: -25%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: #EDEDED
 }
 .form-cont input{
     display: flex;
