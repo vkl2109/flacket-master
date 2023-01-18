@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
+
 function LoginPage({ loginData, setLoginData }) {
     const navigate = useNavigate()
     const [showSignUp, setShowSignUp] = useState(false);
