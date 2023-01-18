@@ -10,7 +10,6 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
     const [currentSeats, setCurrentSeats] = useState([])
     const [selected, setSelected] = useState(Array(16).fill(null))
     const [currSeat, setCurrSeat] = useState("Not Selected")
-    // const [fetchSeats, setFetchSeats] = useState(false)
     const [selEvent, setSelEvent] = useReducer(
         (prev, next) => {
             return { ...prev, ...next };
@@ -35,22 +34,6 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
         request()
         setIsLoading(false)
     }, [])
-
-    //fetch seat availability on select Event
-    // useEffect(() => {
-    //     if (!selEvent) {
-    //         return
-    //     } else {
-    //         const request = async () => {
-    //             let req = await fetch(`http://127.0.0.1:3001/events/${selEvent.id}`)
-    //             let seats = await req.json()
-    //             if (req.ok) {
-    //                 setCurrentSeats(seats)
-    //             }
-    //         }
-    //     }
-
-    // }, [fetchSeats])
 
     const handleClick = (event) => {
         setSelEvent(event)
@@ -91,7 +74,6 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
             method: "PATCH",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
-                // is_empty: "False",
                 student: loginData.username
             })
         })

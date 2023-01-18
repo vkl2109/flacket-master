@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 function LoginPage({ loginData, setLoginData }) {
     const navigate = useNavigate()
     const [showSignUp, setShowSignUp] = useState(false);
-    const [ errorMsg, setErrorMsg ] = useState('')
-    const [ loginState, setLoginState] = useState({
+    const [errorMsg, setErrorMsg] = useState('')
+    const [loginState, setLoginState] = useState({
         username: "",
         password: ""
     })
@@ -27,10 +27,14 @@ function LoginPage({ loginData, setLoginData }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (signUpData.password !== signUpData.passwordConfirm) {
+            alert("password does not match")
+            return
+        }
 
         if (showSignUp) {
-            console.log("Signing up...")
-            const signup = async() => {
+            // console.log("Signing up...")
+            const signup = async () => {
                 let req = await fetch("http://localhost:3001/users", {
                     method: "POST",
                     headers: { 'Content-type': 'application/json' },
@@ -43,7 +47,7 @@ function LoginPage({ loginData, setLoginData }) {
                 })
                 let res = await req.json()
                 console.log(res)
-                if (res.ok) {
+                if (req.ok) {
                     setLoginData(res)
                     navigate("/home")
                 }
@@ -52,11 +56,11 @@ function LoginPage({ loginData, setLoginData }) {
 
         } else {
             console.log("Loggin in...")
-            const login =  async() => {
+            const login = async () => {
                 console.log("username", loginState.username)
                 let req = await fetch("http://localhost:3001/login", {
                     method: "POST",
-                    headers: { "Content-type": "application/json"},
+                    headers: { "Content-type": "application/json" },
                     body: JSON.stringify({
                         username: loginState.username,
                         password: loginState.password
@@ -64,15 +68,15 @@ function LoginPage({ loginData, setLoginData }) {
                 })
                 let res = await req.json()
                 console.log(res)
-                 if (req.ok) {
-                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password}
+                if (req.ok) {
+                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password }
                     setLoginData(newUser)
                     localStorage.setItem('token', res.token)
                     navigate('/home')
-                 }
-                 else {
+                }
+                else {
                     setErrorMsg(`Log In Failed: ${res.error}`)
-                 }
+                }
             }
             login()
         }
@@ -106,7 +110,7 @@ function LoginPage({ loginData, setLoginData }) {
                             onChange={handleLoginInput} >
                         </input>
                     </div>
-                    <h6 style={{"color": "red", "align-self":"center"}}>{errorMsg}</h6>
+                    <h6 style={{ "color": "red", "alignself": "center" }}>{errorMsg}</h6>
                     <div>
                         <input
                             className="form-control"
@@ -173,8 +177,17 @@ function LoginPage({ loginData, setLoginData }) {
                                 onChange={handleSignUpInput}
                             >
                             </input>
+                            <input
+                                className="form-control"
+                                type="text"
+                                placeholder="Image Link"
+                                name="avatarURL"
+                                value={signUpData.avatarURL}
+                                onChange={handleSignUpInput}
+                            >
+                            </input>
                         </div>
-                        <h6 style={{"color": "red", "align-self":"center"}}>{errorMsg}</h6>
+                        <h6 style={{ "color": "red", "alignself": "center" }}>{errorMsg}</h6>
                         <div>
                             <button
                                 onClick={() => setShowSignUp(false)}
