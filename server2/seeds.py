@@ -30,17 +30,28 @@ def run_seeds():
                 db.session.add(new_event)
                 db.session.commit()
                 for i in range(1, 17):
-                    if (i % 4 == 0):
-                        new_seat = Seat(new_event.id, i, False, '')
-                    else:
-                        new_seat = Seat(new_event.id, i, True, '')
+                    new_seat = Seat(new_event.id, i, True, '')
                     db.session.add(new_seat)
                     db.session.commit()
             print(new_classroom.toJSON())
-        for i in range(1, 4):
-            new_booking = Booking(user1.id, i)
-            db.session.add(new_booking)
-            db.session.commit()
+        new_booking_1 = Booking(user1.id, 10)
+        seat1 = Seat.query.get(10)
+        seat1.is_empty = False
+        seat1.student_name = user1.username
+        db.session.add(new_booking_1)
+        db.session.commit()
+        new_booking_1 = Booking(user1.id, 20)
+        seat2 = Seat.query.get(20)
+        seat2.is_empty = False
+        seat2.student_name = user1.username
+        db.session.add(new_booking_1)
+        db.session.commit()
+        new_booking_1 = Booking(user1.id, 30)
+        seat3 = Seat.query.get(30)
+        seat3.is_empty = False
+        seat3.student_name = user1.username
+        db.session.add(new_booking_1)
+        db.session.commit()
         print('Done! 🌳')
 
 
