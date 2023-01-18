@@ -5,7 +5,8 @@
     display: flex;
     align-items: center;
     flex-direction: row; 
-    justify-content: center;
+    font-family: 'Virgil';
+    justify-content: center
 }
 
 .bookingCard {

@@ -50,7 +50,7 @@ function Map({ selectedRoom, setSelectedRoom }) {
     return (
         <div className='map-cont'>
             <svg
-                viewBox="0 0 1035 570" width="1035" height="570">
+                viewBox="0 0 1035 510" width="1035" height="570">
 
                 {/* <!-- Campus Map Rectangle container Rounded Edges--> */}
                 <rect
