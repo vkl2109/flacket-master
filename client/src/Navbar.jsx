@@ -1,7 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function NavBar({ loginData }) {
+function NavBar({ loginData, setLoginData }) {
+    const handleLogout = () => {
+        setLoginData({
+            id: "",
+            username: "",
+        })
+        localStorage.removeItem("token")
+    }
 
     return (
         <div className='nav-cont'>
@@ -20,7 +27,7 @@ function NavBar({ loginData }) {
                         <li className="dropdown-item">Home</li>
                     </Link>
                     <Link to={"/"}>
-                        <li className="dropdown-item" >Logout</li>
+                        <li className="dropdown-item" onClick={handleLogout}>Logout</li>
                     </Link>
                 </ul>
             </div>

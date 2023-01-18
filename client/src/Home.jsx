@@ -28,10 +28,12 @@ function Home({ loginData }) {
         <div className='main-cont'>
             <div className='sub-cont'>
                 <EventList
+                    loginData={loginData}
                     selectedRoom={selectedRoom}
                     // setSelectedRoom={setSelectedRoom}
                     reFetch={reFetch}
                     setReFetch={setReFetch}
+
                 />
                 <div style={{ "display": "flex", "flexDirection": "column", "alignItems": 'center' }}>
                     <Map selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />

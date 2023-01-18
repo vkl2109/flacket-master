@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import './css/eventlist.css'
 
-const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
+const EventList = ({ selectedRoom, loginData, setReFetch }) => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [eventList, setEventList] = useState([])
@@ -35,11 +35,10 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
         setIsLoading(false)
     }, [])
 
-    //fetch seat availability on select Event
-    const handleClick = (selEvent) => {
-        setSelEvent(selEvent)
+    const handleClick = (event) => {
+        setSelEvent(event)
         const request = async () => {
-            let req = await fetch(`http://127.0.0.1:3001/events/${selEvent.id}`)
+            let req = await fetch(`http://127.0.0.1:3001/events/${event.id}`)
             let seats = await req.json()
             if (req.ok) {
                 setCurrentSeats(seats)
@@ -50,9 +49,8 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
 
     const handleConfirmation = (e) => {
         addBooking();
-        // updateSeats();
-        // send a patch request that will update the seat table
-        // event_id / seat_number(currSeat) / is_empty (false) / student_name = test123
+        updateSeats();
+        handleClick(selEvent);
     }
 
     const addBooking = async () => {
@@ -66,25 +64,25 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
         })
         let res = await req.json()
         if (req.ok) {
-            // re render with updated booking
-            console.log("seat is booked")
             setReFetch(reFetch => !reFetch)
-            // setModalOpen(false)
             handleClose()
         }
     }
 
     const updateSeats = async () => {
-        let req = await fetch(`http://127.0.0.1:3001/seats/${1}`, {
+        let req = await fetch(`http://127.0.0.1:3001/seats/${selEvent.id}/${currSeat}`, {
             method: "PATCH",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
-                event_id: "",
-                seat: "",
-                is_empty: false,
-                student: ""
+                student: loginData.username
             })
         })
+        let res = await req.json()
+        if (req.ok) {
+            console.log("Patch request successful")
+            console.log(res)
+
+        }
     }
 
     const handleClose = () => {
@@ -184,7 +182,7 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
                                             <div className="row">
                                                 {currentSeats.slice(0, 8).map((seat, i) => {
                                                     return (
-                                                        <div key={i} className={seat.is_empty ? (selected[i] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => handleSeatSelect(e, i)}></div>
+                                                        <div key={i} className={seat.is_empty ? (selected[i] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => seat.is_empty ? handleSeatSelect(e, i) : {}}></div>
                                                     )
                                                 })}
                                             </div>
@@ -193,7 +191,7 @@ const EventList = ({ selectedRoom, reFetch, setReFetch }) => {
                                             <div className="row">
                                                 {currentSeats.slice(8).map((seat, i) => {
                                                     return (
-                                                        <div key={i + 8} className={seat.is_empty ? (selected[i + 8] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => handleSeatSelect(e, i + 8)}></div>
+                                                        <div key={i + 8} className={seat.is_empty ? (selected[i + 8] ? "seat selected" : "seat") : "seat occupied"} onClick={(e) => seat.is_empty ? handleSeatSelect(e, i + 8) : {}}></div>
                                                     )
                                                 })}
                                             </div>
