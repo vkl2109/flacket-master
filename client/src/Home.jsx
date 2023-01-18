@@ -35,7 +35,7 @@ function Home({ loginData }) {
                     setReFetch={setReFetch}
 
                 />
-                <div style={{ "display": "flex", "flexDirection": "column", "alignItems": 'center' }}>
+                <div style={{ "display": "flex", "flexDirection": "column", "alignItems": 'center', 'height':'85vh'}}>
                     <Map selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
                     <BookingBar
                         loginData={loginData}
