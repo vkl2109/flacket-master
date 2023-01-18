@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import BookingCard from './BookingCard'
 import './css/booking.css'
 
-function BookingBar({ loginData, bookings, isLoading }) {
+function BookingBar({ loginData, bookings, isLoading, setReFetch }) {
 
     return (
         <div className="container">
@@ -16,7 +16,7 @@ function BookingBar({ loginData, bookings, isLoading }) {
                     :
                     bookings.map((booking) => {
                         return (
-                            <BookingCard key={booking.id} booking={booking} />
+                            <BookingCard key={booking.id} booking={booking} setReFetch={setReFetch}/>
                         )
                     })
                 }

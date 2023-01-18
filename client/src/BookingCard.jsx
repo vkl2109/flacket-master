@@ -1,6 +1,6 @@
 import './css/booking.css'
 
-const BookingCard = ({ booking }) => {
+const BookingCard = ({ booking, setReFetch }) => {
 
     const convertTime = (value) => {
         let minutes = value.slice(15, 17)
@@ -29,6 +29,7 @@ const BookingCard = ({ booking }) => {
             // let res = await req.json()
             if (req.ok) {
                 console.log("Booking deleted")
+                setReFetch(reFetch => !reFetch)
             }
         }
 
