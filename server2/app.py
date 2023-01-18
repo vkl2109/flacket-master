@@ -7,14 +7,17 @@ from models import db, User, Booking, Classroom, Event, Seat
 import json
 
 app = Flask(__name__, static_folder='public')
+# CORS(app, resources={r"*": {"origins": "*"}})
 CORS(app, origins=['*'])
 app.config.from_object(Config)
 db.init_app(app)
 migrate = Migrate(app, db)
 
+
 @app.get('/')
 def home():
     return send_file('welcome.html')
+
 
 @app.route('/classrooms')
 def get_all_classrooms():
@@ -23,6 +26,7 @@ def get_all_classrooms():
         return jsonify([room.toJSON() for room in classrooms])
     else:
         return {}, 404
+
 
 @app.get('/bookings/<int:user>')
 def get_all_bookings(user):
@@ -36,15 +40,19 @@ def get_all_bookings(user):
     else:
         return {}, 404
 
+
 @app.post('/bookings')
 def add_booking():
-    data = request.form
+    data = request.json
     user_id = data['user']
     seat_id = data['seat']
+    print(data)
     booking = Booking(user_id, seat_id)
+    print(booking)
     db.session.add(booking)
     db.session.commit()
     return jsonify(booking.toJSON()), 201
+
 
 @app.get('/events')
 def get_all_events():
@@ -53,6 +61,7 @@ def get_all_events():
         return jsonify([event.toJSON() for event in events])
     else:
         return {}, 404
+
 
 @app.get('/events/<int:event_id>')
 def get_event(event_id):
