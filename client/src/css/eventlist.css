@@ -46,6 +46,10 @@
     font-size: small;
 }
 
+.small-font{
+    font-size: small;
+}
+
 .container {
     perspective: 51000px;
     -webkit-perspective: 1000px;
@@ -116,8 +120,7 @@
     color: #777;
     list-style-type: none;
     display: flex;
-    justify-content: space-between;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .showcase li {
