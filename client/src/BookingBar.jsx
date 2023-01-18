@@ -5,18 +5,18 @@ import './css/booking.css'
 
 function BookingBar({ loginData, bookings, isLoading }) {
 
-    useEffect(()=>{
-        const request = async () => {
-            let req = await fetch(`http://localhost:3001/bookings/${loginData.id}`)
-            let res = await req.json()
-            if (req.ok) {
-                setBookings(bookings => res)
-            }
-        }
-        setIsLoading(true)
-        request()
-        setIsLoading(false)
-    },[])
+    // useEffect(()=>{
+    //     const request = async () => {
+    //         let req = await fetch(`http://localhost:3001/bookings/${loginData.id}`)
+    //         let res = await req.json()
+    //         if (req.ok) {
+    //             setBookings(bookings => res)
+    //         }
+    //     }
+    //     setIsLoading(true)
+    //     request()
+    //     setIsLoading(false)
+    // },[])
 
     return(
         <div className="container">

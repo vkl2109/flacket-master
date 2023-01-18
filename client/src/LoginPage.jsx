@@ -44,7 +44,7 @@ function LoginPage({ loginData, setLoginData }) {
                 })
                 let res = await req.json()
                 console.log(res)
-                if (res.ok) {
+                if (req.ok) {
                     setLoginData(res)
                     navigate("/home")
                 }
