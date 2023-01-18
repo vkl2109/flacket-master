@@ -114,6 +114,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
         }
         setSelected(newSelected)
     }
+
     const convertTime = (value) => {
         let minutes = value.slice(15, 17)
         let h = value.slice(11, 14)
@@ -124,12 +125,11 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
     }
 
     const convertDate = (value) => {
-        let mmddyyyy = value.slice(0, 10)
-        let month = value.slice(0, 2)
-        let day = value.slice(3, 5)
-        let year = value.slice(6, 10)
+        let date = value.slice(0, 10)
+        let mmdd = date.slice(0, date.length-5)
+        let month = value.slice(0, 2), day = value.slice(3, 5), year = value.slice(6, 10)
         const weekday = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-        return [weekday[new Date(`${month}/${day}/${year}`).getDay()] + ", " + mmddyyyy]
+        return [weekday[new Date(`${month}/${day}/${year}`).getDay()]+", "+ mmdd]
     }
 
     const searchEvents = eventList
@@ -144,7 +144,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                 <input type="text" className="form-control" aria-label="Sizing example input" placeholder="Search here..." aria-describedby="inputGroup-sizing-sm" onChange={handleEventSearch}></input>
             </div>
             <div className="table">
-                <table className="table">
+                <table>
                     <thead>
                         <tr>
                             <th>Lecture</th>
@@ -159,7 +159,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                                 <tr key={event.id} data-bs-toggle="modal" data-bs-target="#seatingModal" onClick={() => { handleClick(event) }}>
                                     <td>{event.name}</td>
                                     <td>{event.classroom}</td>
-                                    <td>{event.start_time.slice(0, 10)}</td>
+                                    <td>{convertDate(event.start_time)}</td>
                                     <td>{convertTime(event.start_time)}</td>
                                 </tr>
                             )
@@ -211,7 +211,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                                 </div>
                             </div>
                         </div>
-                    // </div>
+                    </div>
                 }
             </div>
         </div>

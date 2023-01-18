@@ -12,7 +12,8 @@ const BookingCard = ({ booking }) => {
     }
 
     const convertDate = (value) => {
-        let mmddyyyy = value.slice(0, 10)
+        let date = value.slice(0,10)
+        let mmdd = date.slice(0,date.length-5)
         let month = value.slice(0, 2)
         let day = value.slice(3, 5)
         let year = value.slice(6, 10)
@@ -49,8 +50,9 @@ const BookingCard = ({ booking }) => {
     return (
         <div className="bookingCard">
             <h6>{booking.event}</h6>
-            <h6>Seat: {booking.seat_number}</h6>
-            <p>{booking.classroom}</p>
+            <h6>{booking.classroom}</h6>
+            <p>Seat: {booking.seat_number}</p>
+            {/* <p>{booking.classroom}</p> */}
             <p>{convertDate(booking.start_time)}</p>
             <p>{convertTime(booking.start_time)}</p>
             <button onClick={handleDelete}>X</button>
