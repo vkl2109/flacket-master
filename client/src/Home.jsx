@@ -22,7 +22,7 @@ function Home({ loginData }) {
         setIsLoading(true)
         request()
         setIsLoading(false)
-    }, [reFetch])
+    }, [reFetch, loginData])
 
     return (
         <div className='main-cont'>
@@ -42,7 +42,7 @@ function Home({ loginData }) {
                         bookings={bookings}
                         // setBookings={setBookings}
                         isLoading={isLoading}
-                    // setIsLoading={setIsLoading}
+                        // setIsLoading={setIsLoading}
                         setReFetch={setReFetch}
                     />
                 </div>

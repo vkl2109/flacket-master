@@ -41,6 +41,22 @@ def login():
             return jsonify({'error': 'Invalid Password'}), 422
 
 
+@app.post('/autologin')
+@jwt_required()
+def auto_login():
+    # data = request.json
+    # print('data is', data)
+    current_user = get_jwt_identity()
+    print('user_id is', current_user)
+
+    user = User.query.get(int(current_user))
+
+    if not user:
+        return jsonify({'error': 'No account found'}), 404
+    else:
+        return jsonify(user.toJSON()), 200
+
+
 @app.post('/users')
 def create_user():
     data = request.json

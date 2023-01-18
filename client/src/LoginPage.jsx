@@ -116,7 +116,7 @@ function LoginPage({ loginData, setLoginData }) {
                         <input
                             className="form-control"
                             type="submit"
-                            value="login"
+                            value="Log in"
                         >
                         </input>
                     </div>
@@ -126,7 +126,7 @@ function LoginPage({ loginData, setLoginData }) {
                             onClick={() => setShowSignUp(true)}
                             className="form-control"
                         >
-                            Sign Up
+                            Sign up
                         </button>
                     </div>
 
@@ -196,7 +196,7 @@ function LoginPage({ loginData, setLoginData }) {
                             // type="submit"
                             // value="login"
                             >
-                                Login
+                                Log in
                             </button>
                         </div>
                         <h6 style={{ 'alignSelf': 'center' }}>or</h6>
@@ -205,7 +205,7 @@ function LoginPage({ loginData, setLoginData }) {
                                 onClick={() => setShowSignUp(true)}
                                 className="form-control"
                                 type="submit"
-                                value="Signup"
+                                value="Sign up"
                             >
                             </input>
                         </div>
