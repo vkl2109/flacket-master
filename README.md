@@ -74,3 +74,14 @@ Have you ever showed up to a lecture one minute too late, only to find your favo
 | | | |end_time|datetime||student_name|string|admin|boolean|| | | |
 
 ---
+
+<h1 style="color:rebeccapurple">Sketches</h1>
+
+<img src=" " />
+<img src=" " />
+<img src=" " />
+<img src=" " />
+<img src=" " />
+<img src=" " />
+<img src=" " />
+<img src=" " />
