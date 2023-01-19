@@ -9,7 +9,8 @@ def run_seeds():
         db.create_all()
         print('Seeding database ... 🌱')
 
-        user1 = User('test123', 'test@example.com', '12345', '')
+        user1 = User('test123', 'test@example.com', '12345',
+                     'src/assets/flakit_master_avatar1.png')
         db.session.add(user1)
         db.session.commit()
 

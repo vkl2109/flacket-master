@@ -9,6 +9,7 @@ function App() {
   const [loginData, setLoginData] = useState({
     id: null,
     username: null,
+    avatarUrl: null
   });
 
   useEffect(() => {

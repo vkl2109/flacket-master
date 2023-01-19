@@ -63,7 +63,7 @@ function LoginPage({ loginData, setLoginData}) {
                         username: signUpData.username,
                         email: signUpData.email,
                         password: signUpData.password,
-                        avatarURL: signUpData.avatarURL
+                        avatarUrl: signUpData.avatarURL
                     })
                 })
                 let res = await req.json()
@@ -87,7 +87,7 @@ function LoginPage({ loginData, setLoginData}) {
                 })
                 let res = await req.json()
                 if (req.ok) {
-                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatarURL": res.avatarURL }
+                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatarUrl": res.user.avatarUrl }
                     setLoginData(newUser)
                     localStorage.setItem('token', res.token)
                     navigate('/home')
