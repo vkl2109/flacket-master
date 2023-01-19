@@ -8,7 +8,7 @@ import NavBar from './Navbar'
 function App() {
   const [loginData, setLoginData] = useState({
     id: null,
-    username: null
+    username: null,
   });
 
   useEffect(() => {
@@ -20,7 +20,8 @@ function App() {
       })
       let res = await req.json()
       if (req.ok) {
-        setLoginData({ id: res.id, username: res.username })
+        console.log(res)
+        setLoginData({ id: res.id, username: res.username, avatarUrl: res.avatarUrl })
       }
     }
     request();

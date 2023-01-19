@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
 
-function LoginPage({ loginData, setLoginData }) {
+function LoginPage({ loginData, setLoginData}) {
     const navigate = useNavigate()
     const [showSignUp, setShowSignUp] = useState(false);
     const [errorMsg, setErrorMsg] = useState('')
@@ -17,14 +17,34 @@ function LoginPage({ loginData, setLoginData }) {
         passwordConfirm: "",
         avatarURL: ""
     })
+    const [avatar, setAvatar] = useState('')
+
+    const avatars = {
+        avatar1: "src/assets/flakit_master_avatar1.png",
+        avatar2: "src/assets/flakit_master_avatar2.png",
+        avatar3: "src/assets/flakit_master_avatar3.png",
+        avatar4: "src/assets/flakit_master_avatar4.png",
+        avatar5: "src/assets/flakit_master_avatar5.png",
+        avatar6: "src/assets/flakit_master_avatar6.png",
+    }
 
     const handleLoginInput = (e) => {
         setLoginState({ ...loginState, [e.target.name]: e.target.value });
     }
 
-    const handleSignUpInput = (e) => {
-        setSignUpData({ ...signUpData, [e.target.name]: e.target.value });
+    const handleAvatar = () => {
+        let e = document.getElementById("avatar")
+        let v = e.options[e.selectedIndex].value
+        setAvatar(`${v}`)
     }
+
+    const handleSignUpInput = (e) => {
+        setSignUpData({ ...signUpData, 
+            [e.target.name]: e.target.value,
+            avatarURL: avatar});
+        console.log(signUpData)
+    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -62,12 +82,12 @@ function LoginPage({ loginData, setLoginData }) {
                     headers: { "Content-type": "application/json" },
                     body: JSON.stringify({
                         username: loginState.username,
-                        password: loginState.password
+                        password: loginState.password,
                     })
                 })
                 let res = await req.json()
                 if (req.ok) {
-                    let newUser = { "id": res.user.id, "username": res.user.username }
+                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatarURL": res.avatarURL }
                     setLoginData(newUser)
                     localStorage.setItem('token', res.token)
                     navigate('/home')
@@ -133,6 +153,19 @@ function LoginPage({ loginData, setLoginData }) {
                 {showSignUp && <>
                     <form onSubmit={handleSubmit}>
                         <div input-group='true'>
+                            <select 
+                                id="avatar"
+                                className="form-control"
+                                onChange={handleAvatar}
+                            >
+                                <option name="avatarURL" defaultValue="none" selected disabled hidden>pick an avatar</option>
+                                <option name="avatarURL" value="src/assets/flakit_master_avatar1.png">avatar 1</option>
+                                <option name="avatarURL" value="src/assets/flakit_master_avatar2.png">avatar 2</option>
+                                <option name="avatarURL" value="src/assets/flakit_master_avatar3.png">avatar 3</option>
+                                <option name="avatarURL" value="src/assets/flakit_master_avatar4.png">avatar 4</option>
+                                <option name="avatarURL" value="src/assets/flakit_master_avatar5.png">avatar 5</option>
+                                <option name="avatarURL" value="src/assets/flakit_master_avatar6.png">avatar 6</option>
+                            </select>
                             <input
                                 className="form-control"
                                 type="text"
@@ -175,7 +208,7 @@ function LoginPage({ loginData, setLoginData }) {
                                 onChange={handleSignUpInput}
                             >
                             </input>
-                            <input
+                            {/* <input
                                 className="form-control"
                                 type="text"
                                 placeholder="Image Link"
@@ -183,7 +216,7 @@ function LoginPage({ loginData, setLoginData }) {
                                 value={signUpData.avatarURL}
                                 onChange={handleSignUpInput}
                             >
-                            </input>
+                            </input> */}
                         </div>
                         <h6 style={{ "color": "red", "alignself": "center" }}>{errorMsg}</h6>
                         <div>
