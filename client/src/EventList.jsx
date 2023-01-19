@@ -59,7 +59,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
-                user: 1,
+                user: loginData.id,
                 seat: currId
             })
         })
@@ -140,8 +140,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Lecture</th>
-                            <th>Classroom</th>
+                            <th>Lecture / Classroom</th>
                             <th>Date</th>
                             <th>Time</th>
                         </tr>
@@ -150,8 +149,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                         {eventList && searchEvents.map(event => {
                             return (
                                 <tr key={event.id} data-bs-toggle="modal" data-bs-target="#seatingModal" onClick={() => { handleClick(event) }}>
-                                    <td>{event.name}</td>
-                                    <td>{event.classroom}</td>
+                                    <td>{event.name} in {event.classroom}</td>
                                     <td>{convertDate(event.start_time)}</td>
                                     <td>{convertTime(event.start_time)}</td>
                                 </tr>

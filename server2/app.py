@@ -58,7 +58,7 @@ def auto_login():
 def create_user():
     data = request.json
     user = User(data['username'], data['email'],
-                data['password'], data['avatarURL'])
+                data['password'], data['avatarUrl'])
     db.session.add(user)
     db.session.commit()
     return jsonify(user.toJSON()), 201
