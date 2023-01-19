@@ -81,9 +81,8 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
         })
         let res = await req.json()
         if (req.ok) {
-            console.log("Patch request successful")
-            console.log(res)
-
+            // console.log("Patch request successful")
+            // console.log(res)
         }
     }
 

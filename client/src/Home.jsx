@@ -18,9 +18,15 @@ function Home({ loginData }) {
                 setBookings(bookings => res)
             }
         }
-        setIsLoading(true)
-        request()
-        setIsLoading(false)
+
+        if (!loginData.id) {
+            return;
+        } else {
+            setIsLoading(true)
+            request()
+            setIsLoading(false)
+        }
+
     }, [reFetch, loginData])
 
     return (

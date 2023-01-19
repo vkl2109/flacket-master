@@ -56,9 +56,7 @@ function LoginPage({ loginData, setLoginData }) {
             signup()
 
         } else {
-            console.log("Loggin in...")
             const login = async () => {
-                console.log("username", loginState.username)
                 let req = await fetch("http://localhost:3001/login", {
                     method: "POST",
                     headers: { "Content-type": "application/json" },
@@ -68,7 +66,6 @@ function LoginPage({ loginData, setLoginData }) {
                     })
                 })
                 let res = await req.json()
-                console.log(res)
                 if (req.ok) {
                     let newUser = { "id": res.user.id, "username": res.user.username }
                     setLoginData(newUser)

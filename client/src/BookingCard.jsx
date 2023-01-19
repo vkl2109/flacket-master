@@ -22,7 +22,7 @@ const BookingCard = ({ booking, setReFetch }) => {
             })
 
             if (req.ok) {
-                console.log("Booking deleted")
+                // console.log("Booking deleted")
                 setReFetch(reFetch => !reFetch)
             }
         }
@@ -35,7 +35,7 @@ const BookingCard = ({ booking, setReFetch }) => {
             })
             let res = await req.json()
             if (req.ok) {
-                console.log("Patch seat successful")
+                // console.log("Patch seat successful")
             }
         }
         deleteBooking();
