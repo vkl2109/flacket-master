@@ -12,7 +12,7 @@ function NavBar({ loginData, setLoginData }) {
 
     return (
         <div className='nav-cont'>
-            <div clasName="site-name-container">
+            <div className="site-name-container">
                 <img className="logo" src="./src/assets/flakit_master_logo.png" />
                 <img className="title" src="./src/assets/flakit_master_name.png" />
             </div>

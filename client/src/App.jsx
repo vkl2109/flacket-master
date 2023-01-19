@@ -20,7 +20,6 @@ function App() {
       })
       let res = await req.json()
       if (req.ok) {
-        console.log(res)
         setLoginData({ id: res.id, username: res.username })
       }
     }
