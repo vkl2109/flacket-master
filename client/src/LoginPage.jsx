@@ -15,7 +15,7 @@ function LoginPage({ loginData, setLoginData}) {
         email: "",
         password: "",
         passwordConfirm: "",
-        avatarURL: ""
+        avatarUrl: ""
     })
     const [avatar, setAvatar] = useState('')
 
@@ -41,7 +41,7 @@ function LoginPage({ loginData, setLoginData}) {
     const handleSignUpInput = (e) => {
         setSignUpData({ ...signUpData, 
             [e.target.name]: e.target.value,
-            avatarURL: avatar});
+            avatarUrl: avatar});
         console.log(signUpData)
     }
 
@@ -63,7 +63,7 @@ function LoginPage({ loginData, setLoginData}) {
                         username: signUpData.username,
                         email: signUpData.email,
                         password: signUpData.password,
-                        avatarURL: signUpData.avatarURL
+                        avatarUrl: signUpData.avatarUrl
                     })
                 })
                 let res = await req.json()
@@ -90,7 +90,7 @@ function LoginPage({ loginData, setLoginData}) {
                 let res = await req.json()
                 console.log(res)
                 if (req.ok) {
-                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatarUrl": res.avatarURL }
+                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatarUrl": res.avatarUrl }
                     setLoginData(newUser)
                     localStorage.setItem('token', res.token)
                     navigate('/home')
@@ -161,13 +161,13 @@ function LoginPage({ loginData, setLoginData}) {
                                 className="form-control"
                                 onChange={handleAvatar}
                             >
-                                <option name="avatarURL" defaultValue="none" selected disabled hidden>pick an avatar</option>
-                                <option name="avatarURL" value="src/assets/flakit_master_avatar1.png">avatar 1</option>
-                                <option name="avatarURL" value="src/assets/flakit_master_avatar2.png">avatar 2</option>
-                                <option name="avatarURL" value="src/assets/flakit_master_avatar3.png">avatar 3</option>
-                                <option name="avatarURL" value="src/assets/flakit_master_avatar4.png">avatar 4</option>
-                                <option name="avatarURL" value="src/assets/flakit_master_avatar5.png">avatar 5</option>
-                                <option name="avatarURL" value="src/assets/flakit_master_avatar6.png">avatar 6</option>
+                                <option name="avatarUrl" defaultValue="none" selected disabled hidden>pick an avatar</option>
+                                <option name="avatarUrl" value="src/assets/flakit_master_avatar1.png">avatar 1</option>
+                                <option name="avatarUrl" value="src/assets/flakit_master_avatar2.png">avatar 2</option>
+                                <option name="avatarUrl" value="src/assets/flakit_master_avatar3.png">avatar 3</option>
+                                <option name="avatarUrl" value="src/assets/flakit_master_avatar4.png">avatar 4</option>
+                                <option name="avatarUrl" value="src/assets/flakit_master_avatar5.png">avatar 5</option>
+                                <option name="avatarUrl" value="src/assets/flakit_master_avatar6.png">avatar 6</option>
                             </select>
                             <input
                                 className="form-control"
@@ -215,8 +215,8 @@ function LoginPage({ loginData, setLoginData}) {
                                 className="form-control"
                                 type="text"
                                 placeholder="Image Link"
-                                name="avatarURL"
-                                value={signUpData.avatarURL}
+                                name="avatarUrl"
+                                value={signUpData.avatarUrl}
                                 onChange={handleSignUpInput}
                             >
                             </input> */}
