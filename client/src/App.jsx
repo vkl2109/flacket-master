@@ -9,18 +9,8 @@ function App() {
   const [loginData, setLoginData] = useState({
     id: null,
     username: null,
-    avatarURL: ""
+    // avatarURL: "src/assets/flakit_master_avatar_signed_out.png"
   });
-
-  const avatars = {
-    avatar0: "src/assets/flakit_master_avatar_signed_out.png",
-    avatar1: "src/assets/flakit_master_avatar1.png",
-    avatar2: "src/assets/flakit_master_avatar2.png",
-    avatar3: "src/assets/flakit_master_avatar3.png",
-    avatar4: "src/assets/flakit_master_avatar4.png",
-    avatar5: "src/assets/flakit_master_avatar5.png",
-    avatar6: "src/assets/flakit_master_avatar6.png",
-  }
 
   useEffect(() => {
     const request = async () => {
@@ -32,7 +22,7 @@ function App() {
       let res = await req.json()
       if (req.ok) {
         console.log(res)
-        setLoginData({ id: res.id, username: res.username, avatarURL: res.avatarURL })
+        setLoginData({ id: res.id, username: res.username, avatarUrl: res.avatarUrl })
       }
     }
     // console.log(localStorage.getItem("token"))

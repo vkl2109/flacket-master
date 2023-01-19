@@ -6,7 +6,7 @@ function NavBar({ loginData, setLoginData}) {
         setLoginData({
             id: null,
             username: null,
-            avatarURL: "src/assets/flakit_master_avatar_signed_out.png"
+            // avatarURL: "src/assets/flakit_master_avatar_signed_out.png"
         })
         localStorage.removeItem("token")
     }
@@ -22,7 +22,8 @@ function NavBar({ loginData, setLoginData}) {
                 {loginData.username && <span style={{fontFamily: 'Virgil',  fontSize: 16, color: "#0F8FA1", "alignSelf": "center"}}>Welcome, {loginData.username}</span>}
                 <div className="btn-group">
                     <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img className="avatar" src={loginData.avatarURL} /> 
+                        <img className="avatar" src={`${loginData.avatarUrl}`} />
+                        {console.log(loginData.avatarUrl)}
                     </button>
                     {loginData.username && <ul className="dropdown-menu">
                         <Link to={"/home"}>

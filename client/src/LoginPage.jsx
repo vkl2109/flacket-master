@@ -19,6 +19,15 @@ function LoginPage({ loginData, setLoginData}) {
     })
     const [avatar, setAvatar] = useState('')
 
+    const avatars = {
+        avatar1: "src/assets/flakit_master_avatar1.png",
+        avatar2: "src/assets/flakit_master_avatar2.png",
+        avatar3: "src/assets/flakit_master_avatar3.png",
+        avatar4: "src/assets/flakit_master_avatar4.png",
+        avatar5: "src/assets/flakit_master_avatar5.png",
+        avatar6: "src/assets/flakit_master_avatar6.png",
+    }
+
     const handleLoginInput = (e) => {
         setLoginState({ ...loginState, [e.target.name]: e.target.value });
     }
@@ -81,7 +90,7 @@ function LoginPage({ loginData, setLoginData}) {
                 let res = await req.json()
                 console.log(res)
                 if (req.ok) {
-                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatar": res.avatarURL }
+                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatarUrl": res.avatarURL }
                     setLoginData(newUser)
                     localStorage.setItem('token', res.token)
                     navigate('/home')
