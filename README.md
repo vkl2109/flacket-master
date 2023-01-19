@@ -77,11 +77,10 @@ Have you ever showed up to a lecture one minute too late, only to find your favo
 
 <h1 style="color:rebeccapurple">Sketches</h1>
 
-<img src=" " />
-<img src=" " />
-<img src=" " />
-<img src=" " />
-<img src=" " />
-<img src=" " />
-<img src=" " />
-<img src=" " />
+
+![flakit_master_avatars](https://user-images.githubusercontent.com/75575727/213541921-17baa074-5722-4d27-810d-c88ca2f90e0d.png)
+![flakit_master_logo_designs](https://user-images.githubusercontent.com/75575727/213541935-66726f7a-2c15-4393-ba1e-cf327d67342f.png)
+![flakit_master_event_registration](https://user-images.githubusercontent.com/75575727/213541952-da0821fd-fa4a-4f5b-8a3d-3ae8655eb83a.png)
+![flakit_master_logo_favicon_name](https://user-images.githubusercontent.com/75575727/213541995-01c51c99-09e9-472b-9e10-383f3b9f7480.png)
+![flakit_master_page layout](https://user-images.githubusercontent.com/75575727/213542080-a8fad60c-9ccb-419b-becb-ba990f88e348.png)
+![cvstr_mockup_logo_favicon_name](https://user-images.githubusercontent.com/75575727/213542199-198b15fb-f78e-4946-8a99-595483c282e8.png)
