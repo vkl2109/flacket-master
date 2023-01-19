@@ -24,7 +24,6 @@ function App() {
         setLoginData({ id: res.id, username: res.username })
       }
     }
-    // console.log(localStorage.getItem("token"))
     request();
   }, [])
 
