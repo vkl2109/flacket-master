@@ -9,7 +9,7 @@ function App() {
   const [loginData, setLoginData] = useState({
     id: null,
     username: null,
-    avatar: ""
+    avatarURL: ""
   });
 
   const avatars = {
@@ -32,7 +32,7 @@ function App() {
       let res = await req.json()
       if (req.ok) {
         console.log(res)
-        setLoginData({ id: res.id, username: res.username, avatar: avatars.avatar1 })
+        setLoginData({ id: res.id, username: res.username, avatarURL: res.avatarURL })
       }
     }
     // console.log(localStorage.getItem("token"))
@@ -43,9 +43,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter >
-        <NavBar loginData={loginData} setLoginData={setLoginData} avatars={avatars}/>
+        <NavBar loginData={loginData} setLoginData={setLoginData} />
         <Routes>
-          <Route path={'/'} element={<LoginPage loginData={loginData} setLoginData={setLoginData} avatars={avatars}/>} />
+          <Route path={'/'} element={<LoginPage loginData={loginData} setLoginData={setLoginData} />} />
           <Route path={'/home'} element={<Home loginData={loginData} />} />
         </Routes>
       </BrowserRouter>
