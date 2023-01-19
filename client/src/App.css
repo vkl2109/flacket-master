@@ -31,6 +31,26 @@
     /* color: rgb(93, 135, 200); */
     color: #0F8FA1;
 }
+.site-name-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+.logo{
+    padding-left: 3%
+}
+.title{
+    max-height: 75%;
+    max-width: 75%;
+    padding-left: 3%
+}
+.avatar-greeting-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    padding-right: 5%;
+}
+
 .login-cont{
     display: flex;
     align-items: flex-start;
