@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
 
-function LoginPage({ loginData, setLoginData}) {
+function LoginPage({ loginData, setLoginData }) {
     const navigate = useNavigate()
     const [showSignUp, setShowSignUp] = useState(false);
     const [errorMsg, setErrorMsg] = useState('')
@@ -39,9 +39,11 @@ function LoginPage({ loginData, setLoginData}) {
     }
 
     const handleSignUpInput = (e) => {
-        setSignUpData({ ...signUpData, 
+        setSignUpData({
+            ...signUpData,
             [e.target.name]: e.target.value,
-            avatarURL: avatar});
+            avatarURL: avatar
+        });
         console.log(signUpData)
     }
 
@@ -69,36 +71,37 @@ function LoginPage({ loginData, setLoginData}) {
                 let res = await req.json()
                 console.log(res)
                 if (req.ok) {
-                    setLoginData(res)
-                    navigate("/home")
+                    login(res.username, res.password)
                 }
             }
             signup()
 
         } else {
-            const login = async () => {
-                let req = await fetch("http://localhost:3001/login", {
-                    method: "POST",
-                    headers: { "Content-type": "application/json" },
-                    body: JSON.stringify({
-                        username: loginState.username,
-                        password: loginState.password,
-                    })
-                })
-                let res = await req.json()
-                if (req.ok) {
-                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatarUrl": res.user.avatarUrl }
-                    setLoginData(newUser)
-                    localStorage.setItem('token', res.token)
-                    navigate('/home')
-                }
-                else {
-                    setErrorMsg(`Log In Failed: ${res.error}`)
-                }
-            }
-            login()
+
+            login(loginState.username, loginState.password)
         }
 
+    }
+
+    const login = async (loginName, loginPassword) => {
+        let req = await fetch("http://localhost:3001/login", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                username: loginName,
+                password: loginPassword,
+            })
+        })
+        let res = await req.json()
+        if (req.ok) {
+            let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatarUrl": res.user.avatarUrl }
+            setLoginData(newUser)
+            localStorage.setItem('token', res.token)
+            navigate('/home')
+        }
+        else {
+            setErrorMsg(`Log In Failed: ${res.error}`)
+        }
     }
 
     return (
@@ -153,7 +156,7 @@ function LoginPage({ loginData, setLoginData}) {
                 {showSignUp && <>
                     <form onSubmit={handleSubmit}>
                         <div input-group='true'>
-                            <select 
+                            <select
                                 id="avatar"
                                 className="form-control"
                                 onChange={handleAvatar}
