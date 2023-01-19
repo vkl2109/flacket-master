@@ -9,7 +9,7 @@ const BookingCard = ({ booking, setReFetch }) => {
     }
 
     const convertDate = (value) => {
-        let date = value.slice(0,10), mmdd = date.slice(0,date.length-5), month = value.slice(0, 2)
+        let date = value.slice(0, 10), mmdd = date.slice(0, date.length - 5), month = value.slice(0, 2)
         let day = value.slice(3, 5), year = value.slice(6, 10)
         const weekday = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
         return [weekday[new Date(`${month}/${day}/${year}`).getDay()] + ", " + mmdd]
@@ -20,9 +20,9 @@ const BookingCard = ({ booking, setReFetch }) => {
             let req = await fetch(`http://127.0.0.1:3001/bookings/${booking.id}`, {
                 method: "DELETE"
             })
-            // let res = await req.json()
+
             if (req.ok) {
-                console.log("Booking deleted")
+                // console.log("Booking deleted")
                 setReFetch(reFetch => !reFetch)
             }
         }
@@ -35,7 +35,7 @@ const BookingCard = ({ booking, setReFetch }) => {
             })
             let res = await req.json()
             if (req.ok) {
-                console.log("Patch seat successful")
+                // console.log("Patch seat successful")
             }
         }
         deleteBooking();

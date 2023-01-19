@@ -1,10 +1,9 @@
-
 .bookingbar {
     width: 75%;
     border-radius: 1rem;
     display: flex;
     align-items: center;
-    flex-direction: row; 
+    flex-direction: row;
     font-family: 'Virgil';
     justify-content: center
 }
@@ -14,7 +13,6 @@
     height: 95%;
     border-radius: 1rem;
     margin-right: 3%;
-    /* box-shadow: 5px 5px 5px lightgrey; */
     background: #fff;
     display: flex;
     flex-direction: column;
@@ -23,12 +21,15 @@
     justify-content: center;
     transition: all 0.2s ease-out;
 }
-.bookingCard h4{
+
+.bookingCard h4 {
     margin-top: 0
 }
+
 .bookingCard p {
     margin: 0 0 3% 0;
 }
+
 .bookingCard p {
     margin: 0;
     font-size: 1vw;
@@ -38,7 +39,7 @@
     transform: scale(1.05)
 }
 
-.carasoul-inner{
+.carasoul-inner {
     width: 0% !important;
     margin-left: 35% !important
 }
@@ -107,6 +108,7 @@
 .handle:focus {
     background-color: rgba(255, 255, 255, .5);
 }
+
 .handle:hover .text,
 .handle:focus .text {
     transform: scale(1.2);

@@ -22,7 +22,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
         "id": ""
     }
     )
-    //fetch EVENTS
+
     useEffect(() => {
         const request = async () => {
             let req = await fetch('http://127.0.0.1:3001/events')
@@ -81,14 +81,12 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
         })
         let res = await req.json()
         if (req.ok) {
-            console.log("Patch request successful")
-            console.log(res)
-
+            // console.log("Patch request successful")
+            // console.log(res)
         }
     }
 
     const handleClose = () => {
-        // setModalOpen(false)
         setSelEvent({
             'room': "",
             'name': "",
@@ -101,7 +99,6 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
     }
 
     const handleSeatSelect = (e, i) => {
-        // console.log('clicked seat', e)
         let newSelected = Array(16).fill(null)
         if (!selected[i]) {
             newSelected[i] = true
@@ -122,10 +119,10 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
     }
 
     const convertDate = (value) => {
-        let date = value.slice(0, 10), mmdd = date.slice(0, date.length-5)
+        let date = value.slice(0, 10), mmdd = date.slice(0, date.length - 5)
         let month = value.slice(0, 2), day = value.slice(3, 5), year = value.slice(6, 10)
         const weekday = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-        return [weekday[new Date(`${month}/${day}/${year}`).getDay()]+", "+ mmdd]
+        return [weekday[new Date(`${month}/${day}/${year}`).getDay()] + ", " + mmdd]
     }
 
     const searchEvents = eventList
@@ -199,7 +196,7 @@ const EventList = ({ selectedRoom, loginData, setReFetch }) => {
                                             </div>
                                         </div>
                                         <div className="text-wrapper">
-                                            <p className="text" style={{color: 'white'}}>{currSeat ? `Selected Seat: ${currSeat}`: null}</p>
+                                            <p className="text" style={{ color: 'white' }}>{currSeat ? `Selected Seat: ${currSeat}` : null}</p>
                                         </div>
                                     </div>
                                 </div>

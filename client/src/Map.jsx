@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
 import './css/map.css';
 
 function Map({ selectedRoom, setSelectedRoom }) {
-    // const [selectedRoom, setSelectedRoom] = useState("");
 
     const [roomHover, setRoomHover] = useState({
         "borg": false,

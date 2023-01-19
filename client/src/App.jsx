@@ -22,9 +22,9 @@ function App() {
       if (req.ok) {
         console.log(res)
         setLoginData({ id: res.id, username: res.username, avatarUrl: res.avatarUrl })
+        setLoginData({ id: res.id, username: res.username })
       }
     }
-    // console.log(localStorage.getItem("token"))
     request();
   }, [])
 
