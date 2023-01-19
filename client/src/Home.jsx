@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import NavBar from "./Navbar";
 import BookingBar from "./BookingBar";
 import Map from "./Map";
 import EventList from "./EventList";
@@ -30,7 +29,6 @@ function Home({ loginData }) {
                 <EventList
                     loginData={loginData}
                     selectedRoom={selectedRoom}
-                    // setSelectedRoom={setSelectedRoom}
                     reFetch={reFetch}
                     setReFetch={setReFetch}
 
@@ -40,9 +38,7 @@ function Home({ loginData }) {
                     <BookingBar
                         loginData={loginData}
                         bookings={bookings}
-                        // setBookings={setBookings}
                         isLoading={isLoading}
-                        // setIsLoading={setIsLoading}
                         setReFetch={setReFetch}
                     />
                 </div>

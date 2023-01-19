@@ -70,7 +70,7 @@ function LoginPage({ loginData, setLoginData }) {
                 let res = await req.json()
                 console.log(res)
                 if (req.ok) {
-                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password }
+                    let newUser = { "id": res.user.id, "username": res.user.username }
                     setLoginData(newUser)
                     localStorage.setItem('token', res.token)
                     navigate('/home')

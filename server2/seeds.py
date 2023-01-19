@@ -8,7 +8,7 @@ def run_seeds():
         db.drop_all()
         db.create_all()
         print('Seeding database ... 🌱')
-        # Add your seed data here
+
         user1 = User('test123', 'test@example.com', '12345', '')
         db.session.add(user1)
         db.session.commit()

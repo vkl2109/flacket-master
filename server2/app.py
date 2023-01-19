@@ -34,7 +34,6 @@ def login():
     else:
         given_password = data['password']
         if user.password == given_password:
-            # authenticate user
             access_token = create_access_token(identity=user.id)
             return jsonify({'user': user.toJSON(), 'token': access_token}), 200
         else:
@@ -44,8 +43,6 @@ def login():
 @app.post('/autologin')
 @jwt_required()
 def auto_login():
-    # data = request.json
-    # print('data is', data)
     current_user = get_jwt_identity()
     print('user_id is', current_user)
 
