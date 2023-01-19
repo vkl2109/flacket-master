@@ -8,8 +8,19 @@ import NavBar from './Navbar'
 function App() {
   const [loginData, setLoginData] = useState({
     id: null,
-    username: null
+    username: null,
+    avatar: ""
   });
+
+  const avatars = {
+    avatar0: "src/assets/flakit_master_avatar_signed_out.png",
+    avatar1: "src/assets/flakit_master_avatar1.png",
+    avatar2: "src/assets/flakit_master_avatar2.png",
+    avatar3: "src/assets/flakit_master_avatar3.png",
+    avatar4: "src/assets/flakit_master_avatar4.png",
+    avatar5: "src/assets/flakit_master_avatar5.png",
+    avatar6: "src/assets/flakit_master_avatar6.png",
+  }
 
   useEffect(() => {
     const request = async () => {
@@ -21,7 +32,7 @@ function App() {
       let res = await req.json()
       if (req.ok) {
         console.log(res)
-        setLoginData({ id: res.id, username: res.username })
+        setLoginData({ id: res.id, username: res.username, avatar: avatars.avatar1 })
       }
     }
     // console.log(localStorage.getItem("token"))
@@ -32,9 +43,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter >
-        <NavBar loginData={loginData} setLoginData={setLoginData} />
+        <NavBar loginData={loginData} setLoginData={setLoginData} avatars={avatars}/>
         <Routes>
-          <Route path={'/'} element={<LoginPage loginData={loginData} setLoginData={setLoginData} />} />
+          <Route path={'/'} element={<LoginPage loginData={loginData} setLoginData={setLoginData} avatars={avatars}/>} />
           <Route path={'/home'} element={<Home loginData={loginData} />} />
         </Routes>
       </BrowserRouter>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
 
-function LoginPage({ loginData, setLoginData }) {
+function LoginPage({ loginData, setLoginData, avatars}) {
     const navigate = useNavigate()
     const [showSignUp, setShowSignUp] = useState(false);
     const [errorMsg, setErrorMsg] = useState('')
@@ -64,13 +64,13 @@ function LoginPage({ loginData, setLoginData }) {
                     headers: { "Content-type": "application/json" },
                     body: JSON.stringify({
                         username: loginState.username,
-                        password: loginState.password
+                        password: loginState.password,
                     })
                 })
                 let res = await req.json()
                 console.log(res)
                 if (req.ok) {
-                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password }
+                    let newUser = { "id": res.user.id, "username": res.user.username, "password": res.user.password, "avatar": avatars.avatar1 }
                     setLoginData(newUser)
                     localStorage.setItem('token', res.token)
                     navigate('/home')

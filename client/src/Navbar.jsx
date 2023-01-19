@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function NavBar({ loginData, setLoginData }) {
+function NavBar({ loginData, setLoginData, avatars }) {
     const handleLogout = () => {
         setLoginData({
             id: null,
             username: null,
+            avatar: avatars.avatar0
         })
         localStorage.removeItem("token")
     }
@@ -21,7 +22,7 @@ function NavBar({ loginData, setLoginData }) {
                 {loginData.username && <span style={{fontFamily: 'Virgil',  fontSize: 16, color: "#0F8FA1", "alignSelf": "center"}}>Welcome, {loginData.username}</span>}
                 <div className="btn-group">
                     <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img className="avatar" src="src/assets/flakit_master_avatar_signed_out.png" />
+                        <img className="avatar" src={loginData.avatar} />
                     </button>
                     {loginData.username && <ul className="dropdown-menu">
                         <Link to={"/home"}>
