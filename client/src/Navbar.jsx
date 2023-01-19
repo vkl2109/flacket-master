@@ -6,7 +6,6 @@ function NavBar({ loginData, setLoginData}) {
         setLoginData({
             id: null,
             username: null,
-            // avatarUrl: "src/assets/flakit_master_avatar_signed_out.png"
         })
         localStorage.removeItem("token")
     }
@@ -14,7 +13,7 @@ function NavBar({ loginData, setLoginData}) {
     return (
         <div className='nav-cont'>
             {/* <h1>flakit_master</h1> */}
-            <div clasName="site-name-container">
+            <div className="site-name-container">
                 <img className="logo" src="./src/assets/flakit_master_logo.png" />
                 <img className="title" src="./src/assets/flakit_master_name.png" />
             </div>
@@ -22,7 +21,7 @@ function NavBar({ loginData, setLoginData}) {
                 {loginData.username && <span style={{fontFamily: 'Virgil',  fontSize: 16, color: "#0F8FA1", "alignSelf": "center"}}>Welcome, {loginData.username}</span>}
                 <div className="btn-group">
                     <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img className="avatar" src={`${loginData.avatarUrl}`} />
+                        <img className="avatar" src={(loginData.avatarUrl == undefined) ? "src/assets/flakit_master_avatar_signed_out.png" : `${loginData.avatarUrl}`} />
                         {console.log(loginData.avatarUrl)}
                     </button>
                     {loginData.username && <ul className="dropdown-menu">

@@ -9,7 +9,6 @@ function App() {
   const [loginData, setLoginData] = useState({
     id: null,
     username: null,
-    // avatarUrl: "src/assets/flakit_master_avatar_signed_out.png"
   });
 
   useEffect(() => {
