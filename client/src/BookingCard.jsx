@@ -50,11 +50,14 @@ const BookingCard = ({ booking, setReFetch }) => {
 
     return (
         <div className="bookingCard">
-            <button onClick={handleDelete}>X</button>
-            <h6>{booking.event} in {booking.classroom}</h6>
-            <p>Seat: {booking.seat_number}</p>
-            <p>{convertDate(booking.start_time)}</p>
-            <p>{convertTime(booking.start_time)}</p>
+            <button className='btn btn-secondary' onClick={handleDelete}>x</button>
+            <div className='btn-wrapper'>
+                <h6>{booking.event} in {booking.classroom}</h6>
+                <p>Seat: {booking.seat_number}</p>
+                <p>{convertDate(booking.start_time)}</p>
+                <p>{convertTime(booking.start_time)}</p>
+            </div>
+            
             
         </div>
     )

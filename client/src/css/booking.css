@@ -10,26 +10,34 @@
 }
 .bookingCard button{
     align-self: flex-end;
-    margin-top: 4%;
-    margin-right: 1%;
     position: sticky;
-    border-radius: 4px;
+    border-radius: 50%;
+}
+.btn-secondary {
+    width: 15%;
+    margin-top: 13%;
+    padding: 0%;
+    font-size: 10px;
 }
 .bookingCard {
     width: 25%;
     height: 95%;
     border-radius: 1rem;
     margin-right: 3%;
+    font-size: 10px;
     /* box-shadow: 5px 5px 5px lightgrey; */
     background: #fff;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     justify-content: center;
     transition: all 0.2s ease-out;
 }
-.bookingCard h6{
+.btn-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* .bookingCard h6{
     margin-top: 0
 }
 .bookingCard p {
@@ -38,7 +46,7 @@
 .bookingCard p {
     margin: 0;
     font-size: 1vw;
-}
+} */
 
 .bookingCard:hover {
     transform: scale(1.05)
@@ -62,12 +70,17 @@
     /* margin-top: auto; */
     /* margin-bottom: auto; */
 }
-
+#booking-cont{
+    margin-top: 3%;
+    height: 30% !important;
+    width: 70%;
+}
 .slider {
     --items-per-screen: 4;
     --slider-index: 0;
     display: flex;
     width: 90%;
+    height: 40%;
     flex-grow: 1;
     margin: 0 var(--img-gap);
     transform: translateX(calc(var(--slider-index) * -100%));

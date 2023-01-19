@@ -6,7 +6,7 @@ import './css/booking.css'
 function BookingBar({ loginData, bookings, isLoading, setReFetch }) {
 
     return (
-        <div className="container">
+        <div id ='booking-cont' className="container">
             <button className="handle left-handle">
                 <div className="text">&#8249;</div>
             </button>
